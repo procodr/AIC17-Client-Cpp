@@ -1,5 +1,6 @@
 #include "AI.h"
 
+#include <ctime>
 #include <vector>
 #include <cstdlib>
 #include <iostream>

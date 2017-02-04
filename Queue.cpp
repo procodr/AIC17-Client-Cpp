@@ -16,7 +16,7 @@ Queue<T>::Queue() {
 template<typename T>
 Queue<T>::~Queue() {
 	// TODO Auto-generated destructor stub
-}å
+}
 
 template<typename T>
 T Queue<T>::pop() {
