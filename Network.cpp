@@ -10,13 +10,24 @@
 #include <chrono>
 #include "Controller.h"
 
+#define bzero(b, len) (memset((b), '\0', (len)), (void) 0)
+#define bcopy(b1, b2, len) (memmove((b2), (b1), (len)), (void) 0)
+
 Network::Network(Controller* controller) {
-// TODO Auto-generated constructor stub
 	sockfd = -1;
 	server = NULL;
 	this->controller = controller;
 	isConnected = false;
 	isTerminated = false;
+	
+	#ifdef _WIN32
+    WSADATA wsaData;
+    int iResult = WSAStartup(MAKEWORD(2,2), &wsaData);
+    if (iResult != 0) {
+        printf("WSAStartup failed with error: %d\n", iResult);
+        throw(1);
+    }
+    #endif
 }
 
 void Network::setConnectionData(std::string host, int port, std::string token) {
@@ -146,6 +157,11 @@ void Network::terminate() {
 	isConnected = false;
 	if(sockfd >= 0) {
 		close(sockfd);
+		
+		#ifdef _WIN32
+        WSACleanup();
+        #endif
+		
 		sockfd = -1;
 	}
 }
