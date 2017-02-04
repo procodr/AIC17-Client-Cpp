@@ -80,41 +80,33 @@ void Game::handleInitMessage(Message msg)
 	Json::Value &argsArray = msg.getArray("args");
 
 	Json::UInt I=0;
-	Json::Value &constants = argsArray[I++];
-	this->setConstants(constants);
-
 	this->myID = argsArray[I++].asInt();
 
-	// graph deserialization
-	Json::Value &adjListInt = argsArray[I++];
+	Json::Value &sizeArray = argsArray[I++];
+	size = make_pair(sizeArray[0].asInt(), sizeArray[1]);
 
-	std::vector<Node*> nodes;
-	for (int i = 0; i < (int)adjListInt.size(); i++)
-	{
-		nodes.push_back(new Node(i));
+	Json::Value &fishArray = argsArray[I++];
+	for(int i=0; i<fishArray.size(); i++){
+		fishes.push_back(new Fish(fishArray[i][0].asInt(), fishArray[i][1].asInt(), fishArray[i][2].asInt(), fishArray[i][3].asBool(), fishArray[i][4].asBool(), fishArray[i][5].asBool(), fishArray[i][6].asBool()));
 	}
 
-	for (int i = 0; i < (int)adjListInt.size(); i++)
-	{
-		Json::Value &neighboursInt = adjListInt[i];
-		std::vector<Node*> neighbours;
-		for (int j = 0; j < (int)neighboursInt.size(); j++)
-		{
-			neighbours.push_back(nodes[neighboursInt[j].asInt()]);
-		}
-		nodes[i]->setNeighbours(neighbours);
+	Json::Value &trashArray = argsArray[I++];
+	for(int i=0; i<trashArray.size(); i++){
+		trashes.push_back(new Trash(trashArray[i][0].asInt(), trashArray[i][1].asInt()));
 	}
 
-	Json::Value &graphDiff = argsArray[I++];
-	for (int i = 0; i < (int)graphDiff.size(); i++)
-	{
-		Json::Value &nodeDiff = graphDiff[i];
-		int node = nodeDiff[(Json::UInt)0].asInt();
-		int owner = nodeDiff[1].asInt();
-		int armyCount = nodeDiff[2].asInt();
-		nodes[node]->setOwner(owner);
-		nodes[node]->setArmyCount(armyCount);
+	Json::Value &netArray = argsArray[I++];
+	for(int i=0; i<netArray.size(); i++){
+		nets.push_back(new Net(netArray[i][0].asInt(), netArray[i][1].asInt()));
 	}
+
+	Json::Value &teleportArray = argsArray[I++];
+	for(int i=0; i<teleportArray.size(); i++){
+		teleports.push_back(new Net(teleportArray[i][0].asInt(), teleportArray[i][1].asInt()));
+	}
+
+	Json::Value &constants = argsArray[I++];
+	this->setConstants(constants); //TODO: to be defined later
 
 	map = new Graph(nodes);
 
@@ -127,17 +119,20 @@ void Game::handleTurnMessage(Message msg)
 
 	Json::Value &argsArray = msg.getArray("args");
 	Json::UInt I=0;
-	turn = argsArray[I++].asInt(); /** EDITED BY MEHRAN : USED TO BE ++I **/
+	turn = argsArray[I++].asInt();
 
-	Json::Value &graphDiff = argsArray[I++];
-	for (int i = 0; i < (int)graphDiff.size(); i++)
-	{
-		Json::Value &nodeDiff = graphDiff[i];
-		Json::UInt J=0;
-		int nodeIndex = nodeDiff[J++].asInt(); /** EDITED BY MEHRAN : USED TO BE ++J **/
-		map->getNode(nodeIndex)->setOwner(nodeDiff[J++].asInt());
-		map->getNode(nodeIndex)->setArmyCount(nodeDiff[J++].asInt());
-	}
+	Json::Value &scores = argsArray[I++];
+	score = make_pair(scores[0].asInt(), scores[1].asInt());
+
+	Json::Value &graphDiff = argsArray[I++]; //TODO: to be defined later
+	// for (int i = 0; i < (int)graphDiff.size(); i++)
+	// {
+	// 	Json::Value &nodeDiff = graphDiff[i];
+	// 	Json::UInt J=0;
+	// 	int nodeIndex = nodeDiff[J++].asInt(); 
+	// 	map->getNode(nodeIndex)->setOwner(nodeDiff[J++].asInt());
+	// 	map->getNode(nodeIndex)->setArmyCount(nodeDiff[J++].asInt());
+	// }
 
 	updateNodesList();
 }

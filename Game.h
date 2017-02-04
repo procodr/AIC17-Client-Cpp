@@ -2,6 +2,7 @@
 #define _GAME_H
 
 #include <vector>
+#include <utility>
 
 #include "World.h"
 #include "Event.h"
@@ -21,19 +22,18 @@ private:
 	long long turnTimeout;
 	long long turnStartTime;
 
-	int escape;
-	int nodeBonus;
-	int edgeBonus;
-	int firstlvl;
-	int secondlvl;
-	double lossRate1;
-	double lossRate2;
+	
+	pair<int, int> size;
+	pair<int, int> scores;
+	vector<Fish*> fishes;
+	vector<Food*> foods;
+	vector<Trash*> trashes;
+	vector<Net*> nets;
+	vector<Teleport*> teleports;
 
 	int myID;
 	int turn;
 	Graph* map;
-
-	std::vector<Node*> nodes[3];
 	void setConstants(Json::Value &msg);
 public:
 	Game();
