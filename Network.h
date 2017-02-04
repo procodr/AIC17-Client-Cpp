@@ -10,6 +10,16 @@
 
 #define MAX_LEN_OF_TCP 66000
 
+#ifdef _WIN32
+#include <winsock2.h>
+#include <windows.h>
+#include <ws2tcpip.h>
+#else
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <netdb.h>
+#endif
+
 #include "Message.h"
 #include <vector>
 #include "SubPacket.h"
