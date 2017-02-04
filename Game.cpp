@@ -1,12 +1,24 @@
 #include "Game.h"
-#include <ctime>
-#include <x86_64-linux-gnu/sys/time.h>
 #include "util.h"
 
+#include <ctime>
+
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <sys/time.h>
+#endif
+
 long long getTimeInMilliSeconds() {
-	timeval tv;
-	gettimeofday(&tv,NULL);
-	return (1000000 * tv.tv_sec + tv.tv_usec)/1000;
+	#ifdef _WIN32
+		SYSTEMTIME tv;
+		GetSystemTime(&tv);
+		return tv.wSeconds * 1000 + tv.wMilliseconds;
+	#else
+		timeval tv;
+		gettimeofday(&tv, NULL);
+		return 1000 * tv.tv_sec + tv.tv_usec / 1000;
+	#endif	
 }
 
 Game::Game()
