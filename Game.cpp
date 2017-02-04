@@ -92,35 +92,43 @@ void Game::handleInitMessage(Message msg)
 	Json::Value &argsArray = msg.getArray("args");
 
 	Json::UInt I=0;
+	Json::UInt zero=0;
+
 	this->myID = argsArray[I++].asInt();
 
 	Json::Value &sizeArray = argsArray[I++];
-	size = make_pair(sizeArray[0].asInt(), sizeArray[1]);
+	size = std::make_pair(sizeArray[zero].asInt(), sizeArray[zero+1].asInt());
 
 	Json::Value &fishArray = argsArray[I++];
-	for(int i=0; i<fishArray.size(); i++){
-		fishes.push_back(new Fish(fishArray[i][0].asInt(), fishArray[i][1].asInt(), fishArray[i][2].asInt(), fishArray[i][3].asBool(), fishArray[i][4].asBool(), fishArray[i][5].asBool(), fishArray[i][6].asBool()));
+
+	for(Json::UInt i=0; i<fishArray.size(); i++){
+		fishes.push_back(new Fish(fishArray[i][zero+0].asInt(), fishArray[i][zero+1].asInt(), fishArray[i][zero+2].asInt(), fishArray[i][zero+3].asBool(), fishArray[i][zero+4].asBool(), fishArray[i][zero+5].asBool(), fishArray[i][zero+6].asBool()));
+	}
+
+	Json::Value &foodArray = argsArray[I++];
+	for(int i=0; i<foodArray.size(); i++){
+		foods.push_back({foodArray[i][zero+0].asInt(), foodArray[i][zero+1].asInt()});
 	}
 
 	Json::Value &trashArray = argsArray[I++];
 	for(int i=0; i<trashArray.size(); i++){
-		trashes.push_back(new Trash(trashArray[i][0].asInt(), trashArray[i][1].asInt()));
+		trashes.push_back({trashArray[i][zero+0].asInt(), trashArray[i][zero+1].asInt()});
 	}
 
 	Json::Value &netArray = argsArray[I++];
 	for(int i=0; i<netArray.size(); i++){
-		nets.push_back(new Net(netArray[i][0].asInt(), netArray[i][1].asInt()));
+		nets.push_back({netArray[i][zero+0].asInt(), netArray[i][zero+1].asInt()});
 	}
 
 	Json::Value &teleportArray = argsArray[I++];
 	for(int i=0; i<teleportArray.size(); i++){
-		teleports.push_back(new Net(teleportArray[i][0].asInt(), teleportArray[i][1].asInt()));
+		teleports.push_back({{teleportArray[i][zero+0].asInt(), teleportArray[i][zero+1].asInt()}, {teleportArray[i][zero+2].asInt(), teleportArray[i][zero+3].asInt()}});
 	}
 
 	Json::Value &constants = argsArray[I++];
 	this->setConstants(constants); //TODO: to be defined later
 
-	map = new Graph(nodes);
+	// map = new Graph(nodes);
 
 	updateNodesList();
 }
@@ -131,10 +139,11 @@ void Game::handleTurnMessage(Message msg)
 
 	Json::Value &argsArray = msg.getArray("args");
 	Json::UInt I=0;
+	Json::UInt zero=0;
 	turn = argsArray[I++].asInt();
 
 	Json::Value &scores = argsArray[I++];
-	score = make_pair(scores[0].asInt(), scores[1].asInt());
+	score = std::make_pair(scores[zero+0].asInt(), scores[zero+1].asInt());
 
 	Json::Value &graphDiff = argsArray[I++]; //TODO: to be defined later
 	// for (int i = 0; i < (int)graphDiff.size(); i++)

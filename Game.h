@@ -5,9 +5,11 @@
 #include <utility>
 
 #include "World.h"
+#include "Fish.h"
 #include "Event.h"
 #include "EventHandler.h"
 #include "Node.h"
+#include "Types.h"
 
 /**
  * Model contains data which describes current state of the game.
@@ -15,6 +17,8 @@
  * See World interface for more information.
  * Do not change this class.
  */
+
+
 class Game : public World
 {
 private:
@@ -23,18 +27,28 @@ private:
 	long long turnStartTime;
 
 	
-	pair<int, int> size;
-	pair<int, int> scores;
-	vector<Fish*> fishes;
-	vector<Food*> foods;
-	vector<Trash*> trashes;
-	vector<Net*> nets;
-	vector<Teleport*> teleports;
+	std::pair<int, int> size;
+	std::pair<int, int> score;
+	std::vector< Fish* > fishes;
+	std::vector< Cell > foods;
+	std::vector< Cell > trashes;
+	std::vector< Cell > nets;
+	std::vector< Teleport > teleports;
 
 	int myID;
 	int turn;
 	Graph* map;
 	void setConstants(Json::Value &msg);
+
+	int escape;//TODO: to be deleted
+	int nodeBonus;
+	int edgeBonus;
+	int firstlvl;
+	int secondlvl;
+	double lossRate1;
+	double lossRate2;
+
+	std::vector<Node*> nodes[3];
 public:
 	Game();
 	virtual ~Game();
