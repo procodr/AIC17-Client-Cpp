@@ -1,0 +1,4 @@
+*.o
+flows.out
+*~
+.settings/language.settings.xml
