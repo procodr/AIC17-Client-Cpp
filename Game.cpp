@@ -13,7 +13,7 @@ long long getTimeInMilliSeconds() {
 	#ifdef _WIN32
 		SYSTEMTIME tv;
 		GetSystemTime(&tv);
-		return tv.wSeconds * 1000 + tv.wMilliseconds;
+		return tv.wSecond * 1000 + tv.wMilliseconds;
 	#else
 		timeval tv;
 		gettimeofday(&tv, NULL);

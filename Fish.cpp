@@ -7,8 +7,8 @@ int Fish::getId() {
     return this->id;
 }
 
-pair<int, int> Fish::getPos() {
-    return make_pair(this->x, this->y);
+std::pair<int, int> Fish::getPos() {
+    return std::make_pair(this->x, this->y);
 }
 
 bool Fish::getColor() {
