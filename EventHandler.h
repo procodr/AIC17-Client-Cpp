@@ -18,8 +18,8 @@
 
 class EventHandler {
 	Parser parser;
-	bool isThreadCall;
-	std::thread* thr;
+//	bool isThreadCall;
+//	std::thread* thr;
 	Queue<GameEvent*> events;
 	Network *network;
 public:
@@ -27,8 +27,8 @@ public:
 	virtual ~EventHandler();
 	void handleEvent(GameEvent* eve);
 	void handling();
-	bool getIsThreadCall();
-	std::thread* getThr();
+//	bool getIsThreadCall();
+//	std::thread* getThr();
 	void addEvent(GameEvent *event);
 };
 

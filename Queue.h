@@ -17,13 +17,14 @@ class Queue {
 private:
     std::mutex mutex_;
     std::queue<T> queue_;
+    std::condition_variable cv;
 public:
     Queue();
     ~Queue();
     T pop();
     void push(T value);
-    bool empty();
-    int getSize();
+//    bool empty();
+//    int getSize();
 };
 
 #endif /* QUEUE_H_ */
