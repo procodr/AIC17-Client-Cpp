@@ -79,7 +79,7 @@ class Game : public World
 	
 	void changeStrategy(Antenna t, int i, int j, int k, Move s);
 	void deterministicMove(const Roach &roach, Move s);
-	void AntennaChange(const Roach& roach, Antenna t);
+	void antennaChange(const Roach& roach, Antenna t);
 
     // Graph *getMap();
     // std::vector<Node *> &getMyNodes();

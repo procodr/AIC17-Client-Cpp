@@ -4,7 +4,7 @@
 namespace aic {
 
 enum class Antenna {
-	ONE_ANTENNA, TWO_ANTENNA
+	SINGLE, DOUBLE
 };
 
 enum class Type {

@@ -197,3 +197,30 @@ long long Game::getTotalTurnTime()
 {
 	return this->turnTimeout;
 }
+
+void Game::changeStrategy(Antenna t, int i, int j, int k, Move s)
+{
+	GameEvent* ev = new GameEvent(Constants::TYPE_CHANGE_STRATEGY);
+	ev->addArg(static_cast<int>(t));
+	ev->addArg(i);
+	ev->addArg(j);
+	ev->addArg(k);
+	ev->addArg(static_cast<int>(s));
+	eventHandler->addEvent(ev);
+}
+
+void Game::deterministicMove(const Roach &roach, Move s)
+{
+	GameEvent* ev = new GameEvent(Constants::TYPE_DETERMINISTIC_MOVE);
+	ev->addArg(roach.getId());
+	ev->addArg(static_cast<int>(s));
+	eventHandler->addEvent(ev);
+}
+
+void Game::antennaChange(const Roach& roach, Antenna t)
+{
+	GameEvent* ev = new GameEvent(Constants::TYPE_ANTENNA_CHANGE);
+	ev->addArg(roach.getId());
+	ev->addArg(static_cast<int>(t));
+	eventHandler->addEvent(ev);
+}
