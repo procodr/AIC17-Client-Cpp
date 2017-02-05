@@ -17,6 +17,10 @@ const std::string Constants::MESSAGE_KEY_EVENT = "event";
 const std::string Constants::MESSAGE_KEY_WRONG_TOKEN = "wrong token";
 const std::string Constants::MESSAGE_KEY_SHUTDOWN = "shutdown";
 
-const std::string Constants::TYPE_MOVE = "m";
+const std::string Constants::TYPE_CHANGE_STRATEGY = "s";
+const std::string Constants::TYPE_DETERMINISTIC_MOVE = "m";
+const std::string Constants::TYPE_COLOR_CHANGE = "c";
 
-const int Constants::ARGS_NUMBER_MOVE = 3;
+const int Constants::ARGS_NUMBER_CHANGE_STRATEGY = 5;
+const int Constants::ARGS_NUMBER_DETERMINISTIC_MOVE = 2;
+const int Constants::ARGS_NUMBER_COLOR_CHANGE = 2;
