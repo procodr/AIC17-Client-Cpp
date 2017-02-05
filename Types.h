@@ -6,7 +6,7 @@ class Entity;
 namespace aic
 {
 
-typedef std::unordered_map<int, Entity *> EntityDict;
+typedef std::unordered_map<int, Entity> EntityDict;
 
 enum class Antenna
 {

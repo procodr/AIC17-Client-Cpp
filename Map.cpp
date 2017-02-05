@@ -54,8 +54,8 @@ void Map::delShadow(int x, int y)
 	this->changeShadow(x, y, -1);
 }
 
-void Map::addTeleport(Teleport teleport)
+void Map::addSewer(Sewer sewer)
 {
-	destMap[teleport.a.x][teleport.a.y] = teleport.b;
-	destMap[teleport.b.x][teleport.b.y] = teleport.a;
+	destMap[sewer.a.x][sewer.a.y] = sewer.b;
+	destMap[sewer.b.x][sewer.b.y] = sewer.a;
 }

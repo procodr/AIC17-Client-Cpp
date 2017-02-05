@@ -39,8 +39,9 @@ class Game : public World
 
     void setConstants(Json::Value &msg);
 
-    void insertEntity(Entity item);
+    void insertEntity(Entity entity);
     void deleteEntity(int id);
+    void addSewer(Sewer sewer);
 
   public:
     Game();
@@ -56,6 +57,9 @@ class Game : public World
     Map &getMap();
     Entity &getEntity(int id);
     std::vector<Sewer> &getSewers();
+
+    int getTurnNumber();
+    long long getTotalTurnTime();
 
     void changeStrategy(Antenna t, int i, int j, int k, Move s);
     void deterministicMove(const Roach &roach, Move s);

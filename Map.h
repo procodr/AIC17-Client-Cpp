@@ -23,7 +23,7 @@ class Map
     void addShadow(int x, int y);
     void delShadow(int x, int y);
     
-    void addTeleport(Teleport teleport);
+    void addSewer(Sewer sewer);
 
   private:
     Size size;

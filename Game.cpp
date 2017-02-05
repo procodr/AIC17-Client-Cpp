@@ -72,7 +72,9 @@ void Game::handleInitMessage(Message msg)
     this->myID = argsArray[I++].asInt();
 
     Json::Value &sizeArray = argsArray[I++];
-    size = std::make_pair(sizeArray[zero].asInt(), sizeArray[zero + 1].asInt());
+    this->size = std::make_pair(sizeArray[zero].asInt(), sizeArray[zero + 1].asInt());
+
+	map = new Map(size);
 
     Json::Value &roachArray = argsArray[I++];
 
@@ -109,26 +111,24 @@ void Game::handleInitMessage(Message msg)
     Json::Value &slippersArray = argsArray[I++];
     for (int i = 0; i < slippersArray.size(); i++)
     {
-		slipperss.push_back(
-		{
+		this->insertEntity(Slippers(
 			slippersArray[i][zero + 0].asInt(),
 			slippersArray[i][zero + 1].asInt(),
-			slippersArray[i][zero + 2].asInt()
-		});
+			slippersArray[i][zero + 2].asInt()));
     }
 
-    Json::Value &teleportArray = argsArray[I++];
-    for (int i = 0; i < teleportArray.size(); i++)
+    Json::Value &sewerArray = argsArray[I++];
+    for (int i = 0; i < sewerArray.size(); i++)
     {
-		teleports.push_back(
+		this->addSewer(
 		{
 			{
-				teleportArray[i][zero + 0].asInt(),
-				teleportArray[i][zero + 1].asInt()
+				sewerArray[i][zero + 0].asInt(),
+				sewerArray[i][zero + 1].asInt()
 			},
 			{
-				teleportArray[i][zero + 2].asInt(),
-				teleportArray[i][zero + 3].asInt()
+				sewerArray[i][zero + 2].asInt(),
+				sewerArray[i][zero + 3].asInt()
 			}
 		});
     }
@@ -142,15 +142,43 @@ void Game::handleTurnMessage(Message msg)
     turnStartTime = getTimeInMilliSeconds();
 
     Json::Value &argsArray = msg.getArray("args");
-    Json::UInt I = 0;
+    
+	Json::UInt I = 0;
     Json::UInt zero = 0;
-    turn = argsArray[I++].asInt();
+    
+	turn = argsArray[I++].asInt();
 
     Json::Value &scores = argsArray[I++];
     score = std::make_pair(scores[zero + 0].asInt(), scores[zero + 1].asInt());
 
-	/* TODO: awaiting definition */
-    Json::Value &MapDiff = argsArray[I++];
+	Json::Value &changesArray = argsArray[I++];
+    for (int i = 0; i < changesArray.size(); i++)
+    {
+		Json::UInt j = 0;
+		Json::Value &change = changesArray[i];
+		
+		if (change["type"] == "a")
+		{
+			Json::Value &changeArgs = change["args"];
+			/* TODO */
+		}
+		else if (change["type"] == "d")
+		{
+			/* TODO */
+		}
+		else if (change["type"] == "m")
+		{
+			/* TODO */
+		}
+		else if (change["type" == "c"])
+		{
+			/* TODO */
+		}
+		else
+		{
+			throw("unknown change type");
+		}
+	}
 }
 
 long long Game::getTurnTimePassed()
@@ -168,34 +196,19 @@ int Game::getMyId()
 	return myID;
 }
 
-Size getSize()
+Map &getMap()
 {
-	return this->size;
+	return *map;
 }
 
-std::vector<Roach *> &getRoaches()
+Entity &getEntity(int id)
 {
-	return this->roaches;
-}
-
-std::vector<Item> &getFood()
-{
-	return this->food;
-}
-
-std::vector<Item> &getTrash()
-{
-	return this->trash;
-}
-
-std::vector<Item> &getSlippers()
-{
-	return this->slippers;
+	return entities[id];
 }
 
 std::vector<Sewer> &getSewers()
 {
-	return this->teleports;
+	return this->sewers;
 }
 
 int Game::getTurnNumber()
@@ -235,19 +248,22 @@ void Game::antennaChange(const Roach& roach, Antenna t)
 	eventHandler->addEvent(ev);
 }
 
-void Game::addToDictionary(Item item){
-	itemDictionary[item.getId()] = &item;
+void Game::insertEntity(const Entity &entity)
+{
+	int &id = entity.id;
+	entities.insert({id, entity});
+	map->addEntity(entities[id]);
 }
 
-Item Game::findInDictionary(int id){
-	std::map<int, &Item>::iterator it;
-	it = itemDictionary.find(id);
-	if (it != itemDictionary.end())
-		return *(it->second);
-	else
-		return NULL; //TODO: exception handling needed
+Game::deleteEntity(int id)
+{
+	Cell &pos = entities[id].pos;
+	map->delEntity(pos.x, pos.y);
+	entities.erase(id);
 }
 
-void Game::delFromDictionary(int id){
-	itemDictionary.erase(id);
+Game::addSewer(Sewer sewer)
+{
+	sewers.push_back(sewer);
+	map->addSewer(sewer);
 }
