@@ -238,15 +238,19 @@ void Game::antennaChange(const Roach& roach, Antenna t)
 	eventHandler->addEvent(ev);
 }
 
-void addToDictionary(Item item){
+void Game::addToDictionary(Item item){
 	itemDictionary[item.getId()] = &item;
 }
 
-Item findInDictionary(int id){
+Item Game::findInDictionary(int id){
 	std::map<int, &Item>::iterator it;
 	it = itemDictionary.find(id);
 	if (it != itemDictionary.end())
 		return *(it->second);
 	else
 		return NULL; //TODO: exception handling needed
+}
+
+void Game::delFromDictionary(int id){
+	itemDictionary.erase(id);
 }

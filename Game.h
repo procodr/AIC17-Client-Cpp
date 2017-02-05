@@ -31,7 +31,7 @@ class Game : public World
     long long turnStartTime;
 
     std::pair<int, int> score;
-    std::map<int, &Item> itemDictionary;
+    std::map<int, Item*> itemDictionary;
 
     int myID;
 	Map *map;
@@ -47,6 +47,7 @@ class Game : public World
     //dictionary functions
     void addToDictionary(Item item);
     Item findInDictionary(int id);
+    void delFromDictionary(int id);
 
   public:
     Game();
