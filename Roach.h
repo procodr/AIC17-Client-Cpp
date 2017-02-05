@@ -6,9 +6,9 @@
 
 using namespace aic;
 
-class Fish {
+class Roach {
 public:
-	Fish(int id, int x, int y, bool color, bool queen, bool sick, bool team);
+	Roach(int id, Cell pos, Dir dir, Team team, Type type, bool sick, Color color)
 
 	int getId();
 	Cell getPos();
