@@ -1,6 +1,6 @@
 #include "Item.h"
 
-Item::Item(int id, Cell pos, ItemType type) : id(id), pos(pos), type(type) {}
+Item::Item(int id, Cell pos) : id(id), pos(pos) {}
 
 virtual Item::~Item() {};
 
@@ -12,9 +12,4 @@ int Item::getId()
 Cell Item::getPos()
 {
 	return this->pos;
-}
-
-ItemType getType()
-{
-	return this->type;
 }

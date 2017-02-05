@@ -11,15 +11,13 @@ class Item {
 private:
 	int id;
 	Cell pos;
-	ItemType type;
 
 public:
-	Item(int id, Cell pos, ItemType type);
+	Item(int id, Cell pos);
 	virtual ~Item();
 
 	int getId();
 	Cell getPos();
-	ItemType getType();
 };
 
 #endif /* ITEM_H */

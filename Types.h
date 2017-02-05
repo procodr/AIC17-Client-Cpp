@@ -25,13 +25,6 @@ enum class Move {
 	RIGHT
 };
 
-enum class ItemType {
-	ROACH,
-	FOOD,
-	TRASH,
-	SLIPPERS
-};
-
 struct Size {
 	int w, h;
 };
