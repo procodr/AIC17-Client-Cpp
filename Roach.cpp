@@ -1,28 +1,36 @@
-#include "Fish.h"
+#include "Roach.h"
 
-Fish::Fish(int id, int x, int y, bool color, bool queen, bool sick, bool team) :
-    id(id), x(x), y(y), color(color), queen(queen), sick(sick), team(team) {};
+Roach::Roach(int id, Cell pos, Dir dir, Team team, Type type, bool sick,
+		Color color) :
+		id(id), pos(pos), dir(dir), color(color), type(type), sick(sick), team(
+				team) {
+}
+;
 
-int Fish::getId() {
-    return this->id;
+int Roach::getId() {
+	return this->id;
 }
 
-std::pair<int, int> Fish::getPos() {
-    return std::make_pair(this->x, this->y);
+std::Cell Roach::getPos() {
+	return this->pos;
 }
 
-bool Fish::getColor() {
-    return this->color;
+Color Roach::getColor() {
+	return this->color;
 }
 
-bool Fish::isQueen() {
-    return this->queen;
+Antenna Roach::getAntenna() {
+	return this->antenna;
 }
 
-bool Fish::isSick() {
-    return this->sick;
+Type Roach::getType() {
+	return this->type;
 }
 
-bool Fish::getTeam() {
-    return this->team;
+Dir Roach::getDirection() {
+	return this->dir;
+}
+
+bool Roach::isSick() {
+	return this->sick;
 }
