@@ -1,46 +1,59 @@
 #ifndef AIC_TYPES
 #define AIC_TYPES
 
-namespace aic {
+class Entity;
 
-enum class Antenna {
-	SINGLE, DOUBLE
+namespace aic
+{
+
+typedef std::unordered_map<int, Entity *> EntityDict;
+
+enum class Antenna
+{
+    SINGLE,
+    DOUBLE
 };
 
-enum class Type {
-	WINGED, NORMAL
+enum class Type
+{
+    WINGED,
+    NORMAL
 };
 
-enum class Color {
-	BRIGHT, BROWN
+enum class Color
+{
+    BRIGHT,
+    BROWN
 };
 
-enum class Dir {
-	LEFT, RIGHT, BOTTOM, TOP
+enum class Dir
+{
+    LEFT,
+    RIGHT,
+    BOTTOM,
+    TOP
 };
 
-enum class Move {
-	FORWARD,
-	LEFT,
-	RIGHT
+enum class Move
+{
+    FORWARD,
+    LEFT,
+    RIGHT
 };
 
-struct Size {
-	int w, h;
+struct Size
+{
+    int w, h;
 };
 
-struct Cell {
-	int x, y;
+struct Cell
+{
+    int x, y;
 };
 
-struct Sewer {
-	Cell a, b;
-};
-
-struct MapData {
-    Item* Roach;
-    Item* Extra;
-    Item* Teleport;
+struct Sewer
+{
+    Cell a, b;
 };
 
 /* end of namespace aic */

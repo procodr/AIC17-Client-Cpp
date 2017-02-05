@@ -1,7 +1,6 @@
-#ifndef _AI_H
-#define _AI_H
+#ifndef AI_H
+#define AI_H
 
-#include "Node.h"
 #include "World.h"
 
 /**
@@ -15,8 +14,8 @@
  */
 class AI
 {
-public:
-	void doTurn(World *world);
+  public:
+    void doTurn(World *world);
 };
 
-#endif // _AI_H
+#endif /* AI_H */

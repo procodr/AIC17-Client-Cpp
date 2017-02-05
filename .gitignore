@@ -1,7 +1,8 @@
+*~
 *.o
 *.exe
 *.out
-*~
+*.gch
 .settings/language.settings.xml
-.vscode/*
 .DS_Store
+.vscode/*

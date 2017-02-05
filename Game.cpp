@@ -39,7 +39,10 @@ Game::Game()
     // edgeBonus = 0;
 }
 
-Game::~Game() {}
+Game::~Game()
+{
+	delete map;
+}
 
 void Game::setConstants(Json::Value &msg)
 {
@@ -75,38 +78,32 @@ void Game::handleInitMessage(Message msg)
 
     for (Json::UInt i = 0; i < roachArray.size(); i++)
     {
-		roaches.push_back(new Roach
-		(
+		this->insertEntity(Roach(
 			roachArray[i][zero + 0].asInt(),
 			roachArray[i][zero + 1].asInt(),
 			roachArray[i][zero + 2].asInt(),
 			roachArray[i][zero + 3].asInt(),
 			roachArray[i][zero + 4].asInt(),
 			roachArray[i][zero + 5].asInt(),
-			roachArray[i][zero + 6].asInt()
-		));
+			roachArray[i][zero + 6].asInt()));
     }
 
     Json::Value &foodArray = argsArray[I++];
     for (int i = 0; i < foodArray.size(); i++)
     {
-		foods.push_back(
-		{
+		this->insertEntity(Food(
 			foodArray[i][zero + 0].asInt(),
 			foodArray[i][zero + 1].asInt(),
-			foodArray[i][zero + 2].asInt()
-		});
+			foodArray[i][zero + 2].asInt()));
     }
 
     Json::Value &trashArray = argsArray[I++];
     for (int i = 0; i < trashArray.size(); i++)
     {
-		trashes.push_back(
-		{
+		this->insertEntity(Trash(
 			trashArray[i][zero + 0].asInt(),
 			trashArray[i][zero + 1].asInt(),
-			trashArray[i][zero + 2].asInt()
-		});
+			trashArray[i][zero + 2].asInt()));
     }
 
     Json::Value &slippersArray = argsArray[I++];
@@ -196,7 +193,7 @@ std::vector<Item> &getSlippers()
 	return this->slippers;
 }
 
-std::vector<Teleport> &getTeleports()
+std::vector<Sewer> &getSewers()
 {
 	return this->teleports;
 }

@@ -1,10 +1,3 @@
-/*
- * Constants.h
- *
- *  Created on: Feb 16, 2015
- *      Author: rmin
- */
-
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
@@ -23,13 +16,13 @@ class Constants
     static const std::string MESSAGE_KEY_SHUTDOWN;
     static const std::string MESSAGE_KEY_WRONG_TOKEN;
 
-    static const std::string Constants::TYPE_CHANGE_STRATEGY;
-    static const std::string Constants::TYPE_DETERMINISTIC_MOVE;
-    static const std::string Constants::TYPE_COLOR_CHANGE;
+    static const std::string TYPE_CHANGE_STRATEGY;
+    static const std::string TYPE_DETERMINISTIC_MOVE;
+    static const std::string TYPE_COLOR_CHANGE;
 
-    static const int Constants::ARGS_NUMBER_CHANGE_STRATEGY;
-    static const int Constants::ARGS_NUMBER_DETERMINISTIC_MOVE;
-    static const int Constants::ARGS_NUMBER_COLOR_CHANGE;
+    static const int ARGS_NUMBER_CHANGE_STRATEGY;
+    static const int ARGS_NUMBER_DETERMINISTIC_MOVE;
+    static const int ARGS_NUMBER_COLOR_CHANGE;
 };
 
-#endif /* CONSTANTS_H_ */
+#endif /* CONSTANTS_H */

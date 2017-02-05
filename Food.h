@@ -1,15 +1,11 @@
 #ifndef FOOD_H
 #define FOOD_H
 
-#include <utility>
-#include "Types.h"
+#include "Entity.h"
 
-using namespace aic;
-
-class Food : public Item
+class Food : public Entity
 {
-  public:
-    Food(int id, Cell pos);
+    using Entity::Entity;
 };
 
 #endif /* FOOD_H */

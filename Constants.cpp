@@ -23,4 +23,4 @@ const std::string Constants::TYPE_COLOR_CHANGE = "c";
 
 const int Constants::ARGS_NUMBER_CHANGE_STRATEGY = 5;
 const int Constants::ARGS_NUMBER_DETERMINISTIC_MOVE = 2;
-const int Constants::ARGS_NUMBER_COLOR_CHANGE = 2;
+const int Constants::ARGS_NUMBER_COLOR_CHANGE = 1;

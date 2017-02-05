@@ -1,15 +1,11 @@
 #ifndef TRASH_H
 #define TRASH_H
 
-#include <utility>
-#include "Types.h"
+#include "Entity.h"
 
-using namespace aic;
-
-class Trash : public Item
+class Trash : public Entity
 {
-  public:
-    Trash(int id, Cell pos);
+    using Entity::Entity;
 };
 
 #endif /* TRASH_H */

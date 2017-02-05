@@ -3,13 +3,13 @@
 
 #include <vector>
 #include <utility>
-#include <map>
+#include <unordered_map>
 
 #include "World.h"
 #include "Roach.h"
 #include "Event.h"
 #include "EventHandler.h"
-#include "Item.h"
+#include "Entity.h"
 #include "Types.h"
 #include "Map.h"
 
@@ -29,25 +29,18 @@ class Game : public World
     int totalTurns;
     long long turnTimeout;
     long long turnStartTime;
-
+    
     std::pair<int, int> score;
-    std::map<int, Item*> itemDictionary;
 
     int myID;
-	Map *map;
-    // Size size;
-    // std::vector<Roach *> roaches;
-    // std::vector<Item> food;
-    // std::vector<Item> trashes;
-    // std::vector<Item> slippers;
-    // std::vector<Teleport> teleports;
+    Map *map;
+    EntityDict entities;
+    std::vector<Sewer> sewers;
 
     void setConstants(Json::Value &msg);
-    
-    //dictionary functions
-    void addToDictionary(Item item);
-    Item findInDictionary(int id);
-    void delFromDictionary(int id);
+
+    void insertEntity(Entity item);
+    void deleteEntity(int id);
 
   public:
     Game();
@@ -60,20 +53,13 @@ class Game : public World
     long long getTurnRemainingTime();
 
     int getMyId();
-    // Size getSize();
-    // std::vector<Roach *> &getRoaches();
-    // std::vector<Item> &getFood();
-    // std::vector<Item> &getTrash();
-    // std::vector<Item> &getSlippers();
-    // std::vector<Teleport> &getTeleports();
-	Map &getMap();
+    Map &getMap();
+    Entity &getEntity(int id);
+    std::vector<Sewer> &getSewers();
 
     void changeStrategy(Antenna t, int i, int j, int k, Move s);
     void deterministicMove(const Roach &roach, Move s);
     void antennaChange(const Roach &roach);
-
-
 };
 
-#endif
-/* GAME_H */
+#endif /* GAME_H */

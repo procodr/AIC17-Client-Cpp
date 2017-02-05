@@ -11,14 +11,27 @@ using namespace aic;
 class Map
 {
   public:
-	Map(std::vector<MapData*>& nodes);
+    Map(Size size);
 
-    MapData *getNode(int index);
-    void addItem(Item item);
-    void delItem(Item item);
+    Entity *getEntity(int x, int y);
+    bool getShadow(int x, int y);
+    Cell getDest(int x, int y);
+    
+    void addEntity(const Entity &entity);
+    void delEntity(int x, int y);
+    
+    void addShadow(int x, int y);
+    void delShadow(int x, int y);
+    
+    void addTeleport(Teleport teleport);
 
   private:
-    std::vector< std::vector<MapData> > nodes; //0 -> Roach, 1 -> Food, 2-> Teleport
+    Size size;
+    std::vector< std::vector<Entity *> > entityMap;
+    std::vector< std::vector<int> > darknessMap;
+    std::vector< std::vector<Cell> > destMap;
+
+    void changeShadow(int x, int y, int delta);
 };
 
 #endif /* MAP_H */

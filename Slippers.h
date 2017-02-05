@@ -1,15 +1,11 @@
 #ifndef SLIPPERS_H
 #define SLIPPERS_H
 
-#include <utility>
-#include "Types.h"
+#include "Entity.h"
 
-using namespace aic;
-
-class Slippers : public Item
+class Slippers : public Entity
 {
-  public:
-    Slippers(int id, Cell pos);
+    using Entity::Entity;
 };
 
 #endif /* SLIPPERS_H */
