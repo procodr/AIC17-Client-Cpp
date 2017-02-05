@@ -77,6 +77,10 @@ class Game : public World
 	std::vector<Cell *> &getSlippers();
 	std::vector<Teleport *> &getTeleports();
 	
+	void changeStrategy(Antenna t, int i, int j, int k, Move s);
+	void deterministicMove(const Roach &roach, Move s);
+	void AntennaChange(const Roach& roach, Antenna t);
+
     // Graph *getMap();
     // std::vector<Node *> &getMyNodes();
     // std::vector<Node *> &getOpponentNodes();

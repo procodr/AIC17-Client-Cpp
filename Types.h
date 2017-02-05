@@ -19,6 +19,12 @@ enum class Dir {
 	LEFT, RIGHT, BOTTOM, TOP
 };
 
+enum class Move {
+	FORWARD,
+	LEFT,
+	RIGHT
+};
+
 struct Size {
 	int w, h;
 };
