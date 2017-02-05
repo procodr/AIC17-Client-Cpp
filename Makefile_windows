@@ -3,7 +3,7 @@ JSONPATH = jsoncpp-src-0.5.0/include
 FLAGS = -Wall -L/usr/local/lib -Wl,-rpath=/usr/local/lib -I$(JSONPATH)
 LIBS = -lpthread -lws2_32 -lwinmm
 
-TARGET = flows.out
+TARGET = swarm.exe
 
 JSON_OBJECTS = jsoncpp-src-0.5.0/src/lib_json/json_reader.o \
 	       jsoncpp-src-0.5.0/src/lib_json/json_value.o \

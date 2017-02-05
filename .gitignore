@@ -1,6 +1,7 @@
 *.o
 *.exe
-flows.out
+*.out
 *~
 .settings/language.settings.xml
 .vscode/*
+.DS_Store
