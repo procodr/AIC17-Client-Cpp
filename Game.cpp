@@ -24,15 +24,15 @@ long long getTimeInMilliSeconds()
 
 Game::Game()
 {
-    // turnStartTime = -1;
+    turnStartTime = -1;
     // map = NULL;
     // lossRate1 = 0;
     // lossRate2 = 0;
     // escape = 0;
-    // totalTurns = 0;
-    // turn = 0;
-    // turnTimeout = 0;
-    // myID = 0;
+    totalTurns = 0;
+    turn = 0;
+    turnTimeout = 0;
+    myID = 0;
     // firstlvl = 0;
     // secondlvl = 0;
     // nodeBonus = 0;
@@ -75,31 +75,31 @@ void Game::handleInitMessage(Message msg)
 
     for (Json::UInt i = 0; i < fishArray.size(); i++)
     {
-	fishes.push_back(new Fish(fishArray[i][zero + 0].asInt(), fishArray[i][zero + 1].asInt(), fishArray[i][zero + 2].asInt(), fishArray[i][zero + 3].asBool(), fishArray[i][zero + 4].asBool(), fishArray[i][zero + 5].asBool(), fishArray[i][zero + 6].asBool()));
+		fishes.push_back(new Fish(fishArray[i][zero + 0].asInt(), fishArray[i][zero + 1].asInt(), fishArray[i][zero + 2].asInt(), fishArray[i][zero + 3].asBool(), fishArray[i][zero + 4].asBool(), fishArray[i][zero + 5].asBool(), fishArray[i][zero + 6].asBool()));
     }
 
     Json::Value &foodArray = argsArray[I++];
     for (int i = 0; i < foodArray.size(); i++)
     {
-	foods.push_back({foodArray[i][zero + 0].asInt(), foodArray[i][zero + 1].asInt()});
+		foods.push_back({foodArray[i][zero + 0].asInt(), foodArray[i][zero + 1].asInt()});
     }
 
     Json::Value &trashArray = argsArray[I++];
     for (int i = 0; i < trashArray.size(); i++)
     {
-	trashes.push_back({trashArray[i][zero + 0].asInt(), trashArray[i][zero + 1].asInt()});
+		trashes.push_back({trashArray[i][zero + 0].asInt(), trashArray[i][zero + 1].asInt()});
     }
 
     Json::Value &netArray = argsArray[I++];
     for (int i = 0; i < netArray.size(); i++)
     {
-	nets.push_back({netArray[i][zero + 0].asInt(), netArray[i][zero + 1].asInt()});
+		nets.push_back({netArray[i][zero + 0].asInt(), netArray[i][zero + 1].asInt()});
     }
 
     Json::Value &teleportArray = argsArray[I++];
     for (int i = 0; i < teleportArray.size(); i++)
     {
-	teleports.push_back({{teleportArray[i][zero + 0].asInt(), teleportArray[i][zero + 1].asInt()}, {teleportArray[i][zero + 2].asInt(), teleportArray[i][zero + 3].asInt()}});
+		teleports.push_back({{teleportArray[i][zero + 0].asInt(), teleportArray[i][zero + 1].asInt()}, {teleportArray[i][zero + 2].asInt(), teleportArray[i][zero + 3].asInt()}});
     }
 
     Json::Value &constants = argsArray[I++];
@@ -120,28 +120,9 @@ void Game::handleTurnMessage(Message msg)
     Json::Value &scores = argsArray[I++];
     score = std::make_pair(scores[zero + 0].asInt(), scores[zero + 1].asInt());
 
-    Json::Value &graphDiff = argsArray[I++]; //TODO: to be defined later
-					     // for (int i = 0; i < (int)graphDiff.size(); i++)
-					     // {
-					     // 	Json::Value &nodeDiff = graphDiff[i];
-					     // 	Json::UInt J=0;
-					     // 	int nodeIndex = nodeDiff[J++].asInt();
-					     // 	map->getNode(nodeIndex)->setOwner(nodeDiff[J++].asInt());
-					     // 	map->getNode(nodeIndex)->setArmyCount(nodeDiff[J++].asInt());
-					     // }
-
-    // // 	updateNodesList();
+	/* TODO: awaiting definition */
+    Json::Value &MapDiff = argsArray[I++];
 }
-
-// // void Game::updateNodesList()
-// // {
-// // 	for(int i = 0; i < 3; i++)
-// // 		this->nodes[i].clear();
-// // 	for (Node* n : this->map->getNodes())
-// // 	{
-// // 		nodes[n->getOwner() + 1].push_back(n);
-// // 	}
-// // }
 
 long long Game::getTurnTimePassed()
 {
