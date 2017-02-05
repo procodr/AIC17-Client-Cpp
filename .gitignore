@@ -3,3 +3,4 @@
 flows.out
 *~
 .settings/language.settings.xml
+.vscode/*
