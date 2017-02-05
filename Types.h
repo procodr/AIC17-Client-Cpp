@@ -22,6 +22,14 @@ enum class Color
     BROWN
 };
 
+enum class Dir
+{
+	LEFT,
+	RIGHT,
+	BOTTOM,
+	TOP
+};
+
 struct Size
 {
     int w, h;

@@ -1,5 +1,5 @@
-#ifndef FISH_H
-#define FISH_H
+#ifndef ROACH_H
+#define ROACH_H
 
 #include <utility>
 
@@ -9,16 +9,22 @@ public:
     Fish(int id, int x, int y, bool color, bool queen, bool sick, bool team);
 
     int getId();
-    std::pair<int, int> getPos();
-    bool getColor();
-    bool isQueen();
+    Cell getPos();
+    Color getColor();
+    Antenna getAntenna();
+    Type getType();
+    Dir getDirection();
     bool isSick();
     bool getTeam();
 
 private:
     int id;
-    int x, y;
-    bool color, queen, sick, team;
+    Cell cell;
+    Color color;
+    Type type;
+    Antenna antenna;
+    Dir dir;
+    bool sick;
 };
 
 #endif
