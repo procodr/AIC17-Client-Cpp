@@ -25,6 +25,13 @@ enum class Move {
 	RIGHT
 };
 
+enum class ItemType {
+	ROACH,
+	FOOD,
+	TRASH,
+	SLIPPERS
+};
+
 struct Size {
 	int w, h;
 };
@@ -36,11 +43,6 @@ struct Cell {
 struct Sewer {
 	Cell a, b;
 };
-
-struct Item {
-	int id;
-	int x, y;
-}
 
 /* end of namespace aic */
 }

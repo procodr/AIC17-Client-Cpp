@@ -6,27 +6,23 @@
 
 using namespace aic;
 
-class Roach {
-public:
-	Roach(int id, Cell pos, Dir dir, Team team, Type type, bool sick, Color color)
+class Roach : public Item
+{
+  public:
+    Roach(int id, Cell pos, Dir dir, Antenna antenna, Type type, bool sick, Color color);
 
-	int getId();
-	Cell getPos();
-	Color getColor();
-	Antenna getAntenna();
-	Type getType();
 	Dir getDirection();
-	bool isSick();
-	bool getTeam();
-
-private:
-	int id;
-	Cell cell;
+    Antenna getAntenna();
+    Type getType();
+    bool isSick();
+    Color getColor();
+    
+  private:
+    Dir dir;
+    Antenna antenna;
+    Type type;
+    bool sick;
 	Color color;
-	Type type;
-	Antenna antenna;
-	Dir dir;
-	bool sick;
 };
 
-#endif
+#endif /* ROACH_H */
