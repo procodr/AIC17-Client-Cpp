@@ -23,11 +23,12 @@ using namespace aic;
 class Game : public World
 {
   private:
-    // int totalTurns;
-    // long long turnTimeout;
-    // long long turnStartTime;
-
-    // std::pair<int, int> score;
+    int turn;
+    int totalTurns;
+    long long turnTimeout;
+    long long turnStartTime;
+	
+	std::pair<int, int> score;
 
     int myID;
     Size size;
@@ -37,8 +38,6 @@ class Game : public World
     std::vector<Cell> slippers;
     std::vector<Teleport> teleports;
 
-    // int turn;
-    // Graph *map;
     void setConstants(Json::Value &msg);
 
     // int escape; //TODO: to be deleted
