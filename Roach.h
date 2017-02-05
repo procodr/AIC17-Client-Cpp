@@ -2,6 +2,9 @@
 #define ROACH_H
 
 #include <utility>
+#include "Types.h"
+
+using namespace aic;
 
 class Fish {
 public:
