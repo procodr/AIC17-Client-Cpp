@@ -27,15 +27,15 @@ class Game : public World
     int totalTurns;
     long long turnTimeout;
     long long turnStartTime;
-	
-	std::pair<int, int> score;
+
+    std::pair<int, int> score;
 
     int myID;
     Size size;
     std::vector<Roach *> roaches;
-    std::vector<Cell> food;
-    std::vector<Cell> trashes;
-    std::vector<Cell> slippers;
+    std::vector<Item> food;
+    std::vector<Item> trashes;
+    std::vector<Item> slippers;
     std::vector<Teleport> teleports;
 
     void setConstants(Json::Value &msg);
@@ -72,14 +72,14 @@ class Game : public World
     int getMyId();
     Size getSize();
     std::vector<Roach *> &getRoaches();
-	std::vector<Cell *> &getFood();
-	std::vector<Cell *> &getTrash();
-	std::vector<Cell *> &getSlippers();
-	std::vector<Teleport *> &getTeleports();
-	
-	void changeStrategy(Antenna t, int i, int j, int k, Move s);
-	void deterministicMove(const Roach &roach, Move s);
-	void antennaChange(const Roach& roach, Antenna t);
+    std::vector<Item> &getFood();
+    std::vector<Item> &getTrash();
+    std::vector<Item> &getSlippers();
+    std::vector<Teleport> &getTeleports();
+
+    void changeStrategy(Antenna t, int i, int j, int k, Move s);
+    void deterministicMove(const Roach &roach, Move s);
+    void antennaChange(const Roach &roach, Antenna t);
 
     // Graph *getMap();
     // std::vector<Node *> &getMyNodes();
@@ -91,4 +91,5 @@ class Game : public World
     // void moveArmy(int src, int dst, int count);
 };
 
-#endif // _GAME_H
+#endif
+/* GAME_H */

@@ -71,41 +71,73 @@ void Game::handleInitMessage(Message msg)
     Json::Value &sizeArray = argsArray[I++];
     size = std::make_pair(sizeArray[zero].asInt(), sizeArray[zero + 1].asInt());
 
-    Json::Value &fishArray = argsArray[I++];
+    Json::Value &roachArray = argsArray[I++];
 
-    for (Json::UInt i = 0; i < fishArray.size(); i++)
+    for (Json::UInt i = 0; i < roachArray.size(); i++)
     {
-		fishes.push_back(new Fish(fishArray[i][zero + 0].asInt(), fishArray[i][zero + 1].asInt(), fishArray[i][zero + 2].asInt(), fishArray[i][zero + 3].asBool(), fishArray[i][zero + 4].asBool(), fishArray[i][zero + 5].asBool(), fishArray[i][zero + 6].asBool()));
+		roaches.push_back(new Roach
+		(
+			roachArray[i][zero + 0].asInt(),
+			roachArray[i][zero + 1].asInt(),
+			roachArray[i][zero + 2].asInt(),
+			roachArray[i][zero + 3].asInt(),
+			roachArray[i][zero + 4].asInt(),
+			roachArray[i][zero + 5].asInt(),
+			roachArray[i][zero + 6].asInt()
+		));
     }
 
     Json::Value &foodArray = argsArray[I++];
     for (int i = 0; i < foodArray.size(); i++)
     {
-		foods.push_back({foodArray[i][zero + 0].asInt(), foodArray[i][zero + 1].asInt()});
+		foods.push_back(
+		{
+			foodArray[i][zero + 0].asInt(),
+			foodArray[i][zero + 1].asInt(),
+			foodArray[i][zero + 2].asInt()
+		});
     }
 
     Json::Value &trashArray = argsArray[I++];
     for (int i = 0; i < trashArray.size(); i++)
     {
-		trashes.push_back({trashArray[i][zero + 0].asInt(), trashArray[i][zero + 1].asInt()});
+		trashes.push_back(
+		{
+			trashArray[i][zero + 0].asInt(),
+			trashArray[i][zero + 1].asInt(),
+			trashArray[i][zero + 2].asInt()
+		});
     }
 
-    Json::Value &netArray = argsArray[I++];
-    for (int i = 0; i < netArray.size(); i++)
+    Json::Value &slippersArray = argsArray[I++];
+    for (int i = 0; i < slippersArray.size(); i++)
     {
-		nets.push_back({netArray[i][zero + 0].asInt(), netArray[i][zero + 1].asInt()});
+		slipperss.push_back(
+		{
+			slippersArray[i][zero + 0].asInt(),
+			slippersArray[i][zero + 1].asInt(),
+			slippersArray[i][zero + 2].asInt()
+		});
     }
 
     Json::Value &teleportArray = argsArray[I++];
     for (int i = 0; i < teleportArray.size(); i++)
     {
-		teleports.push_back({{teleportArray[i][zero + 0].asInt(), teleportArray[i][zero + 1].asInt()}, {teleportArray[i][zero + 2].asInt(), teleportArray[i][zero + 3].asInt()}});
+		teleports.push_back(
+		{
+			{
+				teleportArray[i][zero + 0].asInt(),
+				teleportArray[i][zero + 1].asInt()
+			},
+			{
+				teleportArray[i][zero + 2].asInt(),
+				teleportArray[i][zero + 3].asInt()
+			}
+		});
     }
 
     Json::Value &constants = argsArray[I++];
     this->setConstants(constants);
-
-    // updateNodesList();
 }
 
 void Game::handleTurnMessage(Message msg)
@@ -149,22 +181,22 @@ std::vector<Roach *> &getRoaches()
 	return this->roaches;
 }
 
-std::vector<Cell *> &getFood()
+std::vector<Item> &getFood()
 {
 	return this->food;
 }
 
-std::vector<Cell *> &getTrash()
+std::vector<Item> &getTrash()
 {
 	return this->trash;
 }
 
-std::vector<Cell *> &getSlippers()
+std::vector<Item> &getSlippers()
 {
 	return this->slippers;
 }
 
-std::vector<Teleport *> &getTeleports()
+std::vector<Teleport> &getTeleports()
 {
 	return this->teleports;
 }

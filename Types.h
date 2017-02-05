@@ -37,7 +37,12 @@ struct Sewer {
 	Cell a, b;
 };
 
+struct Item {
+	int id;
+	int x, y;
+}
+
 /* end of namespace aic */
 }
 
-#endif
+#endif /* AIC_TYPES */
