@@ -37,6 +37,12 @@ struct Sewer {
 	Cell a, b;
 };
 
+struct MapData {
+    Item* Roach;
+    Item* Extra;
+    Item* Teleport;
+};
+
 /* end of namespace aic */
 }
 

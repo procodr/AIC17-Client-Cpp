@@ -11,14 +11,14 @@ using namespace aic;
 class Map
 {
   public:
-	Map(std::vector<Node *> &nodes);
+	Map(std::vector<MapData*>& nodes);
 
-    std::vector<Node *> &getNodes();
-
-    Node *getNode(int index);
+    MapData *getNode(int index);
+    void addItem(Item item);
+    void delItem(Item item);
 
   private:
-    std::vector<Node *> nodes;
+    std::vector< std::vector<MapData> > nodes; //0 -> Roach, 1 -> Food, 2-> Teleport
 };
 
 #endif /* MAP_H */

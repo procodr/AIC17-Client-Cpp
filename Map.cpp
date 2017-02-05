@@ -1,17 +1,12 @@
 #include "Map.h"
 
-Map::Map(std::vector<Node*>& nodes)
+Map::Map(std::vector<MapData*>& nodes)
 {
-	for(auto &node : nodes)
-		this->nodes.push_back(node);
+	//TODO
 }
-
-std::vector<Node*>& Graph::getNodes()
-{
-	return this->nodes;
+void Map::addItem(Item item){
+	//TODO
 }
-
-Node* Graph::getNode(int index)
-{
-	return nodes[index];
+void Map::delItem(Item item){
+	//TODO
 }
