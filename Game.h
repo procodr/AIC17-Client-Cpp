@@ -10,6 +10,7 @@
 #include "EventHandler.h"
 #include "Node.h"
 #include "Types.h"
+#include "Map.h"
 
 using namespace aic;
 
@@ -31,64 +32,38 @@ class Game : public World
     std::pair<int, int> score;
 
     int myID;
-    Size size;
-    std::vector<Roach *> roaches;
-    std::vector<Item> food;
-    std::vector<Item> trashes;
-    std::vector<Item> slippers;
-    std::vector<Teleport> teleports;
+	Map *map;
+    // Size size;
+    // std::vector<Roach *> roaches;
+    // std::vector<Item> food;
+    // std::vector<Item> trashes;
+    // std::vector<Item> slippers;
+    // std::vector<Teleport> teleports;
 
     void setConstants(Json::Value &msg);
-
-    // int escape; //TODO: to be deleted
-    // int nodeBonus;
-    // int edgeBonus;
-    // int firstlvl;
-    // int secondlvl;
-    // double lossRate1;
-    // double lossRate2;
-
-    // std::vector<Node *> nodes[3];
-
+    
   public:
     Game();
     virtual ~Game();
     void handleInitMessage(Message msg);
     void handleTurnMessage(Message msg);
 
-    // void updateNodesList();
     int getTotalTurns();
     long long getTurnTimePassed();
     long long getTurnRemainingTime();
 
-    // int getEscapeConstant();
-    // int getNodeBonusConstant();
-    // int getEdgeBonusConstant();
-    // int getLowArmyBound();
-    // int getMediumArmyBound();
-    // double getMediumCasualtyCoefficient();
-    // double getLowCasualtyCoefficient();
-
     int getMyId();
-    Size getSize();
-    std::vector<Roach *> &getRoaches();
-    std::vector<Item> &getFood();
-    std::vector<Item> &getTrash();
-    std::vector<Item> &getSlippers();
-    std::vector<Teleport> &getTeleports();
+    // Size getSize();
+    // std::vector<Roach *> &getRoaches();
+    // std::vector<Item> &getFood();
+    // std::vector<Item> &getTrash();
+    // std::vector<Item> &getSlippers();
+    // std::vector<Teleport> &getTeleports();
+	Map &getMap();
 
     void changeStrategy(Antenna t, int i, int j, int k, Move s);
     void deterministicMove(const Roach &roach, Move s);
-    void antennaChange(const Roach &roach, Antenna t);
-
-    // Graph *getMap();
-    // std::vector<Node *> &getMyNodes();
-    // std::vector<Node *> &getOpponentNodes();
-    // std::vector<Node *> &getFreeNodes();
-    // int getTurnNumber();
-    // long long getTotalTurnTime();
-    // void moveArmy(Node *src, Node *dst, int count);
-    // void moveArmy(int src, int dst, int count);
+    void antennaChange(const Roach &roach);
 };
 
 #endif
