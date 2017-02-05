@@ -1,6 +1,6 @@
-#include "Graph.h"
+#include "Map.h"
 
-Graph::Graph(std::vector<Node*>& nodes)
+Map::Map(std::vector<Node*>& nodes)
 {
 	for(auto &node : nodes)
 		this->nodes.push_back(node);

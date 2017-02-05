@@ -3,12 +3,13 @@
 
 #include <vector>
 #include <utility>
+#include <map>
 
 #include "World.h"
 #include "Roach.h"
 #include "Event.h"
 #include "EventHandler.h"
-#include "Node.h"
+#include "Item.h"
 #include "Types.h"
 #include "Map.h"
 
@@ -30,6 +31,7 @@ class Game : public World
     long long turnStartTime;
 
     std::pair<int, int> score;
+    std::map<int, &Item> itemDictionary;
 
     int myID;
 	Map *map;
@@ -42,6 +44,10 @@ class Game : public World
 
     void setConstants(Json::Value &msg);
     
+    //dictionary functions
+    void addToDictionary(Item item);
+    Item findInDictionary(int id);
+
   public:
     Game();
     virtual ~Game();
@@ -64,6 +70,8 @@ class Game : public World
     void changeStrategy(Antenna t, int i, int j, int k, Move s);
     void deterministicMove(const Roach &roach, Move s);
     void antennaChange(const Roach &roach);
+
+
 };
 
 #endif

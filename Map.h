@@ -8,10 +8,10 @@
 
 using namespace aic;
 
-class Graph
+class Map
 {
   public:
-    Graph(std::vector<Node *> &nodes);
+	Map(std::vector<Node *> &nodes);
 
     std::vector<Node *> &getNodes();
 
