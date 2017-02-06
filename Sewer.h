@@ -3,10 +3,12 @@
 
 class Sewer : public Entity {
 public:
-	Sewer(int id, Cell pos, Cell destination);
-    int getDestination();
+    Sewer(int id, Cell pos, int destId);
+
+    int getDestId();
+
 private:
-	Cell destination;
+    int destId;
 };
 
 #endif /* SEWER_H */

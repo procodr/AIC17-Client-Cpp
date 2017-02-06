@@ -52,11 +52,6 @@ struct Cell
     int x, y;
 };
 
-struct Sewer
-{
-    Cell a, b;
-};
-
 /* end of namespace aic */
 }
 

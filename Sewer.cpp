@@ -1,7 +1,8 @@
 #include "Sewer.h"
 
-Sewer::Sewer(int id, Cell pos, Cell destination) : Entity(id, pos), destination(destination) {};
+Sewer::Sewer(int id, Cell pos, int destId) : Entity(id, pos), destId(destId) {};
 
-int Sewer::getDestination(){
-	return this->destination;
+int Sewer::getDestId()
+{
+    return destId;
 }

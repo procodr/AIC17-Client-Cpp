@@ -59,3 +59,7 @@ void MapImp::addSewer(Sewer sewer)
 	destMap[sewer.getPos().x][sewer.getPos().y].x = sewer.getDest().x;
     destMap[sewer.getPos().x][sewer.getPos().y].y = sewer.getDest().y;
 }
+
+const Size &MapImp::getSize() const {
+    return size;
+}

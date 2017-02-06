@@ -125,17 +125,13 @@ void Game::handleInitMessage(Message msg) {
 
     Json::Value &sewerArray = argsArray[I++];
     for (int i = 0; i < (int) sewerArray.size(); i++) {
-        this->addSewer(
+        this->insertEntity(Sewer(
+                sewerArray[i][zero + 0].asInt(),
                 {
-                        {
-                                sewerArray[i][zero + 0].asInt(),
-                                sewerArray[i][zero + 1].asInt()
-                        },
-                        {
-                                sewerArray[i][zero + 2].asInt(),
-                                sewerArray[i][zero + 3].asInt()
-                        }
-                });
+                        sewerArray[i][zero + 1].asInt(),
+                        sewerArray[i][zero + 2].asInt()
+                },
+                sewerArray[i][3u].asInt()));
     }
 
     Json::Value &constants = argsArray[I++];
@@ -197,14 +193,16 @@ void Game::handleTurnMessage(Message msg) {
                 /* move */
                 int id = singleChange[0u].asInt();
                 Move move = static_cast<Move>(singleChange[1u].asInt());
-                dynamic_cast<RoachImp*>(&this->getEntity(id))->doMove(move);
+                int w = map->getSize().w;
+                int h = map->getSize().h;
+                dynamic_cast<RoachImp *>(&this->getEntity(id))->doMove(move, w, h);
 
             } else if (changeType == "c") {
                 /* alter */
                 int id = singleChange[0u].asInt();
-                Type type = static_cast<Type>(singleChange[1u].asInt());
+                Antenna antenna = static_cast<Antenna>(singleChange[1u].asInt());
                 bool sick = singleChange[2u].asBool();
-                dynamic_cast<RoachImp*>(&this->getEntity(id))->alter(type, sick);
+                dynamic_cast<RoachImp *>(&this->getEntity(id))->alter(sick, antenna);
 
             } else {
                 /* error */
@@ -232,10 +230,6 @@ MapImp &Game::getMap() {
 
 Entity &Game::getEntity(int id) {
     return entities[id];
-}
-
-std::vector<Sewer> &Game::getSewers() {
-    return this->sewers;
 }
 
 int Game::getTurnNumber() {
@@ -279,11 +273,6 @@ void Game::deleteEntity(int id) {
     Cell pos = entities[id].getPos();
     map->delEntity(pos.x, pos.y);
     entities.erase(id);
-}
-
-void Game::addSewer(Sewer sewer) {
-    sewers.push_back(sewer);
-    map->addSewer(sewer);
 }
 
 int Game::getTurnTimeout() const {

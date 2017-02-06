@@ -23,9 +23,8 @@ using namespace aic;
  * Do not change this class.
  */
 
-class Game : public World
-{
-  private:
+class Game : public World {
+private:
     int turn;
     int totalTurns;
     long long turnStartTime;
@@ -35,7 +34,6 @@ class Game : public World
     int myID;
     MapImp *map;
     EntityDict entities;
-    std::vector<Sewer> sewers;
 
     int turnTimeout;
     double foodProb;
@@ -62,28 +60,36 @@ class Game : public World
     void setConstants(Json::Value &msg);
 
     void insertEntity(Entity entity);
-    void deleteEntity(int id);
-    void addSewer(Sewer sewer);
 
-  public:
+    void deleteEntity(int id);
+
+public:
     Game();
+
     virtual ~Game();
 
     virtual int getMyId();
+
     virtual MapImp &getMap();
+
     virtual Entity &getEntity(int id);
-    virtual std::vector<Sewer> &getSewers();
 
     virtual int getTurnNumber();
+
     virtual long long getTotalTurnTime();
+
     virtual long long getTurnTimePassed();
+
     virtual long long getTurnRemainingTime();
 
     virtual void changeStrategy(Antenna t, int i, int j, int k, Move s);
+
     virtual void deterministicMove(const Roach &roach, Move s);
+
     virtual void antennaChange(const Roach &roach);
 
     void handleInitMessage(Message msg);
+
     void handleTurnMessage(Message msg);
 
     int getTurnTimeout() const;

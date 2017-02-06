@@ -13,6 +13,7 @@ class Map
   public:
     virtual ~Map() {};
 
+    virtual const Size &getSize() const = 0;
     virtual Entity *getEntity(int x, int y) = 0;
     virtual bool getShadow(int x, int y) = 0;
     virtual Cell getDest(int x, int y) = 0;

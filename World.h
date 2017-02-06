@@ -3,6 +3,7 @@
 
 #include "Map.h"
 #include "Types.h"
+#include "Sewer.h"
 #include "Roach.h"
 #include "Entity.h"
 
@@ -39,9 +40,6 @@ class World
     /* get entity by id */
     virtual Entity &getEntity(int id) = 0;
 
-    /* get a list of sewers */
-    virtual std::vector<Sewer> &getSewers() = 0;
-
     /**
 	 * number of turns that passed as long as game started.
 	 *
@@ -76,7 +74,47 @@ class World
     virtual void antennaChange(const Roach &roach) = 0;
 
     /* get constants */
-    // virtual int getTotalTurns() = 0;
+    virtual int getTurnTimeout() const = 0;
+
+    virtual double getFoodProb() const = 0;
+
+    virtual double getTrashProb() const = 0;
+
+    virtual double getNetProb() const = 0;
+
+    virtual int getNetValidTime() const = 0;
+
+    virtual int getColorCost() const = 0;
+
+    virtual int getSickCost() const = 0;
+
+    virtual int getUpdateCost() const = 0;
+
+    virtual int getDetMoveCost() const = 0;
+
+    virtual int getKillQueenScore() const = 0;
+
+    virtual int getKillBothQueenScore() const = 0;
+
+    virtual int getKillFishScore() const = 0;
+
+    virtual int getQueenCollisionScore() const = 0;
+
+    virtual int getFishFoodScore() const = 0;
+
+    virtual int getQueenFoodScore() const = 0;
+
+    virtual int getSickLifeTime() const = 0;
+
+    virtual double getPowerRatio() const = 0;
+
+    virtual double getEndRatio() const = 0;
+
+    virtual int getDisobeyNum() const = 0;
+
+    virtual int getFoodValidTime() const = 0;
+
+    virtual int getTrashValidTime() const = 0;
 };
 
 #endif /* WORLD_H */
