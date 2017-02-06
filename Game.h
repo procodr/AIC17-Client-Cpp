@@ -11,7 +11,7 @@
 #include "EventHandler.h"
 #include "Entity.h"
 #include "Types.h"
-#include "Map.h"
+#include "MapImp.h"
 
 using namespace aic;
 
@@ -33,7 +33,7 @@ class Game : public World
     std::pair<int, int> score;
 
     int myID;
-    Map *map;
+    MapImp *map;
     EntityDict entities;
     std::vector<Sewer> sewers;
 
@@ -48,7 +48,7 @@ class Game : public World
     virtual ~Game();
 
     virtual int getMyId();
-    virtual Map &getMap();
+    virtual MapImp &getMap();
     virtual Entity &getEntity(int id);
     virtual std::vector<Sewer> &getSewers();
 

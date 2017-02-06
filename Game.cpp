@@ -58,7 +58,7 @@ void Game::handleInitMessage(Message msg)
 
     Json::Value &sizeArray = argsArray[I++];
 	Size size = {sizeArray[zero].asInt(), sizeArray[zero + 1].asInt()};
-	map = new Map(size);
+	map = new MapImp(size);
 
     Json::Value &roachArray = argsArray[I++];
 
@@ -189,7 +189,7 @@ int Game::getMyId()
 	return myID;
 }
 
-Map &Game::getMap()
+MapImp &Game::getMap()
 {
 	return *map;
 }

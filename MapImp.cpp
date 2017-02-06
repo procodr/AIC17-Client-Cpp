@@ -1,6 +1,6 @@
-#include "Map.h"
+#include "MapImp.h"
 
-Map::Map(Size size)
+MapImp::MapImp(Size size)
     : size(size),
       entityMap(size.w, std::vector<Entity *>(size.h, NULL)),
       darknessMap(size.w, std::vector<int>(size.h, 0)),
@@ -11,32 +11,32 @@ Map::Map(Size size)
 	    	destMap[i][j] = {i, j};
 }
 
-Entity *Map::getEntity(int x, int y)
+Entity *MapImp::getEntity(int x, int y)
 {
     return entityMap[x][y];
 }
 
-bool Map::getShadow(int x, int y)
+bool MapImp::getShadow(int x, int y)
 {
     return (darknessMap[x][y] > 0);
 }
 
-Cell Map::getDest(int x, int y)
+Cell MapImp::getDest(int x, int y)
 {
     return destMap[x][y];
 }
 
-void Map::addEntity(Entity &entity)
+void MapImp::addEntity(Entity &entity)
 {
     entityMap[entity.getPos().x][entity.getPos().y] = &entity;
 }
 
-void Map::delEntity(int x, int y)
+void MapImp::delEntity(int x, int y)
 {
     entityMap[x][y] = NULL;
 }
 
-void Map::changeShadow(int x, int y, int delta)
+void MapImp::changeShadow(int x, int y, int delta)
 {
 	for (int i = x - 1; i <= x + 1; i += 1)
 		for (int j = y - 1; j <= y + 1; j += 1)
@@ -44,17 +44,17 @@ void Map::changeShadow(int x, int y, int delta)
 				darknessMap[i][j] += delta;
 }
 
-void Map::addShadow(int x, int y)
+void MapImp::addShadow(int x, int y)
 {
     this->changeShadow(x, y, +1);
 }
 
-void Map::delShadow(int x, int y)
+void MapImp::delShadow(int x, int y)
 {
 	this->changeShadow(x, y, -1);
 }
 
-void Map::addSewer(Sewer sewer)
+void MapImp::addSewer(Sewer sewer)
 {
 	destMap[sewer.a.x][sewer.a.y] = sewer.b;
 	destMap[sewer.b.x][sewer.b.y] = sewer.a;

@@ -22,6 +22,7 @@ ${TARGET}: ${OBJECTS}
 
 clean:
 	del *.o
+	del *.exe
 
 .cpp.o:
 	${CXX} ${FLAGS} -c $< -o $@
