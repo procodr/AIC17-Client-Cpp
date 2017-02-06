@@ -166,7 +166,7 @@ void Game::handleTurnMessage(Message msg) {
                 int id = singleChange[I++].asInt();
                 Cell pos = {singleChange[I++].asInt(), singleChange[I++].asInt()};
                 std::string type = singleChange[I++].asString();
-                if (type == "Roach") {
+                if (type == "roach") {
                     Dir dir = static_cast<Dir>(singleChange[I++].asInt());
                     Antenna antenna = static_cast<Antenna>(singleChange[I++].asInt());
                     Type type = static_cast<Type>(singleChange[I++].asInt());
@@ -175,11 +175,11 @@ void Game::handleTurnMessage(Message msg) {
                     this->insertEntity(RoachImp(
                             id, pos, dir, antenna, type, sick, color
                     ));
-                } else if (type == "Food") {
+                } else if (type == "food") {
                     this->insertEntity(Food(id, pos));
-                } else if (type == "Splippers") {
+                } else if (type == "slippers") {
                     this->insertEntity(Slippers(id, pos));
-                } else if (type == "Trash") {
+                } else if (type == "trash") {
                     this->insertEntity(Trash(id, pos));
                 } else {
                     throw ("unknown entity type");
