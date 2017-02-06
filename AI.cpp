@@ -1,25 +1,24 @@
 #include "AI.h"
 
-// #include <ctime>
-// #include <vector>
-// #include <cstdlib>
-// #include <iostream>
+#include <ctime>
+#include <cstdlib>
 
 void AI::doTurn(World *world)
 {
-	/** Fill this method. We've presented a stupid AI as an example! **/
-	// srand(time(NULL));
-	// std::vector<Node*>& myNodes = world->getMyNodes();
-	// for(auto& source : myNodes)
-	// {
-	// 	/** Get neighbours **/
-	// 	const std::vector<Node*>& neighbours = source->getNeighbours();
-	// 	if (neighbours.size() > 0)
-	// 	{
-	// 		/** Select a random neighbour **/
-	// 		Node *destination = neighbours[(int)(rand() % neighbours.size())];
-	// 		/** Move half of the nodes army to the neighbour node **/
-	// 		world->moveArmy(source, destination, source->getArmyCount() / 2);
-	// 	}
-	// }
+    /** Fill this method. We've presented a stupid AI as an example! **/
+    if (world->getTurnNumber() == 0)
+    {
+		srand(time(NULL));
+		for (int i = 0; i < 2; i += 1)
+			for (int j = 0; j < 3; j += 1)
+	    		for (int k = 0; k < 3; k += 1)
+				{
+					world->changeStrategy(Antenna::SINGLE, i, j, k, static_cast<Move> (std::rand() % 3));
+					world->changeStrategy(Antenna::DOUBLE, i, j, k, static_cast<Move> (std::rand() % 3));
+				}
+    }
+    else
+    {
+		/* never change strategy :p */
+    }
 }

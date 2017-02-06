@@ -1,7 +1,13 @@
 #ifndef AI_H
 #define AI_H
 
+#include "Map.h"
 #include "World.h"
+#include "Types.h"
+#include "Slippers.h"
+#include "Trash.h"
+#include "Roach.h"
+#include "Food.h"
 
 /**
  * AI class.

@@ -7,10 +7,6 @@ class Entity;
 
 namespace aic
 {
-
-/* TODO: Does something like this work?
- *  typedef std::unordered_map Dictionary;
- */
 typedef std::unordered_map<int, Entity> EntityDict;
 
 enum class Antenna
