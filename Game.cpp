@@ -266,7 +266,17 @@ void Game::antennaChange(const Roach &roach) {
 void Game::insertEntity(Entity entity) {
     int id = entity.getId();
     entities.insert({id, entity});
-    map->addEntity(entities[id]);
+
+    Sewer *sewer = dynamic_cast<Sewer *> (&entity);
+    Slippers *slippers = dynamic_cast<Slippers *> (&entity);
+
+    if (sewer) {
+        map->addSewer(*sewer, this->getEntity(sewer->getDestId()).getPos());
+    } else if (slippers) {
+        map->addShadow(slippers->getPos().x, slippers->getPos().y);
+    } else {
+        map->addEntity(entities[id]);
+    }
 }
 
 void Game::deleteEntity(int id) {

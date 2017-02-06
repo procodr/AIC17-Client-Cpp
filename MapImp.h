@@ -24,7 +24,7 @@ public:
 
     void delShadow(int x, int y);
 
-    void addSewer(Sewer sewer);
+    void addSewer(Sewer sewer, Cell dest);
 
 private:
     Size size;
