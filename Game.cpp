@@ -1,4 +1,7 @@
 #include "Game.h"
+#include "Slippers.h"
+#include "Trash.h"
+#include "Food.h"
 #include "util.h"
 
 #include <ctime>
@@ -54,8 +57,7 @@ void Game::handleInitMessage(Message msg)
     this->myID = argsArray[I++].asInt();
 
     Json::Value &sizeArray = argsArray[I++];
-    this->size = std::make_pair(sizeArray[zero].asInt(), sizeArray[zero + 1].asInt());
-
+	Size size = {sizeArray[zero].asInt(), sizeArray[zero + 1].asInt()};
 	map = new Map(size);
 
     Json::Value &roachArray = argsArray[I++];
@@ -64,43 +66,52 @@ void Game::handleInitMessage(Message msg)
     {
 		this->insertEntity(Roach(
 			roachArray[i][zero + 0].asInt(),
-			roachArray[i][zero + 1].asInt(),
-			roachArray[i][zero + 2].asInt(),
-			roachArray[i][zero + 3].asInt(),
-			roachArray[i][zero + 4].asInt(),
-			roachArray[i][zero + 5].asInt(),
-			roachArray[i][zero + 6].asInt()));
+			{
+				roachArray[i][zero + 1].asInt(),
+				roachArray[i][zero + 2].asInt()
+			},
+			static_cast<Dir> (roachArray[i][zero + 3].asInt()),
+			static_cast<Antenna> (roachArray[i][zero + 4].asInt()),
+			static_cast<Type> (roachArray[i][zero + 5].asInt()),
+			roachArray[i][zero + 6].asBool(),
+			static_cast<Color> (roachArray[i][zero + 7].asInt())));
     }
 
     Json::Value &foodArray = argsArray[I++];
-    for (int i = 0; i < foodArray.size(); i++)
+	for (int i = 0; i < (int)foodArray.size(); i++)
     {
 		this->insertEntity(Food(
 			foodArray[i][zero + 0].asInt(),
-			foodArray[i][zero + 1].asInt(),
-			foodArray[i][zero + 2].asInt()));
+			{
+				foodArray[i][zero + 1].asInt(),
+				foodArray[i][zero + 2].asInt()
+			}));
     }
 
     Json::Value &trashArray = argsArray[I++];
-    for (int i = 0; i < trashArray.size(); i++)
+	for (int i = 0; i < (int)trashArray.size(); i++)
     {
 		this->insertEntity(Trash(
 			trashArray[i][zero + 0].asInt(),
-			trashArray[i][zero + 1].asInt(),
-			trashArray[i][zero + 2].asInt()));
+			{
+				trashArray[i][zero + 1].asInt(),
+				trashArray[i][zero + 2].asInt()
+			}));
     }
 
     Json::Value &slippersArray = argsArray[I++];
-    for (int i = 0; i < slippersArray.size(); i++)
+	for (int i = 0; i < (int)slippersArray.size(); i++)
     {
 		this->insertEntity(Slippers(
 			slippersArray[i][zero + 0].asInt(),
-			slippersArray[i][zero + 1].asInt(),
-			slippersArray[i][zero + 2].asInt()));
+			{
+				slippersArray[i][zero + 1].asInt(),
+				slippersArray[i][zero + 2].asInt()	
+			}));
     }
 
     Json::Value &sewerArray = argsArray[I++];
-    for (int i = 0; i < sewerArray.size(); i++)
+	for (int i = 0; i < (int)sewerArray.size(); i++)
     {
 		this->addSewer(
 		{
@@ -134,14 +145,14 @@ void Game::handleTurnMessage(Message msg)
     score = std::make_pair(scores[zero + 0].asInt(), scores[zero + 1].asInt());
 
 	Json::Value &changesArray = argsArray[I++];
-    for (int i = 0; i < changesArray.size(); i++)
+	for (int i = 0; i < (int)changesArray.size(); i++)
     {
-		Json::UInt j = 0;
+		// Json::UInt j = 0;
 		Json::Value &change = changesArray[i];
 		
 		if (change["type"] == "a")
 		{
-			Json::Value &changeArgs = change["args"];
+			// Json::Value &changeArgs = change["args"];
 			/* TODO */
 		}
 		else if (change["type"] == "d")
@@ -152,7 +163,7 @@ void Game::handleTurnMessage(Message msg)
 		{
 			/* TODO */
 		}
-		else if (change["type" == "c"])
+		else if (change["type"] == "c")
 		{
 			/* TODO */
 		}
@@ -222,29 +233,28 @@ void Game::deterministicMove(const Roach &roach, Move s)
 	eventHandler->addEvent(ev);
 }
 
-void Game::antennaChange(const Roach& roach, Antenna t)
+void Game::antennaChange(const Roach& roach)
 {
 	GameEvent* ev = new GameEvent(Constants::TYPE_ANTENNA_CHANGE);
 	ev->addArg(roach.getId());
-	ev->addArg(static_cast<int>(t));
 	eventHandler->addEvent(ev);
 }
 
-void Game::insertEntity(const Entity &entity)
+void Game::insertEntity(Entity entity)
 {
-	int &id = entity.id;
+	int id = entity.getId();
 	entities.insert({id, entity});
 	map->addEntity(entities[id]);
 }
 
-Game::deleteEntity(int id)
+void Game::deleteEntity(int id)
 {
-	Cell &pos = entities[id].pos;
+	Cell pos = entities[id].getPos();
 	map->delEntity(pos.x, pos.y);
 	entities.erase(id);
 }
 
-Game::addSewer(Sewer sewer)
+void Game::addSewer(Sewer sewer)
 {
 	sewers.push_back(sewer);
 	map->addSewer(sewer);

@@ -18,11 +18,11 @@ class Constants
 
     static const std::string TYPE_CHANGE_STRATEGY;
     static const std::string TYPE_DETERMINISTIC_MOVE;
-    static const std::string TYPE_COLOR_CHANGE;
+    static const std::string TYPE_ANTENNA_CHANGE;
 
     static const int ARGS_NUMBER_CHANGE_STRATEGY;
     static const int ARGS_NUMBER_DETERMINISTIC_MOVE;
-    static const int ARGS_NUMBER_COLOR_CHANGE;
+    static const int ARGS_NUMBER_ANTENNA_CHANGE;
 };
 
 #endif /* CONSTANTS_H */

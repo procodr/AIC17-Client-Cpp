@@ -13,7 +13,7 @@ class Roach : public Entity
 {
   public:
     Roach(int id, Cell pos, Dir dir, Antenna antenna, Type type, bool sick, Color color);
-    ~Roach();
+    virtual ~Roach();
 
     /* Use these to get information about your fellow cockroaches! */
     Dir getDirection();

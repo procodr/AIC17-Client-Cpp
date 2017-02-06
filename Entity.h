@@ -12,6 +12,7 @@ class Entity
     Cell pos;
 
   public:
+    Entity();
     Entity(int id, Cell pos);
     virtual ~Entity();
 
