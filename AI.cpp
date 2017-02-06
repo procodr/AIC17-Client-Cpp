@@ -9,8 +9,8 @@ void AI::doTurn(World *world)
     if (world->getTurnNumber() == 0)
     {
 		srand(time(NULL));
-		for (int i = 0; i < 2; i += 1)
-			for (int j = 0; j < 3; j += 1)
+		for (int i = 0; i < 3; i += 1)
+			for (int j = 0; j < 2; j += 1)
 	    		for (int k = 0; k < 3; k += 1)
 				{
 					world->changeStrategy(Antenna::SINGLE, i, j, k, static_cast<Move> (std::rand() % 3));
