@@ -13,7 +13,7 @@
 EventHandler::EventHandler(Network *network)
 {
 	this->network = network;
-	std::thread(&EventHandler::handling, this);
+	new std::thread(&EventHandler::handling, this);
 //    isThreadCall = false;
 }
 //

@@ -1,6 +1,6 @@
-CXX = g++ --std=c++0x
+CXX = g++ -std=c++11
 JSONPATH = jsoncpp-src-0.5.0/include
-FLAGS = -Wall -L/usr/local/lib -Wl,-rpath=/usr/local/lib -I$(JSONPATH)
+FLAGS = -Wall -L/usr/local/lib -Wl,-rpath,/usr/local/lib -I$(JSONPATH)
 LIBS = -lpthread
 
 TARGET = swarm.out
