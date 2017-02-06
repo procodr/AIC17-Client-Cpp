@@ -42,7 +42,27 @@ Game::~Game() {
 }
 
 void Game::setConstants(Json::Value &msg) {
-    // this->totalTurns = msg["turns"].asInt();
+    this->turnTimeout = msg["turnTimeout"].asInt();
+    this->foodProb = msg["foodProb"].asDouble();
+    this->trashProb = msg["trashProb"].asDouble();
+    this->netProb = msg["netProb"].asDouble();
+    this->netValidTime = msg["netValidTime"].asInt();
+    this->colorCost = msg["colorCost"].asInt();
+    this->sickCost = msg["sickCost"].asInt();
+    this->updateCost = msg["updateCost"].asInt();
+    this->detMoveCost = msg["detMoveCost"].asInt();
+    this->killQueenScore = msg["killQueenScore"].asInt();
+    this->killBothQueenScore = msg["killBothQueenScore"].asInt();
+    this->killFishScore = msg["killFishScore"].asInt();
+    this->queenCollisionScore = msg["queenCollisionScore"].asInt();
+    this->fishFoodScore = msg["fishFoodScore"].asInt();
+    this->queenFoodScore = msg["queenFoodScore"].asInt();
+    this->sickLifeTime = msg["sickLifeTime"].asInt();
+    this->powerRatio = msg["powerRatio"].asDouble();
+    this->endRatio = msg["endRation"].asDouble();
+    this->disobeyNum = msg["disobeyNum"].asInt();
+    this->foodValidTime = msg["foodValidTime"].asInt();
+    this->trashValidTime = msg["trashValidTime"].asInt();
 }
 
 void Game::handleInitMessage(Message msg) {
@@ -140,59 +160,55 @@ void Game::handleTurnMessage(Message msg) {
         Json::Value &change = changesArray[i];
         Json::Value &changeArgs = change["args"];
 
-        char changeType = change["type"];
+        std::string changeType = change["type"].asString();
         for (int j = 0; j < (int) changeArgs.size(); j++) {
             Json::UInt I = 0;
             Json::Value &singleChange = changeArgs[j];
 
-            switch (changeType) {
-                case 'a':
-                    /* add */
-                    int id = singleChange[I++].asInt();
-                    Cell pos = {singleChange[I++].asInt(), singleChange[I++].asInt()};
-                    int type = singleChange[I++].asInt();
-                    switch (type) {
-                        case "Roach":
-                            Dir dir = static_cast<Dir>(singleChange[I++].asInt());
-                            Antenna antenna = static_cast<Antenna>(singleChange[I++].asInt());
-                            Type type = static_cast<Type>(singleChange[I++].asInt());
-                            bool sick = singleChange[I++].asBool();
-                            Color color = static_cast<Color>(singleChange[J++].asInt());
-                            this->insertEntity(RoachImp(
-                                    id, pos, dir, antenna, type, sick, color
-                            ));
-                            break;
-                        case "Food":
-                            this->insertEntity(Food(id, x, y));
-                            break;
-                        case "Slippers":
-                            this->insertEntity(Slippers(id, x, y));
-                            break;
-                        case "Trash":
-                            this->insertEntity(Trash(id, x, y));
-                            break;
-                        default:
-                            throw ("unknown entity type");
-                    }
-                    break;
-                case 'd':
-                    /* delete */
-                    this->deleteEntity(singleChange[j].asInt());
-                    break;
-                case 'm':
-                    /* move */
-                    int id = singleChange[0u].asInt();
-                    Move move = static_cast<Move>(singleChange[1u].asInt());
-                    dynamic_cast<RoachImp>(this->getEntity(id)).doMove(move);
-                    break;
-                case 'c':
-                    /* alter */
-                    int id = singleChange[0u].asInt();
-                    Type type = static_cast<Type>(singleChange[1u].asInt());
-                    bool sick = singleChange[2u],asBool();
-                    dynamic_cast<RoachImp>(this->getEntity(id)).alter(type, sick);
-                default:
-                    throw ("unknown change type");
+            if (changeType == "a") {
+                /* add */
+                int id = singleChange[I++].asInt();
+                Cell pos = {singleChange[I++].asInt(), singleChange[I++].asInt()};
+                std::string type = singleChange[I++].asString();
+                if (type == "Roach") {
+                    Dir dir = static_cast<Dir>(singleChange[I++].asInt());
+                    Antenna antenna = static_cast<Antenna>(singleChange[I++].asInt());
+                    Type type = static_cast<Type>(singleChange[I++].asInt());
+                    bool sick = singleChange[I++].asBool();
+                    Color color = static_cast<Color>(singleChange[I++].asInt());
+                    this->insertEntity(RoachImp(
+                            id, pos, dir, antenna, type, sick, color
+                    ));
+                } else if (type == "Food") {
+                    this->insertEntity(Food(id, pos));
+                } else if (type == "Splippers") {
+                    this->insertEntity(Slippers(id, pos));
+                } else if (type == "Trash") {
+                    this->insertEntity(Trash(id, pos));
+                } else {
+                    throw ("unknown entity type");
+                }
+
+            } else if (changeType == "d") {
+                /* delete */
+                this->deleteEntity(singleChange[j].asInt());
+
+            } else if (changeType == "m") {
+                /* move */
+                int id = singleChange[0u].asInt();
+                Move move = static_cast<Move>(singleChange[1u].asInt());
+                dynamic_cast<RoachImp*>(&this->getEntity(id))->doMove(move);
+
+            } else if (changeType == "c") {
+                /* alter */
+                int id = singleChange[0u].asInt();
+                Type type = static_cast<Type>(singleChange[1u].asInt());
+                bool sick = singleChange[2u].asBool();
+                dynamic_cast<RoachImp*>(&this->getEntity(id))->alter(type, sick);
+
+            } else {
+                /* error */
+                throw ("unknown change type");
             }
         }
     }
@@ -218,7 +234,7 @@ Entity &Game::getEntity(int id) {
     return entities[id];
 }
 
-std::vector <Sewer> &Game::getSewers() {
+std::vector<Sewer> &Game::getSewers() {
     return this->sewers;
 }
 
@@ -268,4 +284,88 @@ void Game::deleteEntity(int id) {
 void Game::addSewer(Sewer sewer) {
     sewers.push_back(sewer);
     map->addSewer(sewer);
+}
+
+int Game::getTurnTimeout() const {
+    return turnTimeout;
+}
+
+double Game::getFoodProb() const {
+    return foodProb;
+}
+
+double Game::getTrashProb() const {
+    return trashProb;
+}
+
+double Game::getNetProb() const {
+    return netProb;
+}
+
+int Game::getNetValidTime() const {
+    return netValidTime;
+}
+
+int Game::getColorCost() const {
+    return colorCost;
+}
+
+int Game::getSickCost() const {
+    return sickCost;
+}
+
+int Game::getUpdateCost() const {
+    return updateCost;
+}
+
+int Game::getDetMoveCost() const {
+    return detMoveCost;
+}
+
+int Game::getKillQueenScore() const {
+    return killQueenScore;
+}
+
+int Game::getKillBothQueenScore() const {
+    return killBothQueenScore;
+}
+
+int Game::getKillFishScore() const {
+    return killFishScore;
+}
+
+int Game::getQueenCollisionScore() const {
+    return queenCollisionScore;
+}
+
+int Game::getFishFoodScore() const {
+    return fishFoodScore;
+}
+
+int Game::getQueenFoodScore() const {
+    return queenFoodScore;
+}
+
+int Game::getSickLifeTime() const {
+    return sickLifeTime;
+}
+
+double Game::getPowerRatio() const {
+    return powerRatio;
+}
+
+double Game::getEndRatio() const {
+    return endRatio;
+}
+
+int Game::getDisobeyNum() const {
+    return disobeyNum;
+}
+
+int Game::getFoodValidTime() const {
+    return foodValidTime;
+}
+
+int Game::getTrashValidTime() const {
+    return trashValidTime;
 }

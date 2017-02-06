@@ -12,6 +12,7 @@
 #include "Entity.h"
 #include "Types.h"
 #include "MapImp.h"
+#include "jsoncpp-src-0.5.0/include/json/json.h"
 
 using namespace aic;
 
@@ -27,7 +28,6 @@ class Game : public World
   private:
     int turn;
     int totalTurns;
-    long long turnTimeout;
     long long turnStartTime;
 
     std::pair<int, int> score;
@@ -36,6 +36,28 @@ class Game : public World
     MapImp *map;
     EntityDict entities;
     std::vector<Sewer> sewers;
+
+    int turnTimeout;
+    double foodProb;
+    double trashProb;
+    double netProb;
+    int netValidTime;
+    int colorCost;
+    int sickCost;
+    int updateCost;
+    int detMoveCost;
+    int killQueenScore;
+    int killBothQueenScore;
+    int killFishScore;
+    int queenCollisionScore;
+    int fishFoodScore;
+    int queenFoodScore;
+    int sickLifeTime;
+    double powerRatio;
+    double endRatio;
+    int disobeyNum;
+    int foodValidTime;
+    int trashValidTime;
 
     void setConstants(Json::Value &msg);
 
@@ -63,6 +85,48 @@ class Game : public World
 
     void handleInitMessage(Message msg);
     void handleTurnMessage(Message msg);
+
+    int getTurnTimeout() const;
+
+    double getFoodProb() const;
+
+    double getTrashProb() const;
+
+    double getNetProb() const;
+
+    int getNetValidTime() const;
+
+    int getColorCost() const;
+
+    int getSickCost() const;
+
+    int getUpdateCost() const;
+
+    int getDetMoveCost() const;
+
+    int getKillQueenScore() const;
+
+    int getKillBothQueenScore() const;
+
+    int getKillFishScore() const;
+
+    int getQueenCollisionScore() const;
+
+    int getFishFoodScore() const;
+
+    int getQueenFoodScore() const;
+
+    int getSickLifeTime() const;
+
+    double getPowerRatio() const;
+
+    double getEndRatio() const;
+
+    int getDisobeyNum() const;
+
+    int getFoodValidTime() const;
+
+    int getTrashValidTime() const;
 };
 
 #endif /* GAME_H */
