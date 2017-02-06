@@ -6,26 +6,22 @@
 
 #include <utility>
 
-
 using namespace aic;
 
 class Roach : public Entity
 {
   public:
     Roach(int id, Cell pos, Dir dir, Antenna antenna, Type type, bool sick, Color color);
-    virtual ~Roach();
+    virtual ~Roach() {};
 
     /* Use these to get information about your fellow cockroaches! */
-    Dir getDirection();
-    Antenna getAntenna();
-    Type getType();
-    bool isSick();
-    Color getColor();
+    virtual Dir getDirection() = 0;
+    virtual Antenna getAntenna() = 0;
+    virtual Type getType() = 0;
+    virtual bool isSick() = 0;
+    virtual Color getColor() = 0;
 
-    /* The server calls these methods. Don't worry about them. */
-    void update(Antenna antenna, bool sick);
-
-  private:
+  protected:
     Dir dir;
     Antenna antenna;
     Type type;

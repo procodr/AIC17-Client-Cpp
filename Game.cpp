@@ -64,7 +64,7 @@ void Game::handleInitMessage(Message msg)
 
     for (Json::UInt i = 0; i < roachArray.size(); i++)
     {
-		this->insertEntity(Roach(
+		this->insertEntity(RoachImp(
 			roachArray[i][zero + 0].asInt(),
 			{
 				roachArray[i][zero + 1].asInt(),

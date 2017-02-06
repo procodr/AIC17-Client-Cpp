@@ -7,7 +7,7 @@ using namespace aic;
 
 class Entity
 {
-  private:
+  protected:
     int id;
     Cell pos;
 
