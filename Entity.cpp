@@ -2,14 +2,14 @@
 
 Entity::Entity(int id, Cell pos) : id(id), pos(pos) {}
 
-virtual Entity::~Entity() {};
+Entity::~Entity() {};
 
-int Entity::getId()
+int Entity::getId() const
 {
 	return this->id;
 }
 
-Cell Entity::getPos()
+Cell Entity::getPos() const
 {
 	return this->pos;
 }

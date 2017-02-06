@@ -15,8 +15,8 @@ class Entity
     Entity(int id, Cell pos);
     virtual ~Entity();
 
-    int getId();
-    Cell getPos();
+    virtual int getId() const;
+    virtual Cell getPos() const;
 };
 
 #endif /* ENTITY_H */

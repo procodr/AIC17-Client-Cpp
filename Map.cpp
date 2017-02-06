@@ -2,9 +2,9 @@
 
 Map::Map(Size size)
     : size(size),
-      entityMap(size.w, vector<Entity *>(size.h, NULL)),
-      darknessMap(size.w, vector<int>(size.h, 0)),
-      destMap(size.w, vector<int>(size.h, {0, 0}))
+      entityMap(size.w, std::vector<Entity *>(size.h, NULL)),
+      darknessMap(size.w, std::vector<int>(size.h, 0)),
+      destMap(size.w, std::vector<Cell>(size.h, {0, 0}))
 {
     for (int i = 0; i < size.w; i += 1)
 		for (int j = 0; j < size.h; j += 1)
@@ -26,7 +26,7 @@ Cell Map::getDest(int x, int y)
     return destMap[x][y];
 }
 
-void Map::addEntity(const Entity &entity)
+void Map::addEntity(Entity &entity)
 {
     entityMap[entity.getPos().x][entity.getPos().y] = &entity;
 }

@@ -1,11 +1,16 @@
 #ifndef AIC_TYPES
 #define AIC_TYPES
 
+#include <unordered_map>
+
 class Entity;
 
 namespace aic
 {
 
+/* TODO: Does something like this work?
+ *  typedef std::unordered_map Dictionary;
+ */
 typedef std::unordered_map<int, Entity> EntityDict;
 
 enum class Antenna
@@ -30,15 +35,15 @@ enum class Dir
 {
     LEFT,
     RIGHT,
-    BOTTOM,
-    TOP
+    DOWN,
+    UP
 };
 
 enum class Move
 {
+    RIGHT,
     FORWARD,
-    LEFT,
-    RIGHT
+    LEFT
 };
 
 struct Size

@@ -46,12 +46,6 @@ class Game : public World
   public:
     Game();
     virtual ~Game();
-    void handleInitMessage(Message msg);
-    void handleTurnMessage(Message msg);
-
-    int getTotalTurns();
-    long long getTurnTimePassed();
-    long long getTurnRemainingTime();
 
     int getMyId();
     Map &getMap();
@@ -60,10 +54,15 @@ class Game : public World
 
     int getTurnNumber();
     long long getTotalTurnTime();
+    long long getTurnTimePassed();
+    long long getTurnRemainingTime();
 
     void changeStrategy(Antenna t, int i, int j, int k, Move s);
     void deterministicMove(const Roach &roach, Move s);
     void antennaChange(const Roach &roach);
+
+    void handleInitMessage(Message msg);
+    void handleTurnMessage(Message msg);
 };
 
 #endif /* GAME_H */

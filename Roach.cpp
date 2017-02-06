@@ -1,17 +1,7 @@
 #include "Roach.h"
 
-Roach::Roach(int id, Cell pos, Dir dir, Team team, Type type, bool sick, Color color)
-    : id(id), pos(pos), dir(dir), color(color), type(type), sick(sick), team(team) {};
-
-int Roach::getId()
-{
-    return this->id;
-}
-
-Cell Roach::getPos()
-{
-    return this->pos;
-}
+Roach::Roach(int id, Cell pos, Dir dir, Antenna antenna, Type type, bool sick, Color color)
+    : Entity(id, pos), dir(dir), antenna(antenna), type(type), sick(sick), color(color) {};
 
 Color Roach::getColor()
 {
@@ -36,4 +26,10 @@ Dir Roach::getDirection()
 bool Roach::isSick()
 {
     return this->sick;
+}
+
+void Roach::update(Antenna antenna, bool sick)
+{
+    this->antenna = antenna;
+    this->sick = sick;
 }

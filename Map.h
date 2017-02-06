@@ -1,10 +1,10 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include <vector>
-
 #include "Roach.h"
 #include "Types.h"
+
+#include <vector>
 
 using namespace aic;
 
@@ -17,7 +17,7 @@ class Map
     bool getShadow(int x, int y);
     Cell getDest(int x, int y);
     
-    void addEntity(const Entity &entity);
+    void addEntity(Entity &entity);
     void delEntity(int x, int y);
     
     void addShadow(int x, int y);

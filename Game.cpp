@@ -24,19 +24,14 @@ long long getTimeInMilliSeconds()
 
 Game::Game()
 {
-    turnStartTime = -1;
-    // map = NULL;
-    // lossRate1 = 0;
-    // lossRate2 = 0;
-    // escape = 0;
-    totalTurns = 0;
     turn = 0;
+    totalTurns = 0;
     turnTimeout = 0;
-    myID = 0;
-    // firstlvl = 0;
-    // secondlvl = 0;
-    // nodeBonus = 0;
-    // edgeBonus = 0;
+    turnStartTime = -1;
+    
+	myID = 0;
+	
+	map = NULL;
 }
 
 Game::~Game()
@@ -47,19 +42,6 @@ Game::~Game()
 void Game::setConstants(Json::Value &msg)
 {
     // this->totalTurns = msg["turns"].asInt();
-    // this->turnTimeout = msg["turnTimeout"].asInt();
-    // this->escape = msg["escape"].asInt();
-    // this->nodeBonus = msg["nodeBonus"].asInt();
-    // this->edgeBonus = msg["edgeBonus"].asInt();
-    // this->firstlvl = msg["firstlvl"].asInt();
-    // this->secondlvl = msg["secondlvl"].asInt();
-    // this->lossRate1 = msg["lossRate1"].asInt();
-    // this->lossRate2 = msg["lossRate2"].asInt();
-}
-
-int Game::getTotalTurns()
-{
-    return this->totalTurns;
 }
 
 void Game::handleInitMessage(Message msg)
@@ -196,17 +178,17 @@ int Game::getMyId()
 	return myID;
 }
 
-Map &getMap()
+Map &Game::getMap()
 {
 	return *map;
 }
 
-Entity &getEntity(int id)
+Entity &Game::getEntity(int id)
 {
 	return entities[id];
 }
 
-std::vector<Sewer> &getSewers()
+std::vector<Sewer> &Game::getSewers()
 {
 	return this->sewers;
 }
