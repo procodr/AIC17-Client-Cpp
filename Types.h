@@ -30,9 +30,9 @@ enum class Color
 enum class Dir
 {
     LEFT,
+    UP,
     RIGHT,
-    DOWN,
-    UP
+    DOWN
 };
 
 enum class Move

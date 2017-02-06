@@ -15,6 +15,8 @@ class RoachImp : public Roach
     virtual bool isSick();
     virtual Color getColor();
 
+    void doMove(Move move, int w, int h);
+    void alter(bool sick, Antenna antenna);
     void update(Antenna antenna, bool sick);
 };
 
