@@ -29,7 +29,7 @@ class Game : public World
     int totalTurns;
     long long turnTimeout;
     long long turnStartTime;
-    
+
     std::pair<int, int> score;
 
     int myID;
@@ -47,19 +47,19 @@ class Game : public World
     Game();
     virtual ~Game();
 
-    int getMyId();
-    Map &getMap();
-    Entity &getEntity(int id);
-    std::vector<Sewer> &getSewers();
+    virtual int getMyId();
+    virtual Map &getMap();
+    virtual Entity &getEntity(int id);
+    virtual std::vector<Sewer> &getSewers();
 
-    int getTurnNumber();
-    long long getTotalTurnTime();
-    long long getTurnTimePassed();
-    long long getTurnRemainingTime();
+    virtual int getTurnNumber();
+    virtual long long getTotalTurnTime();
+    virtual long long getTurnTimePassed();
+    virtual long long getTurnRemainingTime();
 
-    void changeStrategy(Antenna t, int i, int j, int k, Move s);
-    void deterministicMove(const Roach &roach, Move s);
-    void antennaChange(const Roach &roach);
+    virtual void changeStrategy(Antenna t, int i, int j, int k, Move s);
+    virtual void deterministicMove(const Roach &roach, Move s);
+    virtual void antennaChange(const Roach &roach);
 
     void handleInitMessage(Message msg);
     void handleTurnMessage(Message msg);

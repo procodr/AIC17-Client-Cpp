@@ -37,10 +37,10 @@ class World
     virtual Map &getMap() = 0;
 
     /* get entity by id */
-    Entity &getEntity(int id);
+    virtual Entity &getEntity(int id) = 0;
 
     /* get a list of sewers */
-    std::vector<Sewer> &getSewers();
+    virtual std::vector<Sewer> &getSewers() = 0;
 
     /**
 	 * number of turns that passed as long as game started.
@@ -71,9 +71,9 @@ class World
     virtual long long getTurnRemainingTime() = 0;
 
     /* game moves */
-    virtual void changeStrategy(Antenna t, int i, int j, int k, Move s);
-    virtual void deterministicMove(const Roach &roach, Move s);
-    virtual void antennaChange(const Roach &roach);
+    virtual void changeStrategy(Antenna t, int i, int j, int k, Move s) = 0;
+    virtual void deterministicMove(const Roach &roach, Move s) = 0;
+    virtual void antennaChange(const Roach &roach) = 0;
 
     /* get constants */
     // virtual int getTotalTurns() = 0;
