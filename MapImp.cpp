@@ -56,6 +56,6 @@ void MapImp::delShadow(int x, int y)
 
 void MapImp::addSewer(Sewer sewer)
 {
-	destMap[sewer.a.x][sewer.a.y] = sewer.b;
-	destMap[sewer.b.x][sewer.b.y] = sewer.a;
+	destMap[sewer.getPos().x][sewer.getPos().y].x = sewer.getDest().x;
+    destMap[sewer.getPos().x][sewer.getPos().y].y = sewer.getDest().y;
 }
