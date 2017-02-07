@@ -5,7 +5,8 @@
 
 class Slippers : public Entity
 {
-    using Entity::Entity;
+    public:
+    	Slippers(int id, Cell pos);
 };
 
 #endif /* SLIPPERS_H */

@@ -20,13 +20,14 @@ class Roach : public Entity
     virtual Type getType() = 0;
     virtual bool isSick() = 0;
     virtual Color getColor() = 0;
-
+    
   protected:
     Dir dir;
     Antenna antenna;
     Type type;
     bool sick;
     Color color;
+    EntityType entityType;
 };
 
 #endif /* ROACH_H */

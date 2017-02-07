@@ -46,8 +46,9 @@ enum class EntityType
 {
 	ROACH = 0,
 	FOOD,
-	TRASH,
-	SLIPPERS
+	TRASH, 
+	SLIPPERS,
+    SEWER
 };
 
 struct Size
