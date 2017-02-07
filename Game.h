@@ -63,6 +63,8 @@ private:
 
     void deleteEntity(int id);
 
+    void moveEntity(int id, int x, int y);
+
 public:
     Game();
 

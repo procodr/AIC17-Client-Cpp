@@ -7,6 +7,7 @@ class Slippers : public Entity
 {
     public:
     	Slippers(int id, Cell pos);
+
 };
 
 #endif /* SLIPPERS_H */

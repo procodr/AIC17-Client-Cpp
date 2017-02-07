@@ -7,6 +7,7 @@ class Food : public Entity
 {
 	public:
 		Food(int id, Cell pos);
+
 };
 
 #endif /* FOOD_H */

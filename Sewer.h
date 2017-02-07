@@ -3,14 +3,15 @@
 
 #include "Entity.h"
 
-class Sewer : public Entity {
+class Sewer: public Entity {
 public:
-    Sewer(int id, Cell pos, int destId);
+	Sewer(int id, Cell pos, int destId);
 
-    int getDestId();
+	int getDestId();
 
 private:
-    int destId;
+	int destId;
+
 };
 
 #endif /* SEWER_H */

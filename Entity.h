@@ -20,6 +20,8 @@ class Entity
     virtual int getId() const;
     virtual Cell getPos() const;
     virtual EntityType getEntityType() const;
+
+    virtual void doMove(int x, int y);
 };
 
 #endif /* ENTITY_H */

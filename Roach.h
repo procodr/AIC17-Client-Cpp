@@ -28,6 +28,7 @@ class Roach : public Entity
     bool sick;
     Color color;
     EntityType entityType;
+
 };
 
 #endif /* ROACH_H */

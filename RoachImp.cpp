@@ -49,21 +49,19 @@ void RoachImp::doMove(Move move, Map *map) {
 			else
 				this->pos.col = w - 1;
 			break;
-		case Dir::UP:
+		case Dir::DOWN:
 			this->pos.row = (this->pos.row + 1) % h;
 			break;
 		case Dir::RIGHT:
 			this->pos.col = (this->pos.col + 1) % w;
 			break;
-		case Dir::DOWN:
+		case Dir::UP:
 			if (this->pos.row > 0)
 				this->pos.row = (this->pos.row - 1) % h;
 			else
 				this->pos.row = h - 1;
 			break;
 		}
-		/* wheeee! */
-		this->pos = map->getDest(this->pos.row, this->pos.col);
 		break;
 	}
 }

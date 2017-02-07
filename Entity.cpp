@@ -25,3 +25,9 @@ inline bool operator == (const Entity& lhs, const Entity& rhs)
 {
 	return lhs.getId() == rhs.getId();
 }
+
+void Entity::doMove(int x, int y)
+{
+	this->pos.row = x;
+	this->pos.col = y;
+}
