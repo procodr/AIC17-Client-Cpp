@@ -18,7 +18,7 @@ public:
 
     void addEntity(Entity *entity);
 
-    void delEntity(int x, int y);
+    void delEntity(int x, int y, int id);
 
     void addShadow(int x, int y);
 

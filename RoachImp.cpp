@@ -46,21 +46,21 @@ void RoachImp::doMove(Move move, int w, int h){
 
             switch(this->dir){
 				case Dir::LEFT:
-					if(this->pos.y > 0)
-						this->pos.y -= 1;
+					if(this->pos.col > 0)
+						this->pos.col -= 1;
 					else
-						this->pos.y = w - 1;
+						this->pos.col = w - 1;
 				case Dir::UP:
-					this->pos.x =  (this->pos.x + 1) % h;
+					this->pos.row =  (this->pos.row + 1) % h;
 				break;
 				case Dir::RIGHT:
-					this->pos.y = (this->pos.y + 1) % w;
+					this->pos.col = (this->pos.col + 1) % w;
 				break;
 				case Dir::DOWN:
-					if(this->pos.x > 0)
-						this->pos.x =  (this->pos.x - 1) % h;
+					if(this->pos.row > 0)
+						this->pos.row =  (this->pos.row - 1) % h;
 					else
-						this->pos.x = h - 1;
+						this->pos.row = h - 1;
 				break;
 			}
 

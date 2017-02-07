@@ -42,27 +42,27 @@ Game::~Game() {
 }
 
 void Game::setConstants(Json::Value &msg) {
-    this->turnTimeout = msg["turnTimeout"].asInt();
-    this->foodProb = msg["foodProb"].asDouble();
-    this->trashProb = msg["trashProb"].asDouble();
-    this->netProb = msg["netProb"].asDouble();
-    this->netValidTime = msg["netValidTime"].asInt();
-    this->colorCost = msg["colorCost"].asInt();
-    this->sickCost = msg["sickCost"].asInt();
-    this->updateCost = msg["updateCost"].asInt();
-    this->detMoveCost = msg["detMoveCost"].asInt();
-    this->killQueenScore = msg["killQueenScore"].asInt();
-    this->killBothQueenScore = msg["killBothQueenScore"].asInt();
-    this->killFishScore = msg["killFishScore"].asInt();
-    this->queenCollisionScore = msg["queenCollisionScore"].asInt();
-    this->fishFoodScore = msg["fishFoodScore"].asInt();
-    this->queenFoodScore = msg["queenFoodScore"].asInt();
-    this->sickLifeTime = msg["sickLifeTime"].asInt();
-    this->powerRatio = msg["powerRatio"].asDouble();
-    this->endRatio = msg["endRation"].asDouble();
-    this->disobeyNum = msg["disobeyNum"].asInt();
-    this->foodValidTime = msg["foodValidTime"].asInt();
-    this->trashValidTime = msg["trashValidTime"].asInt();
+    this->turnTimeout = msg[0u].asInt();
+    this->foodProb = msg[1u].asDouble();
+    this->trashProb = msg[2u].asDouble();
+    this->netProb = msg[3u].asDouble();
+    this->netValidTime = msg[4u].asInt();
+    this->colorCost = msg[5u].asInt();
+    this->sickCost = msg[6u].asInt();
+    this->updateCost = msg[7u].asInt();
+    this->detMoveCost = msg[8u].asInt();
+    this->killQueenScore = msg[9u].asInt();
+    this->killBothQueenScore = msg[10u].asInt();
+    this->killFishScore = msg[11u].asInt();
+    this->queenCollisionScore = msg[12u].asInt();
+    this->fishFoodScore = msg[13u].asInt();
+    this->queenFoodScore = msg[14u].asInt();
+    this->sickLifeTime = msg[15u].asInt();
+    this->powerRatio = msg[16u].asDouble();
+    this->endRatio = msg[17u].asDouble();
+    this->disobeyNum = msg[18u].asInt();
+    this->foodValidTime = msg[19u].asInt();
+    this->trashValidTime = msg[20u].asInt();
 }
 
 void Game::handleInitMessage(Message msg) {
@@ -185,7 +185,8 @@ void Game::handleTurnMessage(Message msg) {
 
             } else if (changeType == "d") {
                 /* delete */
-                this->deleteEntity(singleChange[0u].asInt());
+            	int id = singleChange[0u].asInt();
+                this->deleteEntity(id);
 
             } else if (changeType == "m") {
                 /* move */
@@ -194,11 +195,13 @@ void Game::handleTurnMessage(Message msg) {
 
                 Move move = static_cast<Move>(singleChange[1u].asInt());
 
+                int x = roach->getPos().row;
+                int y = roach->getPos().col;
                 int w = map->getSize().w;
                 int h = map->getSize().h;
 
                 if (move == Move::FORWARD)
-                    map->delEntity(roach->getPos().x, roach->getPos().y);
+                    map->delEntity(x, y, id);
 
                 roach->doMove(move, w, h);
 
@@ -273,6 +276,9 @@ void Game::antennaChange(const Roach &roach) {
 
 void Game::insertEntity(Entity* entity) {
     int id = entity->getId();
+
+    std::cerr << "ADD : " << id << '\n';
+
     entities.insert({id, entity});
 
     Sewer *sewer = dynamic_cast<Sewer *> (entity);
@@ -285,15 +291,21 @@ void Game::insertEntity(Entity* entity) {
     		map->addSewer(*otherSewer, sewer->getPos());
     	}
     } else if (slippers) {
-        map->addShadow(slippers->getPos().x, slippers->getPos().y);
+        map->addShadow(slippers->getPos().row, slippers->getPos().col);
     } else {
         map->addEntity(entity);
     }
 }
 
 void Game::deleteEntity(int id) {
+
+	std::cerr << "DEL : " << id << '\n';
+
+	if (entities[id] == NULL) {
+		std::cerr << 1/0 << std::endl;
+	}
     Cell pos = entities[id]->getPos();
-    map->delEntity(pos.x, pos.y);
+    map->delEntity(pos.row, pos.col, id);
     entities.erase(id);
 }
 

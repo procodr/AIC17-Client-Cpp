@@ -57,7 +57,7 @@ struct Size
 
 struct Cell
 {
-    int x, y;
+    int row, col;
 };
 
 /* end of namespace aic */

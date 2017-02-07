@@ -23,11 +23,12 @@ Cell MapImp::getDest(int x, int y) {
 }
 
 void MapImp::addEntity(Entity *entity) {
-    entityMap[entity->getPos().x][entity->getPos().y] = entity;
+    entityMap[entity->getPos().row][entity->getPos().col] = entity;
 }
 
-void MapImp::delEntity(int x, int y) {
-    entityMap[x][y] = NULL;
+void MapImp::delEntity(int x, int y, int id) {
+    if (entityMap[x][y]->getId() == id)
+    	entityMap[x][y] = NULL;
 }
 
 void MapImp::changeShadow(int x, int y, int delta) {
@@ -46,7 +47,7 @@ void MapImp::delShadow(int x, int y) {
 }
 
 void MapImp::addSewer(Sewer sewer, Cell dest) {
-    destMap[sewer.getPos().x][sewer.getPos().y] = dest;
+    destMap[sewer.getPos().row][sewer.getPos().col] = dest;
 }
 
 Size MapImp::getSize() const {
