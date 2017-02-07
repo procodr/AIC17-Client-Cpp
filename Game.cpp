@@ -69,67 +69,66 @@ void Game::handleInitMessage(Message msg) {
     Json::Value &argsArray = msg.getArray("args");
 
     Json::UInt I = 0;
-    Json::UInt zero = 0;
 
     this->myID = argsArray[I++].asInt();
 
     Json::Value &sizeArray = argsArray[I++];
-    Size size = {sizeArray[zero].asInt(), sizeArray[zero + 1].asInt()};
+    Size size = {sizeArray[0u].asInt(), sizeArray[1u].asInt()};
     map = new MapImp(size);
 
     Json::Value &roachArray = argsArray[I++];
 
     for (Json::UInt i = 0; i < roachArray.size(); i++) {
-        this->insertEntity(RoachImp(
-                roachArray[i][zero + 0].asInt(),
+        this->insertEntity(new RoachImp(
+                roachArray[i][0u].asInt(),
                 {
-                        roachArray[i][zero + 1].asInt(),
-                        roachArray[i][zero + 2].asInt()
+                        roachArray[i][1u].asInt(),
+                        roachArray[i][2u].asInt()
                 },
-                static_cast<Dir> (roachArray[i][zero + 3].asInt()),
-                static_cast<Antenna> (roachArray[i][zero + 4].asInt()),
-                static_cast<Type> (roachArray[i][zero + 5].asInt()),
-                roachArray[i][zero + 6].asBool(),
-                static_cast<Color> (roachArray[i][zero + 7].asInt())));
+                static_cast<Dir> (roachArray[i][3u].asInt()),
+                static_cast<Antenna> (roachArray[i][4u].asInt()),
+                static_cast<Type> (roachArray[i][5u].asInt()),
+                roachArray[i][6u].asBool(),
+                static_cast<Color> (roachArray[i][7u].asInt())));
     }
 
     Json::Value &foodArray = argsArray[I++];
     for (int i = 0; i < (int) foodArray.size(); i++) {
-        this->insertEntity(Food(
-                foodArray[i][zero + 0].asInt(),
+        this->insertEntity(new Food(
+                foodArray[i][0u].asInt(),
                 {
-                        foodArray[i][zero + 1].asInt(),
-                        foodArray[i][zero + 2].asInt()
+                        foodArray[i][1u].asInt(),
+                        foodArray[i][2u].asInt()
                 }));
     }
 
     Json::Value &trashArray = argsArray[I++];
     for (int i = 0; i < (int) trashArray.size(); i++) {
-        this->insertEntity(Trash(
-                trashArray[i][zero + 0].asInt(),
+        this->insertEntity(new Trash(
+                trashArray[i][0u].asInt(),
                 {
-                        trashArray[i][zero + 1].asInt(),
-                        trashArray[i][zero + 2].asInt()
+                        trashArray[i][1u].asInt(),
+                        trashArray[i][2u].asInt()
                 }));
     }
 
     Json::Value &slippersArray = argsArray[I++];
     for (int i = 0; i < (int) slippersArray.size(); i++) {
-        this->insertEntity(Slippers(
-                slippersArray[i][zero + 0].asInt(),
+        this->insertEntity(new Slippers(
+                slippersArray[i][0u].asInt(),
                 {
-                        slippersArray[i][zero + 1].asInt(),
-                        slippersArray[i][zero + 2].asInt()
+                        slippersArray[i][1u].asInt(),
+                        slippersArray[i][2u].asInt()
                 }));
     }
 
     Json::Value &sewerArray = argsArray[I++];
     for (int i = 0; i < (int) sewerArray.size(); i++) {
-        this->insertEntity(Sewer(
-                sewerArray[i][zero + 0].asInt(),
+        this->insertEntity(new Sewer(
+                sewerArray[i][0u].asInt(),
                 {
-                        sewerArray[i][zero + 1].asInt(),
-                        sewerArray[i][zero + 2].asInt()
+                        sewerArray[i][1u].asInt(),
+                        sewerArray[i][2u].asInt()
                 },
                 sewerArray[i][3u].asInt()));
     }
@@ -139,17 +138,16 @@ void Game::handleInitMessage(Message msg) {
 }
 
 void Game::handleTurnMessage(Message msg) {
-    turnStartTime = getTimeInMilliSeconds();
+	turnStartTime = getTimeInMilliSeconds();
 
     Json::Value &argsArray = msg.getArray("args");
 
     Json::UInt I = 0;
-    Json::UInt zero = 0;
 
     turn = argsArray[I++].asInt();
 
     Json::Value &scores = argsArray[I++];
-    score = std::make_pair(scores[zero + 0].asInt(), scores[zero + 1].asInt());
+    score = std::make_pair(scores[0u].asInt(), scores[1u].asInt());
 
     Json::Value &changesArray = argsArray[I++];
     for (int i = 0; i < (int) changesArray.size(); i++) {
@@ -164,45 +162,55 @@ void Game::handleTurnMessage(Message msg) {
             if (changeType == "a") {
                 /* add */
                 int id = singleChange[I++].asInt();
+                EntityType type = static_cast<EntityType>(singleChange[I++].asInt());
                 Cell pos = {singleChange[I++].asInt(), singleChange[I++].asInt()};
-                std::string type = singleChange[I++].asString();
-                if (type == "Roach") {
+                if (type == EntityType::ROACH) {
                     Dir dir = static_cast<Dir>(singleChange[I++].asInt());
                     Antenna antenna = static_cast<Antenna>(singleChange[I++].asInt());
                     Type type = static_cast<Type>(singleChange[I++].asInt());
                     bool sick = singleChange[I++].asBool();
                     Color color = static_cast<Color>(singleChange[I++].asInt());
-                    this->insertEntity(RoachImp(
+                    this->insertEntity(new RoachImp(
                             id, pos, dir, antenna, type, sick, color
                     ));
-                } else if (type == "Food") {
-                    this->insertEntity(Food(id, pos));
-                } else if (type == "Splippers") {
-                    this->insertEntity(Slippers(id, pos));
-                } else if (type == "Trash") {
-                    this->insertEntity(Trash(id, pos));
+                } else if (type == EntityType::FOOD) {
+                    this->insertEntity(new Food(id, pos));
+                } else if (type == EntityType::SLIPPERS) {
+                    this->insertEntity(new Slippers(id, pos));
+                } else if (type == EntityType::TRASH) {
+                    this->insertEntity(new Trash(id, pos));
                 } else {
                     throw ("unknown entity type");
                 }
 
             } else if (changeType == "d") {
                 /* delete */
-                this->deleteEntity(singleChange[j].asInt());
+                this->deleteEntity(singleChange[0u].asInt());
 
             } else if (changeType == "m") {
                 /* move */
                 int id = singleChange[0u].asInt();
+                RoachImp* roach = dynamic_cast<RoachImp *>(this->getEntity(id));
+
                 Move move = static_cast<Move>(singleChange[1u].asInt());
+
                 int w = map->getSize().w;
                 int h = map->getSize().h;
-                dynamic_cast<RoachImp *>(&this->getEntity(id))->doMove(move, w, h);
+
+                if (move == Move::FORWARD)
+                    map->delEntity(roach->getPos().x, roach->getPos().y);
+
+                roach->doMove(move, w, h);
+
+                if (move == Move::FORWARD)
+                    map->addEntity(roach);
 
             } else if (changeType == "c") {
                 /* alter */
                 int id = singleChange[0u].asInt();
                 Antenna antenna = static_cast<Antenna>(singleChange[1u].asInt());
                 bool sick = singleChange[2u].asBool();
-                dynamic_cast<RoachImp *>(&this->getEntity(id))->alter(sick, antenna);
+                dynamic_cast<RoachImp *>(this->getEntity(id))->alter(sick, antenna);
 
             } else {
                 /* error */
@@ -228,7 +236,7 @@ MapImp &Game::getMap() {
     return *map;
 }
 
-Entity &Game::getEntity(int id) {
+Entity* Game::getEntity(int id) {
     return entities[id];
 }
 
@@ -263,24 +271,28 @@ void Game::antennaChange(const Roach &roach) {
     eventHandler->addEvent(ev);
 }
 
-void Game::insertEntity(Entity entity) {
-    int id = entity.getId();
+void Game::insertEntity(Entity* entity) {
+    int id = entity->getId();
     entities.insert({id, entity});
 
-    Sewer *sewer = dynamic_cast<Sewer *> (&entity);
-    Slippers *slippers = dynamic_cast<Slippers *> (&entity);
+    Sewer *sewer = dynamic_cast<Sewer *> (entity);
+    Slippers *slippers = dynamic_cast<Slippers *> (entity);
 
     if (sewer) {
-        map->addSewer(*sewer, this->getEntity(sewer->getDestId()).getPos());
+    	Sewer *otherSewer = dynamic_cast<Sewer *> (this->getEntity(sewer->getDestId()));
+    	if (otherSewer) {
+    		map->addSewer(*sewer, otherSewer->getPos());
+    		map->addSewer(*otherSewer, sewer->getPos());
+    	}
     } else if (slippers) {
         map->addShadow(slippers->getPos().x, slippers->getPos().y);
     } else {
-        map->addEntity(entities[id]);
+        map->addEntity(entity);
     }
 }
 
 void Game::deleteEntity(int id) {
-    Cell pos = entities[id].getPos();
+    Cell pos = entities[id]->getPos();
     map->delEntity(pos.x, pos.y);
     entities.erase(id);
 }

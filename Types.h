@@ -7,39 +7,47 @@ class Entity;
 
 namespace aic
 {
-typedef std::unordered_map<int, Entity> EntityDict;
+typedef std::unordered_map<int, Entity*> EntityDict;
 
 enum class Antenna
 {
-    SINGLE,
+    SINGLE = 0,
     DOUBLE
 };
 
 enum class Type
 {
-    WINGED,
+    WINGED = 0,
     NORMAL
 };
 
 enum class Color
 {
-    BRIGHT,
+    BRIGHT = 0,
     BROWN
 };
 
 enum class Dir
 {
-    LEFT,
+    RIGHT = 0,
     UP,
-    RIGHT,
+    LEFT,
     DOWN
 };
 
 enum class Move
 {
-    RIGHT,
+    RIGHT = 0,
     FORWARD,
     LEFT
+};
+
+enum class EntityType
+{
+	ROACH = 0,
+	FOOD,
+	TRASH,
+	SLIPPERS
 };
 
 struct Size

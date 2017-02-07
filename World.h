@@ -38,7 +38,7 @@ class World
     virtual Map &getMap() = 0;
 
     /* get entity by id */
-    virtual Entity &getEntity(int id) = 0;
+    virtual Entity* getEntity(int id) = 0;
 
     /**
 	 * number of turns that passed as long as game started.

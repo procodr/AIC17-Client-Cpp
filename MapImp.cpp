@@ -22,8 +22,8 @@ Cell MapImp::getDest(int x, int y) {
     return destMap[x][y];
 }
 
-void MapImp::addEntity(Entity &entity) {
-    entityMap[entity.getPos().x][entity.getPos().y] = &entity;
+void MapImp::addEntity(Entity *entity) {
+    entityMap[entity->getPos().x][entity->getPos().y] = entity;
 }
 
 void MapImp::delEntity(int x, int y) {
@@ -49,6 +49,6 @@ void MapImp::addSewer(Sewer sewer, Cell dest) {
     destMap[sewer.getPos().x][sewer.getPos().y] = dest;
 }
 
-const Size &MapImp::getSize() const {
+Size MapImp::getSize() const {
     return size;
 }

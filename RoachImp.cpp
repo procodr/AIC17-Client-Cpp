@@ -1,5 +1,7 @@
 #include "RoachImp.h"
 
+#include <iostream>
+
 RoachImp::RoachImp(int id, Cell pos, Dir dir, Antenna antenna, Type type, bool sick, Color color)
     : Roach(id, pos, dir, antenna, type, sick, color) {}
 
@@ -30,7 +32,6 @@ bool RoachImp::isSick()
     return this->sick;
 }
 
-
 void RoachImp::doMove(Move move, int w, int h){
  	switch(move){
 		case Move::RIGHT:
@@ -40,28 +41,35 @@ void RoachImp::doMove(Move move, int w, int h){
 			this->dir = static_cast<Dir>( (static_cast<int>(this->dir) + 3) % 4);
 		break;
 		case Move::FORWARD:
-			switch(this->dir){
+
+            std::cerr << "Trying to go forward" << std::endl;
+
+            switch(this->dir){
 				case Dir::LEFT:
-					if(this->pos.x > 0) 
-						this->pos.x -= 1;
+					if(this->pos.y > 0)
+						this->pos.y -= 1;
 					else
-						this->pos.x = w - 1;
-				case Dir::UP: 
-					this->pos.y =  (this->pos.y + 1) % h;
+						this->pos.y = w - 1;
+				case Dir::UP:
+					this->pos.x =  (this->pos.x + 1) % h;
 				break;
 				case Dir::RIGHT:
-					this->pos.x = (this->pos.x + 1) % w;
+					this->pos.y = (this->pos.y + 1) % w;
 				break;
 				case Dir::DOWN:
-					if(this->pos.y > 0)
-						this->pos.y =  (this->pos.x - 1) % h;
-					else 
-						this->pos.y = h - 1;
+					if(this->pos.x > 0)
+						this->pos.x =  (this->pos.x - 1) % h;
+					else
+						this->pos.x = h - 1;
 				break;
 			}
+
+            std::cerr << "Going forward... done!" << std::endl;
+
 		break;
- 	}   
+ 	}
 }
+
 void RoachImp::alter(bool sick, Antenna antenna){
 	this->sick = sick;
 	this->antenna = antenna;

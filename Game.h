@@ -59,7 +59,7 @@ private:
 
     void setConstants(Json::Value &msg);
 
-    void insertEntity(Entity entity);
+    void insertEntity(Entity* entity);
 
     void deleteEntity(int id);
 
@@ -72,7 +72,7 @@ public:
 
     virtual MapImp &getMap();
 
-    virtual Entity &getEntity(int id);
+    virtual Entity* getEntity(int id);
 
     virtual int getTurnNumber();
 

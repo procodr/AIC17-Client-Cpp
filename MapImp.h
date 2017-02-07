@@ -8,7 +8,7 @@ class MapImp : public Map {
 public:
     MapImp(Size size);
 
-    const Size &getSize() const;
+    Size getSize() const;
 
     Entity *getEntity(int x, int y);
 
@@ -16,7 +16,7 @@ public:
 
     Cell getDest(int x, int y);
 
-    void addEntity(Entity &entity);
+    void addEntity(Entity *entity);
 
     void delEntity(int x, int y);
 
