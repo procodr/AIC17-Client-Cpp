@@ -2,75 +2,78 @@
 
 #include <iostream>
 
-RoachImp::RoachImp(int id, Cell pos, Dir dir, Antenna antenna, Type type, bool sick, Color color)
-    : Roach(id, pos, dir, antenna, type, sick, color) {this->entityType = EntityType::ROACH;}
-
-RoachImp::~RoachImp() {}
-
-Color RoachImp::getColor()
-{
-    return this->color;
+RoachImp::RoachImp(int id, Cell pos, Dir dir, Antenna antenna, Type type,
+		bool sick, Color color) :
+		Roach(id, pos, dir, antenna, type, sick, color) {
+	this->entityType = EntityType::ROACH;
 }
 
-Antenna RoachImp::getAntenna()
-{
-    return this->antenna;
+RoachImp::~RoachImp() {
 }
 
-Type RoachImp::getType()
-{
-    return this->type;
+Color RoachImp::getColor() {
+	return this->color;
 }
 
-Dir RoachImp::getDirection()
-{
-    return this->dir;
+Antenna RoachImp::getAntenna() {
+	return this->antenna;
 }
 
-bool RoachImp::isSick()
-{
-    return this->sick;
+Type RoachImp::getType() {
+	return this->type;
 }
 
-void RoachImp::doMove(Move move, int w, int h){
- 	switch(move){
-		case Move::RIGHT:
-			this->dir = static_cast<Dir>( (static_cast<int>(this->dir) + 1) % 4);
+Dir RoachImp::getDirection() {
+	return this->dir;
+}
+
+bool RoachImp::isSick() {
+	return this->sick;
+}
+
+void RoachImp::doMove(Move move, Map *map) {
+	int w = map->getSize().w;
+	int h = map->getSize().h;
+	switch (move) {
+	case Move::RIGHT:
+		this->dir = static_cast<Dir>((static_cast<int>(this->dir) + 1) % 4);
 		break;
-		case Move::LEFT:
-			this->dir = static_cast<Dir>( (static_cast<int>(this->dir) + 3) % 4);
+	case Move::LEFT:
+		this->dir = static_cast<Dir>((static_cast<int>(this->dir) + 3) % 4);
 		break;
-		case Move::FORWARD:
-            switch(this->dir){
-				case Dir::LEFT:
-					if(this->pos.col > 0)
-						this->pos.col -= 1;
-					else
-						this->pos.col = w - 1;
-				case Dir::UP:
-					this->pos.row =  (this->pos.row + 1) % h;
-				break;
-				case Dir::RIGHT:
-					this->pos.col = (this->pos.col + 1) % w;
-				break;
-				case Dir::DOWN:
-					if(this->pos.row > 0)
-						this->pos.row =  (this->pos.row - 1) % h;
-					else
-						this->pos.row = h - 1;
-				break;
-			}
+	case Move::FORWARD:
+		switch (this->dir) {
+		case Dir::LEFT:
+			if (this->pos.col > 0)
+				this->pos.col -= 1;
+			else
+				this->pos.col = w - 1;
+			break;
+		case Dir::UP:
+			this->pos.row = (this->pos.row + 1) % h;
+			break;
+		case Dir::RIGHT:
+			this->pos.col = (this->pos.col + 1) % w;
+			break;
+		case Dir::DOWN:
+			if (this->pos.row > 0)
+				this->pos.row = (this->pos.row - 1) % h;
+			else
+				this->pos.row = h - 1;
+			break;
+		}
+		/* wheeee! */
+		this->pos = map->getDest(this->pos.row, this->pos.col);
 		break;
- 	}
+	}
 }
 
-void RoachImp::alter(bool sick, Antenna antenna){
+void RoachImp::alter(bool sick, Antenna antenna) {
 	this->sick = sick;
 	this->antenna = antenna;
 }
 
-void RoachImp::update(Antenna antenna, bool sick)
-{
-    this->antenna = antenna;
-    this->sick = sick;
+void RoachImp::update(Antenna antenna, bool sick) {
+	this->antenna = antenna;
+	this->sick = sick;
 }

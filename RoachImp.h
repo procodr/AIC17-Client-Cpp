@@ -2,6 +2,7 @@
 #define ROACHIMP_H
 
 #include "Roach.h"
+#include "Map.h"
 
 class RoachImp : public Roach
 {
@@ -15,7 +16,7 @@ class RoachImp : public Roach
     virtual bool isSick();
     virtual Color getColor();
 
-    void doMove(Move move, int w, int h);
+    void doMove(Move move, Map *map);
     void alter(bool sick, Antenna antenna);
     void update(Antenna antenna, bool sick);
 };

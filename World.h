@@ -69,7 +69,7 @@ class World
     virtual long long getTurnRemainingTime() = 0;
 
     /* game moves */
-    virtual void changeStrategy(Antenna t, int i, int j, int k, Move s) = 0;
+    virtual void changeStrategy(Antenna t, int left, int right, int front, Move s) = 0;
     virtual void deterministicMove(const Roach &roach, Move s) = 0;
     virtual void antennaChange(const Roach &roach) = 0;
 

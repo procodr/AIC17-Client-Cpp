@@ -1,3 +1,4 @@
+#include "Entity.h"
 #include "Game.h"
 #include "Slippers.h"
 #include "Trash.h"
@@ -203,7 +204,7 @@ void Game::handleTurnMessage(Message msg) {
                 if (move == Move::FORWARD)
                     map->delEntity(x, y, id);
 
-                roach->doMove(move, w, h);
+                roach->doMove(move, map);
 
                 if (move == Move::FORWARD)
                     map->addEntity(roach);
@@ -251,12 +252,12 @@ long long Game::getTotalTurnTime() {
     return this->turnTimeout;
 }
 
-void Game::changeStrategy(Antenna t, int i, int j, int k, Move s) {
+void Game::changeStrategy(Antenna t, int left, int right, int front, Move s) {
     GameEvent *ev = new GameEvent(Constants::TYPE_CHANGE_STRATEGY);
     ev->addArg(static_cast<int>(t));
-    ev->addArg(i);
-    ev->addArg(j);
-    ev->addArg(k);
+    ev->addArg(right);
+    ev->addArg(front);
+    ev->addArg(left);
     ev->addArg(static_cast<int>(s));
     eventHandler->addEvent(ev);
 }
@@ -298,14 +299,24 @@ void Game::insertEntity(Entity* entity) {
 }
 
 void Game::deleteEntity(int id) {
+	Entity* entity = entities[id];
+	EntityType type = entity->getEntityType();
 
 	std::cerr << "DEL : " << id << '\n';
 
 	if (entities[id] == NULL) {
 		std::cerr << 1/0 << std::endl;
 	}
-    Cell pos = entities[id]->getPos();
-    map->delEntity(pos.row, pos.col, id);
+
+	Cell pos = entities[id]->getPos();
+
+	std::cerr << "TYPE : " << int(type) << std::endl;
+
+    if (type == EntityType::SLIPPERS)
+    	map->delShadow(pos.row, pos.col);
+    else
+    	map->delEntity(pos.row, pos.col, id);
+
     entities.erase(id);
 }
 

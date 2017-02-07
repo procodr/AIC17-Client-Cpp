@@ -82,7 +82,7 @@ public:
 
     virtual long long getTurnRemainingTime();
 
-    virtual void changeStrategy(Antenna t, int i, int j, int k, Move s);
+    virtual void changeStrategy(Antenna t, int left, int right, int front, Move s);
 
     virtual void deterministicMove(const Roach &roach, Move s);
 
