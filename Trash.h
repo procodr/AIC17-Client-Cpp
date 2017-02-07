@@ -5,7 +5,8 @@
 
 class Trash : public Entity
 {
-    using Entity::Entity;
+    public:
+    	Trash(int id, Cell pos);
 };
 
 #endif /* TRASH_H */

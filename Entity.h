@@ -10,6 +10,7 @@ class Entity
   protected:
     int id;
     Cell pos;
+    EntityType entityType;
 
   public:
     Entity();
@@ -18,6 +19,7 @@ class Entity
 
     virtual int getId() const;
     virtual Cell getPos() const;
+    virtual EntityType getEntityType() const;
 };
 
 #endif /* ENTITY_H */

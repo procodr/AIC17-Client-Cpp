@@ -3,7 +3,7 @@
 #include <iostream>
 
 RoachImp::RoachImp(int id, Cell pos, Dir dir, Antenna antenna, Type type, bool sick, Color color)
-    : Roach(id, pos, dir, antenna, type, sick, color) {}
+    : Roach(id, pos, dir, antenna, type, sick, color) {this->entityType = EntityType::ROACH;}
 
 RoachImp::~RoachImp() {}
 

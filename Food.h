@@ -5,7 +5,8 @@
 
 class Food : public Entity
 {
-    using Entity::Entity;
+	public:
+		Food(int id, Cell pos);
 };
 
 #endif /* FOOD_H */
