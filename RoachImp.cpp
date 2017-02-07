@@ -41,9 +41,6 @@ void RoachImp::doMove(Move move, int w, int h){
 			this->dir = static_cast<Dir>( (static_cast<int>(this->dir) + 3) % 4);
 		break;
 		case Move::FORWARD:
-
-            std::cerr << "Trying to go forward" << std::endl;
-
             switch(this->dir){
 				case Dir::LEFT:
 					if(this->pos.col > 0)
@@ -63,9 +60,6 @@ void RoachImp::doMove(Move move, int w, int h){
 						this->pos.row = h - 1;
 				break;
 			}
-
-            std::cerr << "Going forward... done!" << std::endl;
-
 		break;
  	}
 }
