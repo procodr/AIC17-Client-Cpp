@@ -23,8 +23,6 @@ public:
     ~Queue();
     T pop();
     void push(T value);
-//    bool empty();
-//    int getSize();
 };
 
 #endif /* QUEUE_H_ */

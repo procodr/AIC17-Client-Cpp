@@ -14,18 +14,7 @@ EventHandler::EventHandler(Network *network)
 {
 	this->network = network;
 	new std::thread(&EventHandler::handling, this);
-//    isThreadCall = false;
 }
-//
-//bool EventHandler::getIsThreadCall()
-//{
-//	return isThreadCall;
-//}
-
-//std::thread * EventHandler::getThr()
-//{
-//	return thr;
-//}
 
 EventHandler::~EventHandler()
 {
@@ -33,21 +22,12 @@ EventHandler::~EventHandler()
 
 void EventHandler::handling()
 {
-//	while (events.getSize() != 0)
-//	{
-//		handleEvent(events.pop());
-//	}
-//	isThreadCall = false;
     while(true)
         handleEvent(events.pop());
 }
 
 void EventHandler::addEvent(GameEvent* event) {
 	events.push(event);
-//	if (!isThreadCall) {
-//		isThreadCall = true;
-//		thr = new std::thread(&EventHandler::handling,this);
-//	}
 }
 
 void EventHandler::handleEvent(GameEvent *eve)

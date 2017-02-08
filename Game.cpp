@@ -298,8 +298,6 @@ void Game::antennaChange(const Roach &roach) {
 void Game::insertEntity(Entity* entity) {
 	int id = entity->getId();
 
-//	std::cerr << "ADD : " << id << '\n';
-
 	entities.insert( { id, entity });
 
 	Sewer *sewer = dynamic_cast<Sewer *>(entity);
@@ -324,7 +322,7 @@ void Game::deleteEntity(int id) {
 	EntityType type = entity->getEntityType();
 
 	if (entities[id] == NULL) {
-		std::cerr << 1 / 0 << std::endl;
+		std::cerr << "Game::deleteEntity -> Couldn't find requested entity" << std::endl;
 	}
 
 	Cell pos = entities[id]->getPos();
