@@ -69,7 +69,7 @@ class World
     /* game moves */
     virtual void changeStrategy(Antenna t, int left, int right, int front, Move s) = 0;
     virtual void deterministicMove(const Roach &roach, Move s) = 0;
-    virtual void antennaChange(const Roach &roach) = 0;
+    virtual void antennaChange(const Roach &roach, Antenna c) = 0;
 
     /* get constants */
     virtual int getTurnTimeout() const = 0;

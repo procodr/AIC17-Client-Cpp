@@ -132,6 +132,7 @@ void Game::handleTurnMessage(Message msg) {
 	Json::UInt I = 0;
 
 	turn = argsArray[I++].asInt();
+	std::cerr << "Turn: " << turn << "\n";
 
 	Json::Value &scores = argsArray[I++];
 	score = std::make_pair(scores[0u].asInt(), scores[1u].asInt());
@@ -235,6 +236,14 @@ void Game::handleTurnMessage(Message msg) {
 			}
 		}
 	}
+					for(auto const &sourcee : entities)
+					{
+						Entity* source = sourcee.second;
+						if(source != NULL){
+						std::cerr << "Item: " << "[id]" << source->getId() << " [type]" << (int)source->getEntityType()
+						  << " [pos]{" << source->getPos().row << ", " << source->getPos().col << "}\n";
+						}
+					}
 }
 
 void Game::moveEntity(int id, int x, int y) {
@@ -289,9 +298,10 @@ void Game::deterministicMove(const Roach &roach, Move s) {
 	eventHandler->addEvent(ev);
 }
 
-void Game::antennaChange(const Roach &roach) {
+void Game::antennaChange(const Roach &roach, Antenna c) {
 	GameEvent *ev = new GameEvent(Constants::TYPE_ANTENNA_CHANGE);
 	ev->addArg(roach.getId());
+	ev->addArg(static_cast<int>(c));
 	eventHandler->addEvent(ev);
 }
 
@@ -333,6 +343,7 @@ void Game::deleteEntity(int id) {
 		map->delEntity(pos.row, pos.col, id);
 
 	entities.erase(id);
+	delete entity;
 }
 
 int Game::getTurnTimeout() const {

@@ -21,7 +21,7 @@ ${TARGET}: ${OBJECTS}
 	${CXX} ${FLAGS} -o ${TARGET} ${OBJECTS} ${LIBS}
 
 clean:
-	tmpfolder=`echo /tmp/CF-clean-$$$$.removed` && mkdir -p $$tmpfolder && touch a && mv -t $$tmpfolder/ a `for a in ${OBJECTS} ${TARGET} *~ base/*~ user/*~ ; do if [ -e $$a ]; then echo $$a; fi; done`
+		rm -rf *~ *.o ${TARGET} ${JSON_OBJECTS}
 
 .cpp.o:
 	${CXX} ${FLAGS} -c $< -o $@

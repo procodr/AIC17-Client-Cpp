@@ -2,6 +2,7 @@
 
 #include <ctime>
 #include <cstdlib>
+#include <iostream>
 
 void AI::doTurn(World *world)
 {

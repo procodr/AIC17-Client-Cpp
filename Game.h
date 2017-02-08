@@ -86,7 +86,7 @@ public:
 
     virtual void deterministicMove(const Roach &roach, Move s);
 
-    virtual void antennaChange(const Roach &roach);
+    virtual void antennaChange(const Roach &roach, Antenna c);
 
     void handleInitMessage(Message msg);
 
