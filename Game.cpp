@@ -40,6 +40,9 @@ Game::Game() {
 
 Game::~Game() {
 	delete map;
+    /* Soooo easy! :D */
+    for (auto it : entities) 
+        delete it.second;
 }
 
 void Game::setConstants(Json::Value &msg) {
