@@ -20,6 +20,8 @@ class EventHandler {
 	Parser parser;
 	Queue<GameEvent*> events;
 	Network *network;
+    bool alive;
+    std::thread *thread;
 public:
 	EventHandler(Network *network);
 	virtual ~EventHandler();

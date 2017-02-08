@@ -55,7 +55,7 @@ void Controller::start()
 		game = new Game();
 		client = new AI();
 		int counter = 0;
-		while (counter < 10 && network != NULL && !network->getIsConnected())
+		while (counter < 3 && network != NULL && !network->getIsConnected())
 		{
 			counter++;
 			std::cerr << "Trying to connect #" << counter << std::endl;
