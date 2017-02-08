@@ -6,8 +6,6 @@
 
 #include <vector>
 
-using namespace aic;
-
 class Map
 {
   public:

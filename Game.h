@@ -14,8 +14,6 @@
 #include "MapImp.h"
 #include "jsoncpp-src-0.5.0/include/json/json.h"
 
-using namespace aic;
-
 /**
  * Model contains data which describes current state of the game.
  * You do not need to read this class, it's internal implementation.

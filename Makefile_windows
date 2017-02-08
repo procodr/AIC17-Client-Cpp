@@ -23,6 +23,7 @@ ${TARGET}: ${OBJECTS}
 clean:
 	del *.o
 	del *.exe
+	del ${JSON_OBJECTS}
 
 .cpp.o:
 	${CXX} ${FLAGS} -c $< -o $@

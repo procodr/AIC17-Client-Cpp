@@ -5,9 +5,7 @@
 
 class Entity;
 
-namespace aic
-{
-typedef std::unordered_map<int, Entity*> EntityDict;
+typedef std::unordered_map<int, Entity> EntityDict;
 
 enum class Antenna
 {
@@ -60,8 +58,5 @@ struct Cell
 {
     int row, col;
 };
-
-/* end of namespace aic */
-}
 
 #endif /* AIC_TYPES */

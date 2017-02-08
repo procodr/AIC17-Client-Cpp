@@ -9,8 +9,6 @@
 
 #include <vector>
 
-using namespace aic;
-
 /**
  * Game Interface
  * At each turn, you are given an instance of the World, and you can call any of

@@ -6,8 +6,6 @@
 
 #include <utility>
 
-using namespace aic;
-
 class Roach : public Entity
 {
   public:

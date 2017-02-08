@@ -3,8 +3,6 @@
 
 #include "Types.h"
 
-using namespace aic;
-
 class Entity
 {
   protected:
