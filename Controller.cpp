@@ -66,12 +66,6 @@ void Controller::start()
 		}
 
 		std::cerr << "Connection Terminated" << std::endl;
-
-		delete eventHandler;
-		delete game;
-		delete client;
-		delete network;
-
 	}
 	catch (const char* str)
 	{
@@ -114,7 +108,8 @@ void Controller::doTurn()
 {
 	try
 	{
-		std::thread *thr = new std::thread(&Controller::run, this);
+		std::thread thr(&Controller::run, this);
+		thr.detach();
  	}
 	catch (...)
 	{
