@@ -291,14 +291,14 @@ void Game::changeStrategy(Antenna t, int left, int right, int front, Move s) {
 	eventHandler->addEvent(ev);
 }
 
-void Game::deterministicMove(const Roach &roach, Move s) {
+void Game::deterministicMove(Roach &roach, Move s) {
 	GameEvent *ev = new GameEvent(Constants::TYPE_DETERMINISTIC_MOVE);
 	ev->addArg(roach.getId());
 	ev->addArg(static_cast<int>(s));
 	eventHandler->addEvent(ev);
 }
 
-void Game::antennaChange(const Roach &roach, Antenna c) {
+void Game::antennaChange(Roach &roach, Antenna c) {
 	GameEvent *ev = new GameEvent(Constants::TYPE_ANTENNA_CHANGE);
 	ev->addArg(roach.getId());
 	ev->addArg(static_cast<int>(c));

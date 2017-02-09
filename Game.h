@@ -84,9 +84,9 @@ public:
 
     virtual void changeStrategy(Antenna t, int left, int right, int front, Move s);
 
-    virtual void deterministicMove(const Roach &roach, Move s);
+    virtual void deterministicMove(Roach &roach, Move s);
 
-    virtual void antennaChange(const Roach &roach, Antenna c);
+    virtual void antennaChange(Roach &roach, Antenna c);
 
     void handleInitMessage(Message msg);
 

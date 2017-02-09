@@ -14,8 +14,8 @@ void AI::doTurn(World *world)
 			for (int j = 0; j < 3; j += 1)
 	    		for (int k = 0; k < 3; k += 1)
 				{
-					world->changeStrategy(Antenna::SINGLE, i, j, k, static_cast<Move> (std::rand() % 3));
-					world->changeStrategy(Antenna::DOUBLE, i, j, k, static_cast<Move> (std::rand() % 3));
+					world->changeStrategy(Antenna::SINGLE, i, j, k, static_cast<Move> (1));
+					world->changeStrategy(Antenna::DOUBLE, i, j, k, static_cast<Move> (1));
 				}
     }
     else
