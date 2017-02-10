@@ -88,9 +88,9 @@ public:
 
     virtual void antennaChange(Roach &roach, Antenna c);
 
-    void handleInitMessage(Message msg);
+    void handleInitMessage(Message &msg);
 
-    void handleTurnMessage(Message msg);
+    void handleTurnMessage(Message &msg);
 
     int getTurnTimeout() const;
 

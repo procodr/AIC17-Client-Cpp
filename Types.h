@@ -5,6 +5,8 @@
 
 class Entity;
 
+typedef std::pair<int, Entity*> PIE;
+
 typedef std::unordered_map<int, Entity *> EntityDict;
 
 enum class Antenna
@@ -54,9 +56,11 @@ struct Size
     int w, h;
 };
 
-struct Cell
+class Cell
 {
+public:
     int row, col;
+    Cell(int row, int col) : row(row), col(col) {}
 };
 
 #endif /* AIC_TYPES */

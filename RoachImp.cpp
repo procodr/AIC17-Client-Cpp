@@ -36,10 +36,10 @@ void RoachImp::doMove(Move move, Map *map) {
 	int h = map->getSize().h;
 	switch (move) {
 	case Move::RIGHT:
-		this->dir = static_cast<Dir>((static_cast<int>(this->dir) + 1) % 4);
+		this->dir = static_cast<Dir>((static_cast<int>(this->dir) + 3) % 4);
 		break;
 	case Move::LEFT:
-		this->dir = static_cast<Dir>((static_cast<int>(this->dir) + 3) % 4);
+		this->dir = static_cast<Dir>((static_cast<int>(this->dir) + 1) % 4);
 		break;
 	case Move::FORWARD:
 		switch (this->dir) {
@@ -57,7 +57,7 @@ void RoachImp::doMove(Move move, Map *map) {
 			break;
 		case Dir::UP:
 			if (this->pos.row > 0)
-				this->pos.row = (this->pos.row - 1) % h;
+				this->pos.row = this->pos.row - 1;
 			else
 				this->pos.row = h - 1;
 			break;

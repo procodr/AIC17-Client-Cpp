@@ -1,3 +1,4 @@
+#include <iostream>
 #include "MapImp.h"
 
 MapImp::MapImp(Size size)
@@ -27,6 +28,10 @@ void MapImp::addEntity(Entity *entity) {
 }
 
 void MapImp::delEntity(int x, int y, int id) {
+	if(entityMap[x][y] == NULL) {
+		std::cerr << "entity for deleting doesn't exist!!\n";
+		return;
+	}
     if (entityMap[x][y]->getId() == id)
     	entityMap[x][y] = NULL;
 }

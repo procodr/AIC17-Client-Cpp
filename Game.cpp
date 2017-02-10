@@ -41,8 +41,10 @@ Game::Game() {
 Game::~Game() {
 	delete map;
     /* Soooo easy! :D */
-    for (auto it : entities) 
+    for (auto it : entities) {
+	    std::cerr << "trying to delete " << (int*)(it.second) << " from EntityDict\n";
         delete it.second;
+    }
 }
 
 void Game::setConstants(Json::Value &msg) {
@@ -67,9 +69,10 @@ void Game::setConstants(Json::Value &msg) {
 	this->disobeyNum = msg[18u].asInt();
 	this->foodValidTime = msg[19u].asInt();
 	this->trashValidTime = msg[20u].asInt();
+	this->totalTurns = msg[21u].asInt();
 }
 
-void Game::handleInitMessage(Message msg) {
+void Game::handleInitMessage(Message &msg) {
 	Json::Value &argsArray = msg.getArray("args");
 
 	Json::UInt I = 0;
@@ -83,6 +86,7 @@ void Game::handleInitMessage(Message msg) {
 	Json::Value &roachArray = argsArray[I++];
 
 	for (Json::UInt i = 0; i < roachArray.size(); i++) {
+		std::cerr << "Roach " << roachArray[i][0u].asInt() << " at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n";
 		this->insertEntity(
 				new RoachImp(roachArray[i][0u].asInt(),
 						{ roachArray[i][1u].asInt(), roachArray[i][2u].asInt() },
@@ -95,6 +99,7 @@ void Game::handleInitMessage(Message msg) {
 
 	Json::Value &foodArray = argsArray[I++];
 	for (int i = 0; i < (int) foodArray.size(); i++) {
+		std::cerr << "Food  at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n";
 		this->insertEntity(
 				new Food(foodArray[i][0u].asInt(), { foodArray[i][1u].asInt(),
 						foodArray[i][2u].asInt() }));
@@ -102,18 +107,21 @@ void Game::handleInitMessage(Message msg) {
 
 	Json::Value &trashArray = argsArray[I++];
 	for (int i = 0; i < (int) trashArray.size(); i++) {
+		std::cerr << "Trash at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n";
 		this->insertEntity(new Trash(trashArray[i][0u].asInt(), {
 				trashArray[i][1u].asInt(), trashArray[i][2u].asInt() }));
 	}
 
 	Json::Value &slippersArray = argsArray[I++];
 	for (int i = 0; i < (int) slippersArray.size(); i++) {
+		std::cerr << "Slipp at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n";
 		this->insertEntity(new Slippers(slippersArray[i][0u].asInt(), {
 				slippersArray[i][1u].asInt(), slippersArray[i][2u].asInt() }));
 	}
 
 	Json::Value &sewerArray = argsArray[I++];
 	for (int i = 0; i < (int) sewerArray.size(); i++) {
+		std::cerr << "Sewer at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n";
 		this->insertEntity(
 				new Sewer(sewerArray[i][0u].asInt(), {
 						sewerArray[i][1u].asInt(), sewerArray[i][2u].asInt() },
@@ -122,9 +130,25 @@ void Game::handleInitMessage(Message msg) {
 
 	Json::Value &constants = argsArray[I++];
 	this->setConstants(constants);
+
+	for (auto const &sourcee : entities) {
+		Entity* source = sourcee.second;
+		if (source != NULL) {
+			std::cerr << "Item:\t" << "[id]" << source->getId() << "\t[type]"
+					<< (int) source->getEntityType() << "\t[pos]{"
+					<< source->getPos().row << ", " << source->getPos().col
+					<< "}\t";
+			if (source->getEntityType() == EntityType::ROACH) {
+				RoachImp* roach = dynamic_cast<RoachImp*>(this->getEntity(
+						source->getId()));
+				std::cerr << (int) roach->getDirection();
+			}
+			std::cerr << "\n";
+		}
+	}
 }
 
-void Game::handleTurnMessage(Message msg) {
+void Game::handleTurnMessage(Message &msg) {
 	turnStartTime = getTimeInMilliSeconds();
 
 	Json::Value &argsArray = msg.getArray("args");
@@ -151,10 +175,12 @@ void Game::handleTurnMessage(Message msg) {
 				/* add */
 				int id = singleChange[I++].asInt();
 				EntityType type = static_cast<EntityType>(singleChange[I++].asInt());
-				Cell pos = { singleChange[I++].asInt(), singleChange[I++].asInt() };
+				int row = singleChange[I++].asInt();
+				int col = singleChange[I++].asInt();
+				Cell pos(row, col);
 
-				std::cerr << "ADD " << "[id]" << id << " [type]" << (int)type
-						  << " [pos]{" << pos.row << ", " << pos.col << "}\n";
+				std::cerr << "ADD\t" << "[id]" << id << "\t[type]" << (int)type
+						  << "\t[pos]{" << pos.row << ", " << pos.col << "}\n";
 
 				if (type == EntityType::ROACH) {
 					Dir dir = static_cast<Dir>(singleChange[I++].asInt());
@@ -178,25 +204,31 @@ void Game::handleTurnMessage(Message msg) {
 
 			} else if (changeType == "d") {
 				/* delete */
-				int id = singleChange[0u].asInt();
+				int id = singleChange[I++].asInt();
 				EntityType type = entities[id]->getEntityType();
 
-				std::cerr << "DEL " << "[id]" << id << " [type]" << (int)type
-						  << " [pos]{" << entities[id]->getPos().row << ", " << entities[id]->getPos().col << "}\n";
+				std::cerr << "DEL" << "\t[id]" << id << "\t[type]" << (int)type
+						  << "\t[pos]{" << entities[id]->getPos().row << ", " << entities[id]->getPos().col << "}\n";
 
 				this->deleteEntity(id);
 
 			} else if (changeType == "m") {
 				/* move */
-				int id = singleChange[0u].asInt();
+				int id = singleChange[I++].asInt();
 				EntityType type = entities[id]->getEntityType();
 
-				std::cerr << "MOVE " << "[id]" << id << " [type]" << (int)type
-						  << " [pos]{" << entities[id]->getPos().row << ", " << entities[id]->getPos().col << "}";
+				if(type != EntityType::ROACH) {
+					throw("move isn't valid for non-roach entities\n");
+				}
+
+				std::cerr << "MOVE\t" << "[id]" << id << "\t[type]" << (int)type
+						  << "\t[pos]{" << entities[id]->getPos().row << ", " << entities[id]->getPos().col << "}";
 
 				RoachImp* roach = dynamic_cast<RoachImp *>(this->getEntity(id));
 
 				Move move = static_cast<Move>(singleChange[1u].asInt());
+
+				std::cerr << " " << static_cast<int>(roach->getDirection()) << " " << static_cast<int>(move);
 
 				int x = roach->getPos().row;
 				int y = roach->getPos().col;
@@ -209,24 +241,28 @@ void Game::handleTurnMessage(Message msg) {
 				if (move == Move::FORWARD)
 					map->addEntity(roach);
 
-				 std::cerr << " [now]{" << entities[id]->getPos().row << ", " << entities[id]->getPos().col << "}\n";
+				 std::cerr << "\t[now]{" << entities[id]->getPos().row << ", " << entities[id]->getPos().col << "}\n";
 
 			} else if (changeType == "c") {
 				/* alter */
-				int id = singleChange[0u].asInt();
+				int id = singleChange[I++].asInt();
 				EntityType type = entities[id]->getEntityType();
 
-				std::cerr << "ALTER " << "[id]" << id << " [type]" << (int)type
-						  << " [pos]{" << entities[id]->getPos().row << ", " << entities[id]->getPos().col << "}\n";
+				if(type != EntityType::ROACH) {
+					throw("alter isn't valid for non-roach entities\n");
+				}
 
-				int x = singleChange[1u].asInt();
-				int y = singleChange[2u].asInt();
+				std::cerr << "ALTER\t" << "[id]" << id << "\t[type]" << (int)type
+						  << "\t[pos]{" << entities[id]->getPos().row << ", " << entities[id]->getPos().col << "}\n";
+
+				int x = singleChange[I++].asInt();
+				int y = singleChange[I++].asInt();
 				this->moveEntity(id, x, y);
 
 				Entity *entity = entities[id];
 				if (entity->getEntityType() == EntityType::ROACH) {
-					Antenna antenna = static_cast<Antenna>(singleChange[3u].asInt());
-					bool sick = singleChange[3u].asBool();
+					Antenna antenna = static_cast<Antenna>(singleChange[I++].asInt());
+					bool sick = singleChange[I++].asBool();
 					dynamic_cast<RoachImp *>(entity)->alter(sick, antenna);
 				}
 
@@ -236,14 +272,20 @@ void Game::handleTurnMessage(Message msg) {
 			}
 		}
 	}
-					for(auto const &sourcee : entities)
-					{
-						Entity* source = sourcee.second;
-						if(source != NULL){
-						std::cerr << "Item: " << "[id]" << source->getId() << " [type]" << (int)source->getEntityType()
-						  << " [pos]{" << source->getPos().row << ", " << source->getPos().col << "}\n";
-						}
-					}
+	for (auto const &sourcee : entities) {
+		Entity* source = sourcee.second;
+		if (source != NULL) {
+			std::cerr << "Item:\t" << "[id]" << source->getId() << "\t[type]"
+					<< (int) source->getEntityType() << "\t[pos]{"
+					<< source->getPos().row << ", " << source->getPos().col
+					<< "}\t";
+			if(source->getEntityType() == EntityType::ROACH) {
+				RoachImp* roach = dynamic_cast<RoachImp*>(this->getEntity(source->getId()));
+				std::cerr << (int)roach->getDirection();
+			}
+			std::cerr << "\n";
+		}
+	}
 }
 
 void Game::moveEntity(int id, int x, int y) {
@@ -308,7 +350,7 @@ void Game::antennaChange(Roach &roach, Antenna c) {
 void Game::insertEntity(Entity* entity) {
 	int id = entity->getId();
 
-	entities.insert( { id, entity });
+	entities.insert(PIE(id, entity));
 
 	Sewer *sewer = dynamic_cast<Sewer *>(entity);
 	Slippers *slippers = dynamic_cast<Slippers *>(entity);
