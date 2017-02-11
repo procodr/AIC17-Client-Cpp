@@ -1,5 +1,6 @@
 #include "Entity.h"
 #include "Game.h"
+#include "Teleport.h"
 #include "Slippers.h"
 #include "Trash.h"
 #include "Food.h"
@@ -145,7 +146,7 @@ void Game::handleInitMessage(Message &msg) {
 
 	Json::Value &foodArray = argsArray[I++];
 	for (int i = 0; i < (int) foodArray.size(); i++) {
-		CERR("Food  at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n");
+		CERR("Food at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n");
 		map->addEntity(
 				new Food(foodArray[i][0u].asInt(), { foodArray[i][1u].asInt(),
 						foodArray[i][2u].asInt() }));
@@ -160,18 +161,23 @@ void Game::handleInitMessage(Message &msg) {
 
 	Json::Value &slippersArray = argsArray[I++];
 	for (int i = 0; i < (int) slippersArray.size(); i++) {
-		CERR("Slipp at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n");
+		CERR("Slippers at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n");
 		map->addEntity(new Slippers(slippersArray[i][0u].asInt(), {
 				slippersArray[i][1u].asInt(), slippersArray[i][2u].asInt() }));
 	}
 
-	Json::Value &sewerArray = argsArray[I++];
-	for (int i = 0; i < (int) sewerArray.size(); i++) {
-		CERR("Sewer at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n");
+	Json::Value &teleportArray = argsArray[I++];
+	for (int i = 0; i < (int) teleportArray.size(); i++) {
+		CERR("Teleport at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n");
 		map->addEntity(
-				new Teleport(sewerArray[i][0u].asInt(), {
-						sewerArray[i][1u].asInt(), sewerArray[i][2u].asInt() },
-						sewerArray[i][3u].asInt()));
+				new Teleport(teleportArray[i][0u].asInt(), {
+						teleportArray[i][1u].asInt(), teleportArray[i][2u].asInt() },
+						teleportArray[i][3u].asInt()));
+	}
+	auto teleportCells = map->getTeleportCells();
+	for(auto cell : teleportCells) {
+		Teleport* pair = dynamic_cast<Teleport*>(map->getEntity(cell->getTeleport()->getPairId()));
+		cell->getTeleport()->setPair(pair);
 	}
 
 	Json::Value &constants = argsArray[I++];

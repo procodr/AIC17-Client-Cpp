@@ -7,6 +7,8 @@
 
 #include "Cell.h"
 #include "Entity.h"
+#include "Slippers.h"
+#include "Teleport.h"
 #include "Beetle.h"
 
 Cell::Cell(int row, int col) : row(row), col(col) {
@@ -39,14 +41,14 @@ Beetle* Cell::getBeetle() {
 	return dynamic_cast<Beetle*> (this->entity);
 }
 
-Entity* Cell::getSlipper() {
-	return this->entity;
+Slippers* Cell::getSlipper() {
+	return dynamic_cast<Slippers*> (this->entity);
 }
 
 Entity* Cell::getItem() {
 	return this->entity;
 }
 
-Entity* Cell::getTeleport() {
-	return this->entity;
+Teleport* Cell::getTeleport() {
+	return dynamic_cast<Teleport*> (this->entity);
 }

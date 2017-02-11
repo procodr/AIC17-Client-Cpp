@@ -5,13 +5,15 @@
 
 class Teleport: public Entity {
 public:
-	Teleport(int id, Cell pos, int destId);
+	Teleport(int id, Cell pos, int pairId);
 
-	int getDestId();
+	Teleport* getPair();
+	int getPairId();
+	void setPair(Teleport* pair);
 
 private:
-	int destId;
-
+	int pairId;
+	Teleport* pair;
 };
 
 #endif /* TELEPORT_H */

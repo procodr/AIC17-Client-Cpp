@@ -10,6 +10,8 @@
 
 class Entity;
 class Beetle;
+class Slippers;
+class Teleport;
 
 class Cell {
 	Entity* entity;
@@ -23,9 +25,9 @@ public:
 	void delEntity();
 
 	Beetle* getBeetle();
-	Entity* getSlipper();
+	Slippers* getSlipper();
 	Entity* getItem();
-	Entity* getTeleport();
+	Teleport* getTeleport();
 };
 
 #endif /* CELL_H_ */
