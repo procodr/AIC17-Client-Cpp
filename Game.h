@@ -5,14 +5,14 @@
 #include <utility>
 #include <unordered_map>
 
+#include "Cell.h"
 #include "World.h"
-#include "RoachImp.h"
 #include "Event.h"
 #include "EventHandler.h"
 #include "Entity.h"
 #include "Types.h"
-#include "MapImp.h"
-#include "jsoncpp-src-0.5.0/include/json/json.h"
+#include "Map.h"
+#include "Constants.h"
 
 /**
  * Model contains data which describes current state of the game.
@@ -30,109 +30,56 @@ private:
     std::pair<int, int> score;
 
     int myID;
-    MapImp *map;
-    EntityDict entities;
+    Map *map;
+//    EntityDict entities;
+//    EntityDict opp_entities;
+
+    Constants constants;
 
     int turnTimeout;
-    double foodProb;
-    double trashProb;
-    double netProb;
-    int netValidTime;
-    int colorCost;
-    int sickCost;
-    int updateCost;
-    int detMoveCost;
-    int killQueenScore;
-    int killBothQueenScore;
-    int killFishScore;
-    int queenCollisionScore;
-    int fishFoodScore;
-    int queenFoodScore;
-    int sickLifeTime;
-    double powerRatio;
-    double endRatio;
-    int disobeyNum;
-    int foodValidTime;
-    int trashValidTime;
 
     void setConstants(Json::Value &msg);
 
-    void insertEntity(Entity* entity);
+//    void insertEntity(Entity* entity);
+//
+//    void deleteEntity(int id);
 
-    void deleteEntity(int id);
-
-    void moveEntity(int id, int x, int y);
+//    void moveEntity(int id, int x, int y);
 
 public:
     Game();
 
     virtual ~Game();
 
-    virtual int getMyId();
+    virtual void changeStrategy(bool wing, CellState left, CellState right, CellState front, Move strategy);
 
-    virtual MapImp &getMap();
+    virtual void deterministicMove(Beetle &roach, Move strategy);
 
-    virtual Entity* getEntity(int id);
+    virtual void changeType(Beetle &roach, bool wing);
 
-    virtual int getTurnNumber();
+    virtual int getCurrentTurn();
 
-    virtual long long getTotalTurnTime();
-
-    virtual long long getTurnTimePassed();
+    virtual int getTotalTurns();
 
     virtual long long getTurnRemainingTime();
 
-    virtual void changeStrategy(Antenna t, int left, int right, int front, Move s);
+    virtual long long getTurnTotalTime();
 
-    virtual void deterministicMove(Roach &roach, Move s);
+    virtual int getTeamId();
 
-    virtual void antennaChange(Roach &roach, Antenna c);
+    virtual int getMyScore();
+
+    virtual int getOppScore();
+
+    Constants getConstants() const;
+
+    virtual Map* getMap();
+
+    long long getTurnTimePassed();
 
     void handleInitMessage(Message &msg);
 
     void handleTurnMessage(Message &msg);
-
-    int getTurnTimeout() const;
-
-    double getFoodProb() const;
-
-    double getTrashProb() const;
-
-    double getNetProb() const;
-
-    int getNetValidTime() const;
-
-    int getColorCost() const;
-
-    int getSickCost() const;
-
-    int getUpdateCost() const;
-
-    int getDetMoveCost() const;
-
-    int getKillQueenScore() const;
-
-    int getKillBothQueenScore() const;
-
-    int getKillFishScore() const;
-
-    int getQueenCollisionScore() const;
-
-    int getFishFoodScore() const;
-
-    int getQueenFoodScore() const;
-
-    int getSickLifeTime() const;
-
-    double getPowerRatio() const;
-
-    double getEndRatio() const;
-
-    int getDisobeyNum() const;
-
-    int getFoodValidTime() const;
-
-    int getTrashValidTime() const;
 };
 
 #endif /* GAME_H */

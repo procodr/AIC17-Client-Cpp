@@ -2,6 +2,7 @@
 #define ENTITY_H
 
 #include "Types.h"
+#include "Cell.h"
 
 class Entity
 {
@@ -9,17 +10,18 @@ class Entity
     int id;
     Cell pos;
     EntityType entityType;
+    int team_id;
 
   public:
     Entity();
     Entity(int id, Cell pos);
     virtual ~Entity();
 
-    virtual int getId() const;
-    virtual Cell getPos() const;
-    virtual EntityType getEntityType() const;
+    int getId() const;
+    Cell getPosition() const;
+    EntityType getType() const;
+    int getTeamId() const;
 
-    virtual void doMove(int x, int y);
 };
 
 #endif /* ENTITY_H */

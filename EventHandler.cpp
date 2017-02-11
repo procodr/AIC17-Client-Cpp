@@ -9,6 +9,7 @@
 #include "Parser.h"
 #include <chrono>
 #include <future>
+#include "Queue.h"
 
 EventHandler::EventHandler(Network* network) {
     this->network = network;

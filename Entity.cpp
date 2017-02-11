@@ -11,12 +11,12 @@ int Entity::getId() const
 	return this->id;
 }
 
-Cell Entity::getPos() const
+Cell Entity::getPosition() const
 {
 	return this->pos;
 }
 
-EntityType Entity::getEntityType() const
+EntityType Entity::getType() const
 {
     return this->entityType;
 }
@@ -26,8 +26,6 @@ inline bool operator == (const Entity& lhs, const Entity& rhs)
 	return lhs.getId() == rhs.getId();
 }
 
-void Entity::doMove(int x, int y)
-{
-	this->pos.row = x;
-	this->pos.col = y;
+int Entity::getTeamId() const {
+	return team_id;
 }

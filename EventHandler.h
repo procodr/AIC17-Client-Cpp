@@ -14,7 +14,7 @@
 #include "Parser.h"
 #include "Message.h"
 #include <vector>
-#include "Queue.cpp"
+#include "Queue.h"
 
 class EventHandler {
 	Parser parser;
