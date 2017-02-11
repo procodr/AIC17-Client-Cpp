@@ -1,6 +1,7 @@
 #include "Teleport.h"
 
-Teleport::Teleport(int id, Cell pos, int destId) : Entity(id, pos), destId(destId) {this->entityType = EntityType::TELEPORT;};
+Teleport::Teleport(int id, Cell pos, int destId) : Entity(id, pos, EntityType::TELEPORT), destId(destId) {
+}
 
 int Teleport::getDestId()
 {

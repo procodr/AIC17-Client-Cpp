@@ -1,8 +1,6 @@
 #include "Entity.h"
 
-Entity::Entity() : id(-1), pos({-1, -1}) {}
-
-Entity::Entity(int id, Cell pos) : id(id), pos(pos) {}
+Entity::Entity(int id, Cell pos, EntityType type) : id(id), pos(pos), entityType(type) {}
 
 Entity::~Entity() {};
 
@@ -24,8 +22,4 @@ EntityType Entity::getType() const
 inline bool operator == (const Entity& lhs, const Entity& rhs)
 {
 	return lhs.getId() == rhs.getId();
-}
-
-int Entity::getTeamId() const {
-	return team_id;
 }

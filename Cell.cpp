@@ -26,6 +26,7 @@ void Cell::delEntity() {
 	if(this->entity == nullptr)
 		return;
 	delete(this->entity);
+	this->entity = nullptr;
 }
 
 Entity* Cell::getEntity() {

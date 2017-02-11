@@ -19,6 +19,7 @@ class Beetle : public Entity
     BeetleType getBeetleType();
     bool has_wing();
     bool is_sick();
+    int getTeamId();
     
     void doMove(Move move, Size size);
     void alter(bool sick, bool wing);

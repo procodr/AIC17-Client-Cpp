@@ -132,7 +132,7 @@ void Game::handleInitMessage(Message &msg) {
 	Json::Value &roachArray = argsArray[I++];
 
 	for (Json::UInt i = 0; i < roachArray.size(); i++) {
-		CERR("Roach " << roachArray[i][0u].asInt() << " at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n");
+		CERR("Beetle " << roachArray[i][0u].asInt() << " at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n");
 		map->addEntity(
 				new Beetle(roachArray[i][0u].asInt(),
 						{ roachArray[i][1u].asInt(), roachArray[i][2u].asInt() },

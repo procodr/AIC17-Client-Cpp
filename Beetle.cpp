@@ -1,7 +1,8 @@
 #include "Beetle.h"
 
 Beetle::Beetle(int id, Cell pos, Direction dir, bool wing, BeetleType beetle_type, bool sick, int team_id)
-    : Entity(id, pos), dir(dir), wing(wing), sick(sick), beetle_type(beetle_type), team_id(team_id) {};
+    : Entity(id, pos, EntityType::BEETLE), dir(dir), wing(wing), sick(sick), beetle_type(beetle_type), team_id(team_id) {
+};
 
 BeetleType Beetle::getBeetleType() {
 	return this->beetle_type;
@@ -57,4 +58,8 @@ void Beetle::doMove(Move move, Size size) {
 void Beetle::alter(bool sick, bool wing) {
 	this->sick = sick;
 	this->wing = wing;
+}
+
+int Beetle::getTeamId() {
+	return team_id;
 }

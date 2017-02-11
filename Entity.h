@@ -10,18 +10,15 @@ class Entity
     int id;
     Cell pos;
     EntityType entityType;
-    int team_id;
 
   public:
-    Entity();
-    Entity(int id, Cell pos);
+//    Entity();
+    Entity(int id, Cell pos, EntityType type);
     virtual ~Entity();
 
     int getId() const;
     Cell getPosition() const;
     EntityType getType() const;
-    int getTeamId() const;
-
 };
 
 #endif /* ENTITY_H */

@@ -7,8 +7,11 @@
 Map::Map(Size size, int myId)
         : size(size), myId(myId) {
 	table = new Cell**[size.height];
-	for(int i = 0; i < size.height; i++)
+	for(int i = 0; i < size.height; i++) {
 		table[i] = new Cell*[size.width];
+		for(int j = 0; j < size.width; j++)
+			table[i][j] = new Cell(i, j);
+	}
 }
 
 Map::~Map() {
@@ -32,7 +35,7 @@ void Map::addEntity(Entity *entity) {
 	table[entity->getPosition().row][entity->getPosition().col]->setEntity(entity);
     switch(entity->getType()) {
     case EntityType::BEETLE:
-    	if(entity->getTeamId() == this->myId)
+    	if(dynamic_cast<Beetle*>(entity)->getTeamId() == this->myId)
     		this->myCells.push_back(table[entity->getPosition().row][entity->getPosition().col]);
     	else
     		this->oppCells.push_back(table[entity->getPosition().row][entity->getPosition().col]);
@@ -69,7 +72,7 @@ void Map::delEntity(int id) {
     	Entity* entity = table[x][y]->getEntity();
     	switch(entity->getType()) {
     	case EntityType::BEETLE:
-    		if(entity->getTeamId() == this->myId) {
+    		if(dynamic_cast<Beetle*>(entity)->getTeamId() == this->myId) {
     			for(int i = 0; i < (int)this->myCells.size(); i++)
     				if(myCells[i]->getEntity() == entity) {
     					myCells.erase(myCells.begin() + i);
