@@ -7,7 +7,9 @@ class Food : public Entity
 {
 	public:
 		Food(int id, Cell pos);
+		static int validTime;
 
+		int getRemainingTurns();
 
 };
 

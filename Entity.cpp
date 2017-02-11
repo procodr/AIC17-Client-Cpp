@@ -1,8 +1,12 @@
 #include "Entity.h"
 
-Entity::Entity(int id, Cell pos, EntityType type) : id(id), pos(pos), entityType(type) {}
+Entity::Entity(int id, Cell pos, EntityType type) :
+		id(id), pos(pos), entityType(type) {
+	creationTurn = globalTurn;
+}
 
-Entity::~Entity() {};
+Entity::~Entity() {
+}
 
 int Entity::getId() const
 {

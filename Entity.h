@@ -10,6 +10,7 @@ class Entity
     int id;
     Cell pos;
     EntityType entityType;
+    int creationTurn;
 
   public:
 //    Entity();

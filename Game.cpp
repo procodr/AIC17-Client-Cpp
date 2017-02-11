@@ -176,7 +176,6 @@ void Game::handleInitMessage(Message &msg) {
 
 	Json::Value &constants = argsArray[I++];
 	this->setConstants(constants);
-
 }
 
 void Game::handleTurnMessage(Message &msg) {

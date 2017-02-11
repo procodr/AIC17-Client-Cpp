@@ -7,7 +7,9 @@ class Slippers : public Entity
 {
     public:
     	Slippers(int id, Cell pos);
+    	static int validTime;
 
+    	int getRemainingTurns();
 };
 
 #endif /* SLIPPERS_H */

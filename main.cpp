@@ -10,6 +10,7 @@
 #include "Controller.h"
 
 bool globalVerbose = false;
+int globalTurn = 0;
 
 std::string argNames[4] = { "AICHostIP", "AICHostPort", "AICToken","AICRetryDelay"};
 std::string argDefaults[4] = { "127.0.0.1", "7099", "00000000000000000000000000000000", "1000" };

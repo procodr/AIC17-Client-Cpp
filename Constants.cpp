@@ -6,6 +6,9 @@
  */
 
 #include "Constants.h"
+#include "Food.h"
+#include "Slippers.h"
+#include "Trash.h"
 
 const std::string Constants::MESSAGE_KEY_TYPE = "type";
 const std::string Constants::MESSAGE_KEY_NAME = "name";
@@ -46,6 +49,10 @@ void Constants::setConstants(Json::Value &msg) {
 	this->disobeyConstant = msg[18u].asInt();
 	this->foodValidTime = msg[19u].asInt();
 	this->trashValidTime = msg[20u].asInt();
+
+	Food::validTime = this->foodValidTime;
+	Slippers::validTime = this->slipperValidTime;
+	Trash::validTime = this->trashValidTime;
 }
 
 

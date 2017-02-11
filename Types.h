@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+extern int globalTurn;
+
 class Entity;
 
 typedef std::pair<int, Entity*> PIE;
