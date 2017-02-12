@@ -46,9 +46,19 @@ Game::~Game() {
 void Game::changeStrategy(bool wing, CellState left, CellState right, CellState front, Move strategy) {
 	GameEvent *ev = new GameEvent(Constants::TYPE_CHANGE_STRATEGY);
 	ev->addArg(wing);
+
+	if(right != CellState::ALLY && right != CellState::ENEMY && right != CellState::BLANK)
+		std::cerr << "invalid strategy choosen from AI\n";
 	ev->addArg(static_cast<int>(right));
+
+	if(front != CellState::ALLY && front != CellState::ENEMY)
+		std::cerr << "invalid strategy choosen from AI\n";
 	ev->addArg(static_cast<int>(front));
+
+	if(left != CellState::ALLY && left != CellState::ENEMY && left != CellState::BLANK)
+		std::cerr << "invalid strategy choosen from AI\n";
 	ev->addArg(static_cast<int>(left));
+
 	ev->addArg(static_cast<int>(strategy));
 	eventHandler->addEvent(ev);
 }
