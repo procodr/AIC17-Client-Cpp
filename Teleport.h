@@ -5,7 +5,7 @@
 
 class Teleport: public Entity {
 public:
-	Teleport(int id, Cell pos, int pairId);
+	Teleport(int id, Cell* cell, int pairId);
 
 	Teleport* getPair();
 	int getPairId();

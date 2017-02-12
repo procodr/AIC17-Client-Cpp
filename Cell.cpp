@@ -10,6 +10,7 @@
 #include "Slippers.h"
 #include "Teleport.h"
 #include "Beetle.h"
+#include "util.h"
 
 Cell::Cell(int row, int col) : row(row), col(col) {
 	entity = nullptr;
@@ -21,6 +22,9 @@ Cell::~Cell() {
 }
 
 void Cell::setEntity(Entity* entity) {
+	if(this->entity != nullptr) {
+		CERR("possibility of memory leakage\n");
+	}
 	this->entity = entity;
 }
 
@@ -51,4 +55,9 @@ Entity* Cell::getItem() {
 
 Teleport* Cell::getTeleport() {
 	return dynamic_cast<Teleport*> (this->entity);
+}
+
+void Cell::setPosition(int row, int col) {
+	this->row = row;
+	this->col = col;
 }

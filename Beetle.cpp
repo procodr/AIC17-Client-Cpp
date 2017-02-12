@@ -1,7 +1,7 @@
 #include "Beetle.h"
 
-Beetle::Beetle(int id, Cell pos, Direction dir, bool wing, BeetleType beetle_type, bool sick, int team_id)
-    : Entity(id, pos, EntityType::BEETLE), dir(dir), wing(wing), sick(sick), beetle_type(beetle_type), team_id(team_id) {
+Beetle::Beetle(int id, Cell* cell, Direction dir, bool wing, BeetleType beetle_type, bool sick, int team_id)
+    : Entity(id, cell, EntityType::BEETLE), dir(dir), wing(wing), sick(sick), beetle_type(beetle_type), team_id(team_id) {
 };
 
 BeetleType Beetle::getBeetleType() {
@@ -33,22 +33,22 @@ void Beetle::doMove(Move move, Size size) {
 	case Move::FORWARD:
 		switch (this->dir) {
 		case Direction::LEFT:
-			if (this->pos.col > 0)
-				this->pos.col -= 1;
+			if (this->cell->col > 0)
+				this->cell->col -= 1;
 			else
-				this->pos.col = width - 1;
+				this->cell->col = width - 1;
 			break;
 		case Direction::DOWN:
-			this->pos.row = (this->pos.row + 1) % height;
+			this->cell->row = (this->cell->row + 1) % height;
 			break;
 		case Direction::RIGHT:
-			this->pos.col = (this->pos.col + 1) % width;
+			this->cell->col = (this->cell->col + 1) % width;
 			break;
 		case Direction::UP:
-			if (this->pos.row > 0)
-				this->pos.row = this->pos.row - 1;
+			if (this->cell->row > 0)
+				this->cell->row = this->cell->row - 1;
 			else
-				this->pos.row = height - 1;
+				this->cell->row = height - 1;
 			break;
 		}
 		break;
@@ -62,4 +62,12 @@ void Beetle::alter(bool sick, bool wing) {
 
 int Beetle::getTeamId() {
 	return team_id;
+}
+
+void Beetle::setSick(bool sick) {
+	this->sick = sick;
+}
+
+void Beetle::setWing(bool wing) {
+	this->wing = wing;
 }

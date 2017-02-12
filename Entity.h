@@ -8,18 +8,22 @@ class Entity
 {
   protected:
     int id;
-    Cell pos;
+    Cell* cell;
     EntityType entityType;
     int creationTurn;
 
   public:
 //    Entity();
-    Entity(int id, Cell pos, EntityType type);
+    Entity(int id, Cell* cell, EntityType type);
     virtual ~Entity();
 
     int getId() const;
-    Cell getPosition() const;
+    Cell* getPosition() const;
     EntityType getType() const;
+
+    Cell* getCell() const;
+
+    void setPosition(int row, int col);
 };
 
 #endif /* ENTITY_H */

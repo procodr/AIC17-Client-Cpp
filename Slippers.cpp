@@ -2,8 +2,8 @@
 
 int Slippers::validTime;
 
-Slippers::Slippers(int id, Cell pos)
-    : Entity(id, pos, EntityType::SLIPPERS) {
+Slippers::Slippers(int id, Cell* cell)
+    : Entity(id, cell, EntityType::SLIPPERS) {
 }
 
 int Slippers::getRemainingTurns() {

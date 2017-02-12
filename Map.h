@@ -37,13 +37,13 @@ class Map
     void addEntity(Entity *entity);
 
     void moveEntity(int id, Move move);
-    void moveEntity(int id, int x, int y, bool wing, bool sick);
+    void moveEntity(int id, int row, int col, bool wing, bool sick);
 
     void delEntity(int id);
 private:
     Size size;
     int myId;
-    Cell*** table;
+//    Cell*** table;
     std::map<int, Entity *> allEntities;
     std::vector<Cell *> myCells;
     std::vector<Cell *> oppCells;

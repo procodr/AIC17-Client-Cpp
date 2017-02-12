@@ -28,6 +28,8 @@ public:
 	Slippers* getSlipper();
 	Entity* getItem();
 	Teleport* getTeleport();
+
+	void setPosition(int row, int col);
 };
 
 #endif /* CELL_H_ */

@@ -71,6 +71,9 @@ void Controller::start()
 	{
 		std::cerr << str << std::endl;
 	}
+	catch (std::string &str) {
+		std::cerr << str << std::endl;
+	}
 }
 
 void Controller::handleMessage(Message &msg)

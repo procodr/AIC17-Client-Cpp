@@ -130,48 +130,48 @@ void Game::handleInitMessage(Message &msg) {
 	Size size = { sizeArray[0u].asInt(), sizeArray[1u].asInt() };
 	map = new Map(size, myID);
 
-	Json::Value &roachArray = argsArray[I++];
+	Json::Value &beetleArray = argsArray[I++];
 
-	for (Json::UInt i = 0; i < roachArray.size(); i++) {
-		CERR("Beetle " << roachArray[i][0u].asInt() << " at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n");
+	for (Json::UInt i = 0; i < beetleArray.size(); i++) {
+		CERR("Beetle " << beetleArray[i][0u].asInt() << " at\t" << beetleArray[i][1u].asInt() << ", " << beetleArray[i][2u].asInt() << "\n");
 		map->addEntity(
-				new Beetle(roachArray[i][0u].asInt(),
-						{ roachArray[i][1u].asInt(), roachArray[i][2u].asInt() },
-						static_cast<Direction>(roachArray[i][3u].asInt()),
-						roachArray[i][4u].asBool(),
-						static_cast<BeetleType>(roachArray[i][5u].asInt()),
-						roachArray[i][6u].asBool(),
-						roachArray[i][7u].asInt()));
+				new Beetle(beetleArray[i][0u].asInt(),
+						new Cell(beetleArray[i][1u].asInt(), beetleArray[i][2u].asInt()),
+						static_cast<Direction>(beetleArray[i][3u].asInt()),
+						beetleArray[i][4u].asBool(),
+						static_cast<BeetleType>(beetleArray[i][5u].asInt()),
+						beetleArray[i][6u].asBool(),
+						beetleArray[i][7u].asInt()));
 	}
 
 	Json::Value &foodArray = argsArray[I++];
 	for (int i = 0; i < (int) foodArray.size(); i++) {
-		CERR("Food at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n");
+		CERR("Food at\t\t" << foodArray[i][1u].asInt() << ", " << foodArray[i][2u].asInt() << "\n");
 		map->addEntity(
-				new Food(foodArray[i][0u].asInt(), { foodArray[i][1u].asInt(),
-						foodArray[i][2u].asInt() }));
+				new Food(foodArray[i][0u].asInt(), new Cell(foodArray[i][1u].asInt(),
+						foodArray[i][2u].asInt())));
 	}
 
 	Json::Value &trashArray = argsArray[I++];
 	for (int i = 0; i < (int) trashArray.size(); i++) {
-		CERR("Trash at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n");
-		map->addEntity(new Trash(trashArray[i][0u].asInt(), {
-				trashArray[i][1u].asInt(), trashArray[i][2u].asInt() }));
+		CERR("Trash at\t" << trashArray[i][1u].asInt() << ", " << trashArray[i][2u].asInt() << "\n");
+		map->addEntity(new Trash(trashArray[i][0u].asInt(), new Cell(
+				trashArray[i][1u].asInt(), trashArray[i][2u].asInt())));
 	}
 
 	Json::Value &slippersArray = argsArray[I++];
 	for (int i = 0; i < (int) slippersArray.size(); i++) {
-		CERR("Slippers at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n");
-		map->addEntity(new Slippers(slippersArray[i][0u].asInt(), {
-				slippersArray[i][1u].asInt(), slippersArray[i][2u].asInt() }));
+		CERR("Slippers at\t" << slippersArray[i][1u].asInt() << ", " << slippersArray[i][2u].asInt() << "\n");
+		map->addEntity(new Slippers(slippersArray[i][0u].asInt(), new Cell(
+				slippersArray[i][1u].asInt(), slippersArray[i][2u].asInt())));
 	}
 
 	Json::Value &teleportArray = argsArray[I++];
 	for (int i = 0; i < (int) teleportArray.size(); i++) {
-		CERR("Teleport at\t" << roachArray[i][1u].asInt() << ", " << roachArray[i][2u].asInt() << "\n");
+		CERR("Teleport at\t" << teleportArray[i][1u].asInt() << ", " << teleportArray[i][2u].asInt() << "\n");
 		map->addEntity(
-				new Teleport(teleportArray[i][0u].asInt(), {
-						teleportArray[i][1u].asInt(), teleportArray[i][2u].asInt() },
+				new Teleport(teleportArray[i][0u].asInt(), new Cell(
+						teleportArray[i][1u].asInt(), teleportArray[i][2u].asInt()),
 						teleportArray[i][3u].asInt()));
 	}
 	auto teleportCells = map->getTeleportCells();
@@ -213,21 +213,22 @@ void Game::handleTurnMessage(Message &msg) {
 				EntityType type = static_cast<EntityType>(singleChange[I++].asInt());
 				int row = singleChange[I++].asInt();
 				int col = singleChange[I++].asInt();
-				Cell pos(row, col);
+				Cell* newCell = new Cell(row, col);
 
+				CERR("ADD\t" << id << "\t" << row << ", " << col << "\n");
 				if (type == EntityType::BEETLE) {
 					Direction dir = static_cast<Direction>(singleChange[I++].asInt());
 					bool wing = singleChange[I++].asBool();
 					BeetleType type = static_cast<BeetleType>(singleChange[I++].asInt());
 					bool sick = singleChange[I++].asBool();
 					int team_id = singleChange[I++].asInt();
-					map->addEntity(new Beetle(id, pos, dir, wing, type, sick, team_id));
+					map->addEntity(new Beetle(id, newCell, dir, wing, type, sick, team_id));
 				} else if (type == EntityType::FOOD) {
-					map->addEntity(new Food(id, pos));
+					map->addEntity(new Food(id, newCell));
 				} else if (type == EntityType::SLIPPERS) {
-					map->addEntity(new Slippers(id, pos));
+					map->addEntity(new Slippers(id, newCell));
 				} else if (type == EntityType::TRASH) {
-					map->addEntity(new Trash(id, pos));
+					map->addEntity(new Trash(id, newCell));
 				} else {
 					throw("unknown entity type");
 				}
@@ -235,13 +236,15 @@ void Game::handleTurnMessage(Message &msg) {
 			} else if (changeType == "d") {
 				/* delete */
 				int id = singleChange[I++].asInt();
+				CERR("DEL\t" << id << "\n");
 
 				map->delEntity(id);
 
 			} else if (changeType == "m") {
 				/* move */
 				int id = singleChange[I++].asInt();
-				Move move = static_cast<Move>(singleChange[1u].asInt());
+				CERR("MOV\t" << id << "\n");
+				Move move = static_cast<Move>(singleChange[I++].asInt());
 
 				map->moveEntity(id, move);
 
@@ -253,6 +256,7 @@ void Game::handleTurnMessage(Message &msg) {
 				int y = singleChange[I++].asInt();
 				bool wing = singleChange[I++].asBool();
 				bool sick = singleChange[I++].asBool();
+				CERR("ALT\t" << id << "\t" << x << ", " << y << "\t" << wing << " " << sick << "\n");
 				map->moveEntity(id, x, y, wing, sick);
 			} else {
 				/* error */

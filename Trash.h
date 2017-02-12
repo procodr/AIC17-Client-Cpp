@@ -6,7 +6,7 @@
 class Trash : public Entity
 {
     public:
-    	Trash(int id, Cell pos);
+    	Trash(int id, Cell* cell);
     	static int validTime;
 
     	int getRemainingTurns();

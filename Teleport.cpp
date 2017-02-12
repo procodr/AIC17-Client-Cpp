@@ -1,6 +1,6 @@
 #include "Teleport.h"
 
-Teleport::Teleport(int id, Cell pos, int pairId) : Entity(id, pos, EntityType::TELEPORT), pairId(pairId) {
+Teleport::Teleport(int id, Cell* cell, int pairId) : Entity(id, cell, EntityType::TELEPORT), pairId(pairId) {
 	pair = nullptr;
 }
 

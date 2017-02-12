@@ -2,8 +2,8 @@
 
 int Food::validTime;
 
-Food::Food(int id, Cell pos) :
-		Entity(id, pos, EntityType::FOOD) {
+Food::Food(int id, Cell* cell) :
+		Entity(id, cell, EntityType::FOOD) {
 }
 
 int Food::getRemainingTurns() {

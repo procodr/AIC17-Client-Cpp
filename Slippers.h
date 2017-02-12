@@ -6,7 +6,7 @@
 class Slippers : public Entity
 {
     public:
-    	Slippers(int id, Cell pos);
+    	Slippers(int id, Cell* cell);
     	static int validTime;
 
     	int getRemainingTurns();

@@ -9,7 +9,7 @@
 class Beetle : public Entity
 {
   public:
-    Beetle(int id, Cell pos, Direction dir, bool wing, BeetleType beetle_type, bool sick, int team_id);
+    Beetle(int id, Cell* pos, Direction dir, bool wing, BeetleType beetle_type, bool sick, int team_id);
     virtual ~Beetle() {};
 
     /* Use these to get information about your fellow cockroaches! */
@@ -21,6 +21,9 @@ class Beetle : public Entity
     bool is_sick();
     int getTeamId();
     
+    void setSick(bool sick);
+    void setWing(bool wing);
+
     void doMove(Move move, Size size);
     void alter(bool sick, bool wing);
 

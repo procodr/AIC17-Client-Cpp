@@ -2,8 +2,8 @@
 
 int Trash::validTime;
 
-Trash::Trash(int id, Cell pos)
-    : Entity(id, pos, EntityType::TRASH) {
+Trash::Trash(int id, Cell* cell)
+    : Entity(id, cell, EntityType::TRASH) {
 }
 
 int Trash::getRemainingTurns() {
