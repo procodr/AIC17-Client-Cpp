@@ -55,7 +55,7 @@ void Controller::start()
 		game = new Game();
 		client = new AI();
 		int counter = 0;
-		while (counter < 10 && network != NULL && !network->getIsConnected())
+		while (counter < 3 && network != NULL && !network->getIsConnected())
 		{
 			counter++;
 			std::cerr << "Trying to connect #" << counter << std::endl;
@@ -66,15 +66,12 @@ void Controller::start()
 		}
 
 		std::cerr << "Connection Terminated" << std::endl;
-
-		delete eventHandler;
-		delete game;
-		delete client;
-		delete network;
-
 	}
 	catch (const char* str)
 	{
+		std::cerr << str << std::endl;
+	}
+	catch (std::string &str) {
 		std::cerr << str << std::endl;
 	}
 }
@@ -114,7 +111,8 @@ void Controller::doTurn()
 {
 	try
 	{
-		std::thread *thr = new std::thread(&Controller::run, this);
+		std::thread thr(&Controller::run, this);
+		thr.detach();
  	}
 	catch (...)
 	{

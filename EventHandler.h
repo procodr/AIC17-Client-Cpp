@@ -14,21 +14,19 @@
 #include "Parser.h"
 #include "Message.h"
 #include <vector>
-#include "Queue.cpp"
+#include "Queue.h"
 
 class EventHandler {
 	Parser parser;
-//	bool isThreadCall;
-//	std::thread* thr;
 	Queue<GameEvent*> events;
 	Network *network;
+    bool alive;
+    std::thread *thread;
 public:
 	EventHandler(Network *network);
 	virtual ~EventHandler();
 	void handleEvent(GameEvent* eve);
 	void handling();
-//	bool getIsThreadCall();
-//	std::thread* getThr();
 	void addEvent(GameEvent *event);
 };
 

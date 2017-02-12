@@ -5,7 +5,12 @@
 
 class Food : public Entity
 {
-    using Entity::Entity;
+	public:
+		Food(int id, Cell* cell);
+		static int validTime;
+
+		int getRemainingTurns();
+
 };
 
 #endif /* FOOD_H */

@@ -5,7 +5,11 @@
 
 class Slippers : public Entity
 {
-    using Entity::Entity;
+    public:
+    	Slippers(int id, Cell* cell);
+    	static int validTime;
+
+    	int getRemainingTurns();
 };
 
 #endif /* SLIPPERS_H */

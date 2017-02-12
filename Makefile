@@ -1,9 +1,9 @@
 CXX = g++ -std=c++11
 JSONPATH = jsoncpp-src-0.5.0/include
-FLAGS = -Wall -L/usr/local/lib -Wl,-rpath=/usr/local/lib -I$(JSONPATH)
-LIBS = -lpthread -lws2_32 -lwinmm
+FLAGS = -Wall -L/usr/local/lib -Wl,-rpath,/usr/local/lib -I$(JSONPATH) -g
+LIBS = -lpthread
 
-TARGET = swarm.exe
+TARGET = swarm.out
 
 JSON_OBJECTS = jsoncpp-src-0.5.0/src/lib_json/json_reader.o \
 	       jsoncpp-src-0.5.0/src/lib_json/json_value.o \
@@ -21,9 +21,7 @@ ${TARGET}: ${OBJECTS}
 	${CXX} ${FLAGS} -o ${TARGET} ${OBJECTS} ${LIBS}
 
 clean:
-	del *.o
-	del *.exe
-	del ${JSON_OBJECTS}
+		rm -rf *~ *.o ${TARGET} ${JSON_OBJECTS}
 
 .cpp.o:
 	${CXX} ${FLAGS} -c $< -o $@

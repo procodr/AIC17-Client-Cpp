@@ -5,7 +5,11 @@
 
 class Trash : public Entity
 {
-    using Entity::Entity;
+    public:
+    	Trash(int id, Cell* cell);
+    	static int validTime;
+
+    	int getRemainingTurns();
 };
 
 #endif /* TRASH_H */

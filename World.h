@@ -1,15 +1,15 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+#include "Constants.h"
 #include "Map.h"
 #include "Types.h"
-#include "Sewer.h"
-#include "Roach.h"
 #include "Entity.h"
 
 #include <vector>
 
-using namespace aic;
+#include "Beetle.h"
+#include "Teleport.h"
 
 /**
  * Game Interface
@@ -23,43 +23,47 @@ class World
   public:
     virtual ~World() {};
 
+    /* game moves */
     /**
-	 * get ID of your team. it will be useful when you want to check if a node is yours or not.
-	 *
-	 * @return ID of your team
-	 */
-    virtual int getMyId() = 0;
+     * Changing the strategy of the roachs with the given antenna type
+     *
+     * @param t Antenna type of the roach (0 for single antenna and 1 for double antenna)
+     * @param left Condition of the top-left neighbour
+     * @param right Condition of the top-right neighbour
+     * @param front Condition of the front
+     * @param s The command given to the roach (You can check Move in types)
+     */
+    virtual void changeStrategy(bool wing, CellState left, CellState right, CellState front, Move strategy) = 0;
+
 
     /**
-	 * get map of the game.
-	 *
-	 * @return a Map that represents the game board.
-	 */
-    virtual Map &getMap() = 0;
+     * Give command to a specific Beetle with the given id
+     *
+     * @param id Beetle id
+     * @param s The command given to the roach of Move type
+     */
+    virtual void deterministicMove(Beetle &roach, Move strategy) = 0;
 
-    /* get entity by id */
-    virtual Entity &getEntity(int id) = 0;
+    /**
+     * Changes antenna type of the given roach
+     *
+     * @param roach Roach type
+     * @param c Antenna type
+     */
+    virtual void changeType(Beetle &roach, bool wing) = 0;
 
     /**
 	 * number of turns that passed as long as game started.
 	 *
 	 * @return turn number
 	 */
-    virtual int getTurnNumber() = 0;
+    virtual int getCurrentTurn() = 0;
 
     /**
-	 * get time limit of each turn.
 	 *
-	 * @return total turn time (ms)
+	 * @return Amount of all turns
 	 */
-    virtual long long getTotalTurnTime() = 0;
-
-    /**
-	 * get time passed from when the last turn is started.
-	 *
-	 * @return turn time passed (ms)
-	 */
-    virtual long long getTurnTimePassed() = 0;
+	virtual int getTotalTurns() = 0;
 
     /**
 	 * get the remaining time of the current turn.
@@ -68,53 +72,44 @@ class World
 	 */
     virtual long long getTurnRemainingTime() = 0;
 
-    /* game moves */
-    virtual void changeStrategy(Antenna t, int i, int j, int k, Move s) = 0;
-    virtual void deterministicMove(const Roach &roach, Move s) = 0;
-    virtual void antennaChange(const Roach &roach) = 0;
+    /**
+	 * get time limit of each turn.
+	 *
+	 * @return total turn time (ms)
+	 */
+    virtual long long getTurnTotalTime() = 0;
 
-    /* get constants */
-    virtual int getTurnTimeout() const = 0;
+    /**
+	 * get ID of your team. it will be useful when you want to check if a node is yours or not.
+	 *
+	 * @return ID of your team
+	 */
+    virtual int getTeamId() = 0;
 
-    virtual double getFoodProb() const = 0;
+	/**
+	 *
+	 * @return get score of team
+	 */
+	virtual int getMyScore() = 0;
 
-    virtual double getTrashProb() const = 0;
+	/**
+	 *
+	 * @return get score of opponent team
+	 */
+	virtual int getOppScore() = 0;
 
-    virtual double getNetProb() const = 0;
+	/**
+	 *
+	 * @return get constants
+	 */
+	virtual Constants getConstants() const = 0;
 
-    virtual int getNetValidTime() const = 0;
-
-    virtual int getColorCost() const = 0;
-
-    virtual int getSickCost() const = 0;
-
-    virtual int getUpdateCost() const = 0;
-
-    virtual int getDetMoveCost() const = 0;
-
-    virtual int getKillQueenScore() const = 0;
-
-    virtual int getKillBothQueenScore() const = 0;
-
-    virtual int getKillFishScore() const = 0;
-
-    virtual int getQueenCollisionScore() const = 0;
-
-    virtual int getFishFoodScore() const = 0;
-
-    virtual int getQueenFoodScore() const = 0;
-
-    virtual int getSickLifeTime() const = 0;
-
-    virtual double getPowerRatio() const = 0;
-
-    virtual double getEndRatio() const = 0;
-
-    virtual int getDisobeyNum() const = 0;
-
-    virtual int getFoodValidTime() const = 0;
-
-    virtual int getTrashValidTime() const = 0;
+	/**
+	 * get map of the game.
+	 *
+	 * @return a Map that represents the game board.
+	 */
+    virtual Map* getMap() = 0;
 };
 
 #endif /* WORLD_H */

@@ -2,22 +2,28 @@
 #define ENTITY_H
 
 #include "Types.h"
-
-using namespace aic;
+#include "Cell.h"
 
 class Entity
 {
   protected:
     int id;
-    Cell pos;
+    Cell* cell;
+    EntityType entityType;
+    int creationTurn;
 
   public:
-    Entity();
-    Entity(int id, Cell pos);
+//    Entity();
+    Entity(int id, Cell* cell, EntityType type);
     virtual ~Entity();
 
-    virtual int getId() const;
-    virtual Cell getPos() const;
+    int getId() const;
+    Cell* getPosition() const;
+    EntityType getType() const;
+
+    Cell* getCell() const;
+
+    void setPosition(int row, int col);
 };
 
 #endif /* ENTITY_H */

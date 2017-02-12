@@ -11,3 +11,5 @@
 .idea/*
 cmake*
 CMake*
+.project
+.cproject

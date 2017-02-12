@@ -168,7 +168,7 @@ void Network::terminate() {
 
 Network::~Network() {
 	terminate();
-// TODO Auto-generated destructor stub
+	clearPacket();
 }
 
 bool Network::getIsConnected() {

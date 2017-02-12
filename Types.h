@@ -1,58 +1,66 @@
 #ifndef AIC_TYPES
 #define AIC_TYPES
 
-#include <unordered_map>
+#include <iostream>
+
+extern int globalTurn;
 
 class Entity;
 
-namespace aic
-{
-typedef std::unordered_map<int, Entity> EntityDict;
+typedef std::pair<int, Entity*> PIE;
 
-enum class Antenna
+//enum class Antenna
+//{
+//    SINGLE = 0,
+//    DOUBLE
+//};
+
+enum class BeetleType
 {
-    SINGLE,
-    DOUBLE
+    LOW = 0,
+    HGIGH
 };
 
-enum class Type
-{
-    WINGED,
-    NORMAL
-};
+//enum class BeetleColor
+//{
+//    BRIGHT = 0,
+//    BROWN
+//};
 
-enum class Color
+enum class Direction
 {
-    BRIGHT,
-    BROWN
-};
-
-enum class Dir
-{
-    LEFT,
+    RIGHT = 0,
     UP,
-    RIGHT,
+    LEFT,
     DOWN
 };
 
 enum class Move
 {
-    RIGHT,
+    RIGHT = 0,
     FORWARD,
     LEFT
 };
 
+enum class EntityType
+{
+	BEETLE = 0,
+	FOOD,
+	TRASH, 
+	SLIPPERS,
+    TELEPORT
+};
+
+enum class CellState {
+	ALLY = 0,
+	ENEMY,
+	BLANK
+};
+
 struct Size
 {
-    int w, h;
+    int width, height;
 };
 
-struct Cell
-{
-    int x, y;
-};
-
-/* end of namespace aic */
-}
 
 #endif /* AIC_TYPES */

@@ -368,3 +368,4 @@ int Game::getFoodValidTime() const {
 int Game::getTrashValidTime() const {
     return trashValidTime;
 }
+

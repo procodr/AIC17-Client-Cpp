@@ -19,12 +19,20 @@ private:
     std::queue<T> queue_;
     std::condition_variable cv;
 public:
-    Queue();
-    ~Queue();
-    T pop();
-    void push(T value);
-//    bool empty();
-//    int getSize();
+    Queue() {}
+    ~Queue() {}
+    T pop() {
+		std::unique_lock<std::mutex> lock(mutex_);
+		cv.wait(lock, [&]() {return !queue_.empty();});
+		T value = queue_.front();
+		queue_.pop();
+		return value;
+    }
+    void push(T value) {
+    	std::unique_lock<std::mutex> lock(mutex_);
+    	queue_.push(value);
+    	cv.notify_one();
+    }
 };
 
 #endif /* QUEUE_H_ */
