@@ -146,7 +146,7 @@ void Game::handleInitMessage(Message &msg) {
 
 	Json::Value &foodArray = argsArray[I++];
 	for (int i = 0; i < (int) foodArray.size(); i++) {
-		CERR("Food at\t\t" << foodArray[i][1u].asInt() << ", " << foodArray[i][2u].asInt() << "\n");
+		CERR("Food at\t\t" << foodArray[i][0u].asInt() << "\t" << foodArray[i][1u].asInt() << ", " << foodArray[i][2u].asInt() << "\n");
 		map->addEntity(
 				new Food(foodArray[i][0u].asInt(), new Cell(foodArray[i][1u].asInt(),
 						foodArray[i][2u].asInt())));
@@ -154,21 +154,21 @@ void Game::handleInitMessage(Message &msg) {
 
 	Json::Value &trashArray = argsArray[I++];
 	for (int i = 0; i < (int) trashArray.size(); i++) {
-		CERR("Trash at\t" << trashArray[i][1u].asInt() << ", " << trashArray[i][2u].asInt() << "\n");
+		CERR("Trash at\t" << trashArray[i][0u].asInt() << "\t" << trashArray[i][1u].asInt() << ", " << trashArray[i][2u].asInt() << "\n");
 		map->addEntity(new Trash(trashArray[i][0u].asInt(), new Cell(
 				trashArray[i][1u].asInt(), trashArray[i][2u].asInt())));
 	}
 
 	Json::Value &slippersArray = argsArray[I++];
 	for (int i = 0; i < (int) slippersArray.size(); i++) {
-		CERR("Slippers at\t" << slippersArray[i][1u].asInt() << ", " << slippersArray[i][2u].asInt() << "\n");
+		CERR("Slippers at\t" << slippersArray[i][0u].asInt() << "\t" << slippersArray[i][1u].asInt() << ", " << slippersArray[i][2u].asInt() << "\n");
 		map->addEntity(new Slippers(slippersArray[i][0u].asInt(), new Cell(
 				slippersArray[i][1u].asInt(), slippersArray[i][2u].asInt())));
 	}
 
 	Json::Value &teleportArray = argsArray[I++];
 	for (int i = 0; i < (int) teleportArray.size(); i++) {
-		CERR("Teleport at\t" << teleportArray[i][1u].asInt() << ", " << teleportArray[i][2u].asInt() << "\n");
+		CERR("Teleport at\t" << teleportArray[i][0u].asInt() << "\t" << teleportArray[i][1u].asInt() << ", " << teleportArray[i][2u].asInt() << "\n");
 		map->addEntity(
 				new Teleport(teleportArray[i][0u].asInt(), new Cell(
 						teleportArray[i][1u].asInt(), teleportArray[i][2u].asInt()),
