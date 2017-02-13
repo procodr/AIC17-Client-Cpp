@@ -11,6 +11,7 @@
 #include <getopt.h> /* getopt at: https://gist.github.com/ashelly/7776712 */
 #include <process.h> /* for getpid() and the exec..() family */
 #include <direct.h> /* for _getcwd() and _chdir() */
+#include <winsock2.h>
 
 #define srandom srand
 #define random rand
@@ -48,5 +49,7 @@ typedef unsigned __int8   uint8_t;
 typedef unsigned __int16  uint16_t;
 typedef unsigned __int32  uint32_t;
 typedef unsigned __int64  uint64_t;
+
+void usleep(__int64);
 
 #endif /* unistd.h  */

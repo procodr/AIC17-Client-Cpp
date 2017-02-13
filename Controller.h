@@ -9,7 +9,6 @@
 #define CONTROLLER_H_
 
 #include <ctime>
-
 #include "Message.h"
 #include "AI.h"
 #include "Game.h"

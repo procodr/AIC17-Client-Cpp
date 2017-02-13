@@ -10,6 +10,10 @@
 #include <chrono>
 #include "Controller.h"
 
+#if _MSC_VER >= 1400 // VC++ 8.0
+#pragma warning( disable : 4996 )   // disable warning about strdup being deprecated.
+#endif
+
 #define bzero(b, len) (memset((b), '\0', (len)), (void) 0)
 #define bcopy(b1, b2, len) (memmove((b2), (b1), (len)), (void) 0)
 

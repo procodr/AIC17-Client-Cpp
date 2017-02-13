@@ -14,11 +14,13 @@
 #include <winsock2.h>
 #include <windows.h>
 #include <ws2tcpip.h>
+#include "unistd.h"
 #pragma comment(lib, "Ws2_32.lib")
 #else
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
+#include <unistd.h>
 #endif
 
 #include "Message.h"
@@ -26,7 +28,6 @@
 #include "SubPacket.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "unistd.h"
 #include <string.h>
 #include <sys/types.h>
 

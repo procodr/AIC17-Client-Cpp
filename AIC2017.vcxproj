@@ -121,6 +121,7 @@
     <ClCompile Include="SubPacket.cpp" />
     <ClCompile Include="Teleport.cpp" />
     <ClCompile Include="Trash.cpp" />
+    <ClCompile Include="unistd.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI.h" />
