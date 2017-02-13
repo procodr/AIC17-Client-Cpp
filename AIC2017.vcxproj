@@ -109,6 +109,7 @@
     <ClCompile Include="Food.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameEvent.cpp" />
+    <ClCompile Include="getopt.c" />
     <ClCompile Include="jsoncpp-src-0.5.0\src\lib_json\json_reader.cpp" />
     <ClCompile Include="jsoncpp-src-0.5.0\src\lib_json\json_value.cpp" />
     <ClCompile Include="jsoncpp-src-0.5.0\src\lib_json\json_writer.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="Food.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameEvent.h" />
+    <ClInclude Include="getopt.h" />
     <ClInclude Include="jsoncpp-src-0.5.0\include\json\autolink.h" />
     <ClInclude Include="jsoncpp-src-0.5.0\include\json\config.h" />
     <ClInclude Include="jsoncpp-src-0.5.0\include\json\features.h" />
