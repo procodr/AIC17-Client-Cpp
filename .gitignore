@@ -13,3 +13,12 @@ cmake*
 CMake*
 .project
 .cproject
+/Debug/AIC2017.tlog
+/Debug/AIC2017.Build.CppClean.log
+/Debug/AIC2017.log
+/Debug
+*.db
+*.filters
+*.user
+/.vs/AIC2017/v14
+*.opendb
